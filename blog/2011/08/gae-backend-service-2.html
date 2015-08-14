@@ -234,7 +234,7 @@
  <br> 
  <li>官方說Backend Service可以在Cronjob中呼叫，但是官方卻沒教你怎麼辦到，一整個就是裝笑偉。前面那份參考文件所提的那種方式算是利用一個很取巧的方式(利用&lt;target&gt; tag的功能)來達到這個功能，雖然不正規，但是個很方便的解法。範例如下，請注意綠色所示部份 <br><br>&lt;cron&gt; <br> &lt;url&gt;/XXXServlet&lt;/url&gt; <br> <code>&lt;target&gt;BackendServiceName&lt;/target&gt;</code><br> &lt;description&gt;Call by backend service sample&lt;/description&gt; <br> &lt;schedule&gt;every 1 minutes&lt;/schedule&gt; <br>&lt;/cron&gt; <br></li>
  <br> 
- <li>Backend Service的使用狀況可以在gae admin console上查到，但是要切換到下圖紅框所示的選項才可以看的到裡面的細項，這點要注意。 <br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108311616_1.jpg"><img style="cursor:pointer; cursor:hand;width: 320px; height: 141px;" src="../../../img/2011/08/201108311616_1.jpg" border="0" alt="" id="BLOGGER_PHOTO_ID_5646944458715830210"></a><br></li>
+ <li>Backend Service的使用狀況可以在gae admin console上查到，但是要切換到下圖紅框所示的選項才可以看的到裡面的細項，這點要注意。 <br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="/img/2011/08/201108311616_1.jpg"><img style="cursor:pointer; cursor:hand;width: 320px; height: 141px;" src="/img/2011/08/201108311616_1.jpg" border="0" alt="" id="BLOGGER_PHOTO_ID_5646944458715830210"></a><br></li>
  <br> 
  <li>官方一直強調Backend Service要付費才能用。事實上沒付費的狀況下，每天有$0.72的quota可用。也就是說如果你只是實驗性的測試一些東西，並且讓它在Backend Service上運行，基本上撐個儿個小時是不成問題的，最差的狀況就是爆quota而已。</li>
  <br>

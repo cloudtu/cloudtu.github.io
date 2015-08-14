@@ -253,28 +253,28 @@ Memory Analyzer Tool (MAT) 這工具蠻好用的，但是常常太久沒用之�
 <br>
 <pre class="prettyprint"><code>public class MatDemo {<br><br> /**<br>  * @param args<br>  */<br> public static void main(String[] args) {<br>  List datas = new ArrayList();<br>  int counter = 1;<br>  while(true){<br>   datas.add(counter);<br>   counter ++;<br>  }<br> }<br>}<br></code></pre>2.接下來就是分析這個炸掉的HeapDump啦，我常用的MAT功能是下圖裡面紅框標示的這儿個
 <br>
-<a href="../../../img/2013/03/201303012058_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="../../../img/2013/03/201303012058_1.png" width="400"></a>
+<a href="/img/2013/03/201303012058_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="/img/2013/03/201303012058_1.png" width="400"></a>
 <br>3.Histogram功能展示。從下圖中可以看出來Integer class的instance超多，吃掉一堆memory
 <br>
-<a href="../../../img/2013/03/201303012058_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="../../../img/2013/03/201303012058_2.png" width="400"></a>
+<a href="/img/2013/03/201303012058_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="/img/2013/03/201303012058_2.png" width="400"></a>
 <br>4.Dominator Tree功能展示。從下圖中看出有個Object array內容超多，可能有問題
 <br>
-<a href="../../../img/2013/03/201303012058_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="../../../img/2013/03/201303012058_3.png" width="400"></a>
+<a href="/img/2013/03/201303012058_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="/img/2013/03/201303012058_3.png" width="400"></a>
 <br>接者追查這個物件被哪些物件參考(reference)，發現它被某個ArrayList instance給參考，所以這個ArrayList instance有可能是原兇
 <br>
-<a href="../../../img/2013/03/201303012058_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="../../../img/2013/03/201303012058_4.png" width="400"></a>
+<a href="/img/2013/03/201303012058_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="/img/2013/03/201303012058_4.png" width="400"></a>
 <br>
-<a href="../../../img/2013/03/201303012058_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="../../../img/2013/03/201303012058_5.png" width="400"></a>
+<a href="/img/2013/03/201303012058_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="/img/2013/03/201303012058_5.png" width="400"></a>
 <br>觀察GC roots path，發現這個ArrayList instance是Object array的上一層物件。也就是要進行GC時，必需這個ArrayList instance沒被參照才可以進行Object array的GC動作，所以確定這個ArrayList instance就是memory leak的兇手
 <br>
-<a href="../../../img/2013/03/201303012058_6.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="../../../img/2013/03/201303012058_6.png" width="400"></a>
+<a href="/img/2013/03/201303012058_6.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="/img/2013/03/201303012058_6.png" width="400"></a>
 <br>
-<a href="../../../img/2013/03/201303012058_7.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="../../../img/2013/03/201303012058_7.png" width="400"></a>
+<a href="/img/2013/03/201303012058_7.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="/img/2013/03/201303012058_7.png" width="400"></a>
 <br>5.Leak Suspects功能展示。照下圖流程就可以看到程式執行到哪一行時把heap給炸了
 <br>
-<a href="../../../img/2013/03/201303012058_8.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="../../../img/2013/03/201303012058_8.png" width="400"></a>
+<a href="/img/2013/03/201303012058_8.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="/img/2013/03/201303012058_8.png" width="400"></a>
 <br>
-<a href="../../../img/2013/03/201303012058_9.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="../../../img/2013/03/201303012058_9.png" width="400"></a>
+<a href="/img/2013/03/201303012058_9.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="210" src="/img/2013/03/201303012058_9.png" width="400"></a>
 </p>
 
       <hr />

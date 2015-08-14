@@ -257,7 +257,7 @@
 <br>
 <pre class="prettyprint"><code>sudo apt-get install tightvncserver<br></code></pre>2.client端用putty設定ssh連線，並將tunnel的port設定成5901
 <br>
-<a href="../../../img/2013/02/201302201325_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="383" src="../../../img/2013/02/201302201325_1.png" width="400"></a>
+<a href="/img/2013/02/201302201325_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="383" src="/img/2013/02/201302201325_1.png" width="400"></a>
 <br>client端是linux的user可以執行下行指令來做同樣的事 
 <br>
 <pre class="prettyprint"><code>ssh user@192.168.1.40 -L5901:localhost:5901<br></code></pre>3.client端用putty連上server，接著在putty console裡面執行下列指令 
@@ -270,7 +270,7 @@
 <br>
 <pre class="prettyprint"><code>jconsole &amp;<br></code></pre>4.client端執行vnc client，連到127.0.0.1:5901。這時就會看到server上面執行的jconsle，而且可以進行jvm的監控與分析
 <br>
-<a href="../../../img/2013/02/201302201325_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="../../../img/2013/02/201302201325_2.png" width="400"></a>
+<a href="/img/2013/02/201302201325_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="/img/2013/02/201302201325_2.png" width="400"></a>
 <br>===========================================================================
 <br>&lt;補充說明&gt;
 <br>

@@ -278,9 +278,9 @@
 <br>以下範例用 TortoiseGit 進行操作
 <br>
 <ol>
- <li>確認 "Credential helper" 選到 "wincred - this repository only"。<br><a href="../../../img/2015/02/201502261657_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261657_1.png" height="183" width="400"></a></li>
+ <li>確認 "Credential helper" 選到 "wincred - this repository only"。<br><a href="/img/2015/02/201502261657_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261657_1.png" height="183" width="400"></a></li>
  <li>進行修改後的第一次 push(或 pull)，這時會出現輸入帳密的指示，照著指示輸入完成。以後進行 push(或 pull) 時不會再問你帳密了。</li>
- <li>開啟 "我的電腦"，輸入 "控制台\使用者帳戶和家庭安全\認證管理員"，這時會發現多一組 github 專用的憑証。以後你若改過 github 上的密碼，記的要來這裡修改憑証內的資料，不然在你執行 push(或 pull) 時會發生無法登入 github 的狀況。<br><a href="../../../img/2015/02/201502261657_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261657_2.png" height="332" width="400"></a></li>
+ <li>開啟 "我的電腦"，輸入 "控制台\使用者帳戶和家庭安全\認證管理員"，這時會發現多一組 github 專用的憑証。以後你若改過 github 上的密碼，記的要來這裡修改憑証內的資料，不然在你執行 push(或 pull) 時會發生無法登入 github 的狀況。<br><a href="/img/2015/02/201502261657_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261657_2.png" height="332" width="400"></a></li>
 </ol>網路上面相關參考資料如下，linux、mac 使用者可參考這些資料來處理上述文章所提的問題。 
 <br>
 <ol>
@@ -324,9 +324,9 @@
 <pre class="prettyprint"><code>#github_project_backup.sh<br>#!/bin/sh<br><br>#執行前要先修改這裡，設定你的 github id<br>github_user_id=my_github_id<br><br>#執行前要先修改這裡，設定你的 github password<br>github_user_pwd=my_github_pwd<br><br>#執行這個 bash 時，在 console 要輸入的 github project name<br>read -p "input the name of github project : " github_project_name<br><br>#在 local 端產生 bare repository，並將 remote 端的每個 branch 都在 local 端產生一份<br>#<br># --mirror 參數的官方說明如下<br># Set up a mirror of the source repository. This implies --bare. Compared to --bare, --mirror not only <br># maps local branches of the source to local branches of the target, it maps all refs (including <br># remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs <br># are overwritten by a git remote update in the target repository.<br>#<br>git clone --mirror https://${github_user_id}:${github_user_pwd}@github.com/${github_user_id}/${github_project_name}.git<br><br>cd ${github_project_name}.git<br><br>#因為 remote repository 在你備份到 local 端之後可能會刪除，所以先把 remote 來源刪掉<br>git remote rm origin<br><br>cd ..<br></code></pre>進行備份，流程像下述這樣
 <br>
 <ol>
- <li>remote repository 有二個 branch、二個 tag<br><a href="../../../img/2015/02/201502261434_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261434_1.png" height="218" width="400"></a></li>
- <li>輸入 github 裡的 project name<br><a href="../../../img/2015/02/201502261434_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261434_2.png" height="157" width="400"></a></li>
- <li>github_project_backup.bash 執行完畢後，產生 local bare repository，而且裡面有二個 local branch、二個 local tag<br><a href="../../../img/2015/02/201502261434_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261434_3.png" height="400" width="377"></a></li>
+ <li>remote repository 有二個 branch、二個 tag<br><a href="/img/2015/02/201502261434_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261434_1.png" height="218" width="400"></a></li>
+ <li>輸入 github 裡的 project name<br><a href="/img/2015/02/201502261434_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261434_2.png" height="157" width="400"></a></li>
+ <li>github_project_backup.bash 執行完畢後，產生 local bare repository，而且裡面有二個 local branch、二個 local tag<br><a href="/img/2015/02/201502261434_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261434_3.png" height="400" width="377"></a></li>
 </ol>如果只打算把 github 的 project 在刪除前先備份到本地端後再刪除，到這步驟就算完成了。之後可以視需求再把備分下來的 local bare repository 進行 zip 或是 tgz 後丟到雲端(e.g. AWS S3,dropbox...etc)進行封存。
 <br>
 <br>如果是打算把 local repository push 到(或說是搬到) new remote repository，接下來要執行下列指令。
@@ -334,8 +334,8 @@
 <pre class="prettyprint"><code>cd /path/to/my_local_repository<br>git remote add origin https://my_new_remote_repository<br>git push -u origin --all #pushes up the repo and its refs for the first time <br>git push -u origin --tags #pushes up any tags<br></code></pre>接續的搬移流程像下述這樣
 <br>
 <ol>
- <li>new remote repository 指到 bitbucket<br><a href="../../../img/2015/02/201502261434_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261434_4.png" height="246" width="400"></a></li>
- <li>搬完後 bitbucket 裡的 remote repository 有二個 branch、二個 tag，跟當初放在 github 裡的一樣<br><a href="../../../img/2015/02/201502261434_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2015/02/201502261434_5.png" height="153" width="400"></a></li>
+ <li>new remote repository 指到 bitbucket<br><a href="/img/2015/02/201502261434_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261434_4.png" height="246" width="400"></a></li>
+ <li>搬完後 bitbucket 裡的 remote repository 有二個 branch、二個 tag，跟當初放在 github 裡的一樣<br><a href="/img/2015/02/201502261434_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2015/02/201502261434_5.png" height="153" width="400"></a></li>
 </ol>至此就完成了從 github 搬到 bitbucket 的動作。
 <br>
 <br>你說何時有機會用到這篇文章的招式?如果你在 github 上面開了太多 private repository，超過單一付費帳號許可的最大上限(目前 github 最多只能開 50 個 private repository)，這招就用的上了...XDDD
@@ -370,7 +370,7 @@
 <br>OAuth2 裡的 Role
 <br>
 <br>
-<a href="../../../img/2014/12/201412072007_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2014/12/201412072007_1.png" height="218" width="400"></a>
+<a href="/img/2014/12/201412072007_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_1.png" height="218" width="400"></a>
 <br>
 <ul>
  <li>Authorization Server<br>
@@ -388,10 +388,10 @@
 <br>OAuth2 授權流程
 <br>
 <ol>
- <li>Authorization Code Grant Flow<br><a href="../../../img/2014/12/201412072007_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2014/12/201412072007_2.png" height="208" width="400"></a><br>先跟「Authorization Server」要「Grant Code」，接著再用「Grant Code」去跟「Authorization Server」換「Token」</li>
- <li>Implicit Grant Flow<br><a href="../../../img/2014/12/201412072007_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2014/12/201412072007_3.png" height="277" width="400"></a><br>直接跟「Authorization Server」要「Token」，沒有「Grant Code」換「Token」的步驟</li>
- <li>Resource Owner Password Credentials Grant Flow<br><a href="../../../img/2014/12/201412072007_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2014/12/201412072007_4.png" height="233" width="400"></a><br>拿「Resource Owner」的 username、password 去跟「Authorization Server」要「Token」</li>
- <li>Client Credentials Grant Flow <br><a href="../../../img/2014/12/201412072007_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2014/12/201412072007_5.png" height="195" width="400"></a><br>「Authorization Server」不需經由認証就直接給「Token」</li>
+ <li>Authorization Code Grant Flow<br><a href="/img/2014/12/201412072007_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_2.png" height="208" width="400"></a><br>先跟「Authorization Server」要「Grant Code」，接著再用「Grant Code」去跟「Authorization Server」換「Token」</li>
+ <li>Implicit Grant Flow<br><a href="/img/2014/12/201412072007_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_3.png" height="277" width="400"></a><br>直接跟「Authorization Server」要「Token」，沒有「Grant Code」換「Token」的步驟</li>
+ <li>Resource Owner Password Credentials Grant Flow<br><a href="/img/2014/12/201412072007_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_4.png" height="233" width="400"></a><br>拿「Resource Owner」的 username、password 去跟「Authorization Server」要「Token」</li>
+ <li>Client Credentials Grant Flow <br><a href="/img/2014/12/201412072007_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_5.png" height="195" width="400"></a><br>「Authorization Server」不需經由認証就直接給「Token」</li>
 </ol>
 </p>
 

@@ -233,7 +233,7 @@ Tomato firmware的好用，用過的都知道。這東東是幹啥的就不多�
 <br>8.把電腦的IP設成原先的DHCP自動取得
 <br>9.連到 http://192.168.1.1，登入WebConsole(預設密碼是 id:root / pwd:admin)。到 Administration &gt; Configuration &gt; Restore Default Configuration &gt; Erase all data in NVRAM memory (thorough)，清除NVRAM所有儲存資料，然後重啟RT-N16
 <br>
-<a href="../../../img/2013/03/201303101700_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_1.png" width="332"></a>
+<a href="/img/2013/03/201303101700_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_1.png" width="332"></a>
 <br>10.重新登入WebConsole，進行各項設定。root密碼要改掉免的被hack。Wireless要設定密碼免的網路被人用爽爽。平常如果用不到Wireless的話乾脆就把這功能關掉，要用時才啟用。至於PPPOE撥號連線部份，只要設定撥號帳號與密碼就好，"Service Name"欄位不要填值，不然會連線失敗
 <br>11.把作業系統的軟體防火牆打開
 <br>12.移除RT-N16官方公用程式
@@ -242,35 +242,35 @@ Tomato firmware的好用，用過的都知道。這東東是幹啥的就不多�
 <br>
 <br>1.要改WebConsole登入密碼，到 Administration &gt; Admin Access 裡面設定
 <br>
-<a href="../../../img/2013/03/201303101700_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_2.png" width="297"></a> 
+<a href="/img/2013/03/201303101700_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_2.png" width="297"></a> 
 <br>2.想設定對外網路連線(e.g PPPoE)或Wireless功能，到 Basic &gt; Network 裡面設定
 <br>
-<a href="../../../img/2013/03/201303101700_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="206" src="../../../img/2013/03/201303101700_3.png" width="400"></a>
-<a href="../../../img/2013/03/201303101700_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="377" src="../../../img/2013/03/201303101700_4.png" width="400"></a> 
+<a href="/img/2013/03/201303101700_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="206" src="/img/2013/03/201303101700_3.png" width="400"></a>
+<a href="/img/2013/03/201303101700_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="377" src="/img/2013/03/201303101700_4.png" width="400"></a> 
 <br>3.想隨時關掉或啟用WAN或Wireless功能，到 Status &gt; Overview 裡面設定
 <br>
-<a href="../../../img/2013/03/201303101700_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_5.png" width="220"></a>
+<a href="/img/2013/03/201303101700_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_5.png" width="220"></a>
 <br>4.想要改變Wireless訊號強度，到 Advanced &gt; Wireless 裡面改 Transmit Power 設定，設定值請介於0~60之間。設成60代表訊號最強，但是也最耗電，調小則是有相反的效果。這個值超過60以上無義意，只是浪費電力而已，訊號不會因此更強。另外，如果覺的訊號傳輸很不穩定，可以試著把 Receive Antenna、Transmit Antenna 的值設成圖中所示之值，會有一定程度的效果。(註：這個條列項目的解說，我是參考網路討論串上
 <a href="http://www.mobile01.com/topicdetail.php?f=110&amp;t=2327345" target="_blank">其一</a>、
 <a href="http://www.mobile01.com/topicdetail.php?f=110&amp;t=2020382&amp;p=1" target="_blank">其二</a>文章，我實測後有一定成效)
 <br>
-<a href="../../../img/2013/03/201303101700_6.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_6.png" width="362"></a>
+<a href="/img/2013/03/201303101700_6.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_6.png" width="362"></a>
 <br>5.想定時自動Reboot機器或是定時自動重連對外網路(浮動IP用戶可以用這招來reset每天的對外IP)，可到 Administration &gt; Scheduler 裡設定
 <br>
-<a href="../../../img/2013/03/201303101700_7.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_7.png" width="335"></a>
+<a href="/img/2013/03/201303101700_7.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_7.png" width="335"></a>
 <br>6.要限制網路存取，到 Access Restriction 裡設定
 <br>6.1.如果你是用HinetNet，又遇到連YouTube超慢，可以照下圖設定把CHT的YouTube cache server擋掉，強制走國外線路。這會讓YouTube連線變快很多
 <br>
-<a href="../../../img/2013/03/201303101700_8.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="287" src="../../../img/2013/03/201303101700_8.png" width="400"></a>
+<a href="/img/2013/03/201303101700_8.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="287" src="/img/2013/03/201303101700_8.png" width="400"></a>
 <br>6.2.想要每天定時把Wireless關掉，可照下圖設定。我習慣深夜時段會讓它自動關掉，因為這時段我用不到Wireless功能，而且還可以降低一點被hacking的風險
 <br>
-<a href="../../../img/2013/03/201303101700_9.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="271" src="../../../img/2013/03/201303101700_9.png" width="400"></a> 
+<a href="/img/2013/03/201303101700_9.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="271" src="/img/2013/03/201303101700_9.png" width="400"></a> 
 <br>7.有在用P2P軟體的記的把UPnP功能打開，這功能在 Port Fowarding &gt; UPnP/NAT-PMP 裡面
 <br>
-<a href="../../../img/2013/03/201303101700_10.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_10.png" width="383"></a> 
+<a href="/img/2013/03/201303101700_10.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_10.png" width="383"></a> 
 <br>8.LAN跟WAN的頻寬用量可在 Bandwidth 設定裡查詢
 <br>
-<a href="../../../img/2013/03/201303101700_11.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="252" src="../../../img/2013/03/201303101700_11.png" width="400"></a>
+<a href="/img/2013/03/201303101700_11.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="252" src="/img/2013/03/201303101700_11.png" width="400"></a>
 <br>===========================================================================
 <br>&lt;IPv6功能設定&gt;
 <br>
@@ -281,13 +281,13 @@ Tomato firmware的好用，用過的都知道。這東東是幹啥的就不多�
 <br>2.當服務開通後，要做下列設定才可以讓電腦同時取得IPv4跟IPv6
 <br>2.1.啟用Router的IPv6功能，並設定IPv6的DNS(我是設Hinet跟Google IPv6 DNS)
 <br>
-<a href="../../../img/2013/03/201303101700_12.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="295" src="../../../img/2013/03/201303101700_12.png" width="400"></a>
+<a href="/img/2013/03/201303101700_12.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="295" src="/img/2013/03/201303101700_12.png" width="400"></a>
 <br>2.2.接著把WAN斷線重連，重連後就可以看到啟用了IPv4跟IPv6功能
 <br>
-<a href="../../../img/2013/03/201303101700_13.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_13.png" width="283"></a>
+<a href="/img/2013/03/201303101700_13.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_13.png" width="283"></a>
 <br>2.3.進行最後一個步驟，確認電腦的IPv4跟IPv6功能都有啟用。設定完成後電腦同時就有二個IP，當連到的網站支援IPv6時會用IPv6連線過去，不支援的網站則是走IPv4
 <br>
-<a href="../../../img/2013/03/201303101700_14.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="../../../img/2013/03/201303101700_14.png" width="340"></a>
+<a href="/img/2013/03/201303101700_14.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="/img/2013/03/201303101700_14.png" width="340"></a>
 </p>
 
       <hr />
