@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Cassandra Secondary indexes心得筆記</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Cassandra Secondary indexes心得筆記</h1>
+      </div>
+
+      <p><em>2011-11-15</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/cassandra.html">cassandra</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+這裡寫的Cassandra Secondary indexes功能是以1.0版為基準所驗証出來的結果。有些部份是以實際結果來反推它實作可能的方式，不知正確性為何。如果錯了，我之後再來修正吧...:P
+<br>
+<br>針對Cassandra的Secondary indexes功能，
+<a href="http://www.datastax.com/docs/1.0/ddl/indexes#about-secondary-indexes" target="_blank">半官方文件</a>是這麼說的
+<br>
+<ol>
+ <li>column上可建立index</li>
+ <li> 建立index的column可以用"="進行查詢(e.g. get employee where dept = 'rd' ，dept的column有建index，所以可以用"="查詢)</li>
+ <li>在查詢條件式中，最少要一個"="套用在有建立index的column，否則查詢會失敗</li>
+ <li>column如果被建了index，它的column value不要有太多種可能性(e.g. country這個column name在我的系統中可能的值只'tw','us','jp'；這就很適合拿來建index，因為可能產生的值不多)</li>
+</ol>看完上述官方的論述後，應該還是搞不懂建了index後有啥好處，覺的官方是在講
+<strike>
+ 三小
+</strike>外星語，會覺的index這功能很癈，只能作"="查詢，遜到爆了。
+<br>
+<br>當然...真相一定不是這樣的，不然這功能早就被罵翻天了。
+<br>
+<br>首先，先建立下述這個keyspace、column family，然後建立測試資料
+<br>
+<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{replication_factor:1}]<br>    and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';<br><br>use testks;<br> <br>create column family employee<br>    with comparator = UTF8Type<br>    and default_validation_class = UTF8Type<br>    and column_metadata = [<br> {column_name : age,<br>     validation_class : LongType}, <br> {column_name : name,<br>     validation_class : UTF8Type}, <br> {column_name : dept,<br>     validation_class : UTF8Type,<br>     index_type : KEYS}  <br>    ]; <br></code></pre>
+<pre class="prettyprint"><code>[default@testks] list employee;<br>Using default limit of 100<br>-------------------<br>RowKey: 3<br>=&gt; (column=age, value=3, timestamp=1320997600912006)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913000)<br>=&gt; (column=name, value=tester3, timestamp=1320997600912005)<br>-------------------<br>RowKey: 6<br>=&gt; (column=age, value=6, timestamp=1320997600913008)<br>=&gt; (column=dept, value=mis, timestamp=1320997600913009)<br>=&gt; (column=name, value=tester6, timestamp=1320997600913007)<br>-------------------<br>RowKey: 5<br>=&gt; (column=age, value=5, timestamp=1320997600913005)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913006)<br>=&gt; (column=name, value=tester5, timestamp=1320997600913004)<br>-------------------<br>RowKey: 10<br>=&gt; (column=age, value=10, timestamp=1320997600913020)<br>=&gt; (column=dept, value=mis, timestamp=1320997600913021)<br>=&gt; (column=name, value=tester10, timestamp=1320997600913019)<br>-------------------<br>RowKey: 8<br>=&gt; (column=age, value=8, timestamp=1320997600913014)<br>=&gt; (column=dept, value=mis, timestamp=1320997600913015)<br>=&gt; (column=name, value=tester8, timestamp=1320997600913013)<br>-------------------<br>RowKey: 2<br>=&gt; (column=age, value=2, timestamp=1320997600912003)<br>=&gt; (column=dept, value=mis, timestamp=1320997600912004)<br>=&gt; (column=name, value=tester2, timestamp=1320997600912002)<br>-------------------<br>RowKey: 1<br>=&gt; (column=age, value=1, timestamp=1320997600912000)<br>=&gt; (column=dept, value=rd, timestamp=1320997600912001)<br>=&gt; (column=name, value=tester1, timestamp=1320997600897000)<br>-------------------<br>RowKey: 9<br>=&gt; (column=age, value=9, timestamp=1320997600913017)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913018)<br>=&gt; (column=name, value=tester9, timestamp=1320997600913016)<br>-------------------<br>RowKey: 4<br>=&gt; (column=age, value=4, timestamp=1320997600913002)<br>=&gt; (column=dept, value=mis, timestamp=1320997600913003)<br>=&gt; (column=name, value=tester4, timestamp=1320997600913001)<br>-------------------<br>RowKey: 7<br>=&gt; (column=age, value=7, timestamp=1320997600913011)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913012)<br>=&gt; (column=name, value=tester7, timestamp=1320997600913010)<br><br>10 Rows Returned.<br></code></pre>
+<br>以下是結合官方跟自己實際試驗過後得到的結論
+<br>1.只以一個欄位當查詢條件式，但該欄位沒建立index的話，無法直接用"=、&gt;、&lt;..."查詢
+<br>
+<pre class="prettyprint"><code>[default@testks] get employee where age = 10;<br>No indexed columns present in index clause with operator EQ<br>[default@testks] get employee where age &gt;= 10;<br>No indexed columns present in index clause with operator EQ<br>[default@testks] get employee where age &lt;= 10;<br>No indexed columns present in index clause with operator EQ<br></code></pre>
+<br>2.只以一個欄位當查詢條件式，但該欄位有建立index的話，只能用"="查詢
+<br>
+<pre class="prettyprint"><code>[default@testks] get employee where dept = 'rd'; <br>-------------------<br>RowKey: 3<br>=&gt; (column=age, value=3, timestamp=1320997600912006)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913000)<br>=&gt; (column=name, value=tester3, timestamp=1320997600912005)<br>-------------------<br>RowKey: 5<br>=&gt; (column=age, value=5, timestamp=1320997600913005)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913006)<br>=&gt; (column=name, value=tester5, timestamp=1320997600913004)<br>-------------------<br>RowKey: 1<br>=&gt; (column=age, value=1, timestamp=1320997600912000)<br>=&gt; (column=dept, value=rd, timestamp=1320997600912001)<br>=&gt; (column=name, value=tester1, timestamp=1320997600897000)<br>-------------------<br>RowKey: 9<br>=&gt; (column=age, value=9, timestamp=1320997600913017)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913018)<br>=&gt; (column=name, value=tester9, timestamp=1320997600913016)<br>-------------------<br>RowKey: 7<br>=&gt; (column=age, value=7, timestamp=1320997600913011)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913012)<br>=&gt; (column=name, value=tester7, timestamp=1320997600913010)<br><br>5 Rows Returned.<br>[default@testks] get employee where dept &gt;= 'rd';<br>No indexed columns present in index clause with operator EQ<br>[default@testks] get employee where dept &lt;= 'rd';<br>No indexed columns present in index clause with operator EQ<br></code></pre>
+<br>3.有多個欄位當查詢條件式；只要其中一個欄位有建立index，而且該欄位在查詢時是以"="條件進行查詢；其它欄位的查詢條件不管怎麼下，都不受限制("=、&gt;、&lt;..."都可以成功執行)。也就是說可以進行大家超想要的RangeQuery(e.g. age &gt; 1 and age &lt; 10)功能
+<br>
+<pre class="prettyprint"><code>[default@testks] get employee where dept = 'rd' and age &gt;=1 and age &lt;=5 and name = 'tester5';<br>-------------------<br>RowKey: 5<br>=&gt; (column=age, value=5, timestamp=1320997600913005)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913006)<br>=&gt; (column=name, value=tester5, timestamp=1320997600913004)<br><br>1 Row Returned.<br>[default@testks] get employee where age &gt;=1 and age &lt;=5 and name = 'tester5' and dept = 'rd';<br>-------------------<br>RowKey: 5<br>=&gt; (column=age, value=5, timestamp=1320997600913005)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913006)<br>=&gt; (column=name, value=tester5, timestamp=1320997600913004)<br><br>1 Row Returned.<br>[default@testks] get employee where dept = 'rd' and age &gt;=1 and age &lt;=3;                     <br>-------------------<br>RowKey: 3<br>=&gt; (column=age, value=3, timestamp=1320997600912006)<br>=&gt; (column=dept, value=rd, timestamp=1320997600913000)<br>=&gt; (column=name, value=tester3, timestamp=1320997600912005)<br>-------------------<br>RowKey: 1<br>=&gt; (column=age, value=1, timestamp=1320997600912000)<br>=&gt; (column=dept, value=rd, timestamp=1320997600912001)<br>=&gt; (column=name, value=tester1, timestamp=1320997600897000)<br><br>2 Rows Returned.<br></code></pre>
+<br>4.由第3點得証，
+<code>查詢條件式如果出現多個欄位的查詢條件，只要其中一個有建立index，而且該欄位用"="查詢，其它欄位不建index也可以愛怎麼查就怎麼查</code>。這部份的特性跟GoogleAppEnginge上的Datastore有很大的不同(Datastore裡，多個欄位的查詢條件要能成功，必需手動建立複合Key的索引，很麻煩)。
+<br>
+<br>"據說"(官方並未有文件說明)這類查詢在系統內的運作方式是先找出符合index欄位查詢條件的所有資料，接著用其它欄位的查詢條件做再次的篩選，所以才有辦法進行RangeQuery。但是這種查詢有個問題，那就是index欄位查詢條件查出的資料量不能太巨量，不然每次的查詢對系統而言應該會很吃Memory。
+<br>
+<br>5.column如果建了index，這個column的值不要有太多種，這有它的道理存在。因為值如果太多，會造成index資料檔變的非常巨大。如果將測試資料的age column也建了index，會發現它的index資料檔明顯比dept column的index資料檔要大很多(age的值有10種，1~10；dept的值只有2種，'mis','rd')
+<br>
+<pre class="prettyprint"><code>employee.employee_age_idx-h-1-Data.db 741bytes<br>employee.employee_dept_idx-h-1-Data.db 266bytes<br></code></pre>我不知道一個查詢條件中同時有好儿個欄位有建index是否對查詢(e.g "get employee where dept = 'rd' and age = 1"，dept與age都建立了index)有明顯的加速效果，但是可以很確定系統維護愈多的index，負擔會愈重。所以index適量就好，不是每個重要的欄位都一定要加index，有必要時再加就好。
+<br>
+<br>6.Secondary indexes功能可以讓你輕鬆實現RangeQuery的功能，請多善用這功能，會降低很多人工手動維謢index的負擔。不過...除了RangeQuery的功能外，想有Sorting的功能，Cassandra目前是辦不到的。
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2011/11/cassandra-secondary-indexes.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2011/11/cassandra-secondary-indexes.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>從彩色變回黑白</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>從彩色變回黑白</h1>
+      </div>
+
+      <p><em>2005-07-21</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/心情記事.html">心情記事</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+「肝若好，人生是彩色的；肝若壞，人生是黑白的」。這句話可以小改一下，變成「公司若選對，工作就是彩色的；公司若選錯，工作就是黑白的」。不過累...這句不稀奇，大家應該都知道，若改成「同事若精明，工作就是彩色的；同事若白目，工作就是黑白的」這就比較稀奇囉。
+<br>
+<br>以前我也不太相信當PG的人可以白目到那裡去，我心裡總想著幹PG的人應該不會太鳥吧。不過...今年在職場上，我還真的碰到了很難得會讓人碰到的白目人士，有多白目呢，大概白目到讓人下巴可以掉到地上了吧。
+<br>
+<br>之前我
+<a href="http://cloudtu.blogspot.com/2005/06/blog-post.html#comments" target="_blank">這篇</a>裡有是到這位神奇的Team Partner，本來是以為她是技術面很肉腳而已，沒想到連作事的態度也肉到不行。難的程式她老大寫不出來，簡單的東東又要搞個老半天才弄的出來，外加她寫出來的文件可以讓看的人賞她儿記飛踢，這種人才也真的是很不容易找，我的Team還真是抽到了大籤王呀(E04..買樂透的手氣從來就都沒這麼好過!)。不過呢...這還不是最神奇的，最神奇的是這位老大總是有辦法把很多事情都給她只作一半就交差了事，每天都很準時的下班時間一到就給它帥氣的回家，實在是很讓人...凸(囧)rz...(心之聲：TaMaDi...挖洞給我跳就是了吧，還是在考驗我會不會真的賞她几記飛踢)
+<br>
+<br>本來今年才很開心的覺的進了一家還算不錯的公司，可以學到一些真的想學的東西。不過...自從這個白目的傢伙進來跟我一起Cowork後，我的日子就從彩色變回黑白...每天的臉色大概就是只有"囧"這個表情。
+<br>
+<br>世事本來是凡事不能盡如人意，遇到這種鳥事，也只好認了。只好把它當成是一場競賽，看我跟這位奇女子是誰撐的久，至於何時會有輸贏呢?我想大概明年領完年終後就有結果了吧...XD
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2005/07/blog-post_21.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2005/07/blog-post_21.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

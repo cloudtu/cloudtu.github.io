@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>在文字模式的linux server上執行jconsole進行jvm監控</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>在文字模式的linux server上執行jconsole進行jvm監控</h1>
+      </div>
+
+      <p><em>2013-02-20</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/ssh.html">ssh</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/windows7.html">windows7</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/remote-control.html">remote-control</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/linux.html">linux</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+一般拿來當production系統的linux server多數只會提供文字模式介面，server不會沒事裝個
+<a href="http://zh.wikipedia.org/wiki/X_Window%E7%B3%BB%E7%B5%B1" target="_blank">x-window</a>增加它的負擔。在這個前提下，想在server上面執行jconsole、jvisualvm這類有gui畫面的jvm監控程式，基本上是辦不到的，一執行就會馬上噴error然後就掛掉啦。
+<br>
+<br>要怎麼解決這問題，O社官方的解法是用jmx remote這技術解決。這是指你在server端啟用這功能，client端就能遠端連進去看jvm的狀況。不過...相信我，這東西的難用，決對會讓你比中指。光是設定部份我想大概就嚇跑一堆人了，這種鳥蛋solution當然不會是我的選擇。
+<br>
+<br>那...在文字介面下，就只能用jps、jmap這類指令去把jvm的資訊取出來，沒有比較簡單的監控方式嗎?答案是有的，不過也是有點小麻煩就是了。但是相對於jmx remote的方式，卻又簡單太多，而且這招式可不是只有java可用，而是linux上要跑gui介面的程式都可以用這招!
+<br>
+<br>實作的方式，可以參考
+<a href="http://alexmreis.com/?p=191" target="_blank">這篇</a>文章，裡面把整個前因後果跟重點都提到了。不過...也因為只提重點，所以沒有相關基礎的人會卡關卡老半天。我在這上面就卡了半天多才整個弄出來...Orz
+<br>
+<br>以下是依據這篇文章的實作明細，有需要的人可以參考看看。
+<br>===========================================================================
+<br>&lt;系統環境簡述&gt;
+<br>
+<br>1.server端：建置在VM上的ubuntu 12.04 64bit。ip是192.168.1.40
+<br>2.client端：windows 7 64bit
+<br>===========================================================================
+<br>&lt;實作流程&gt;
+<br>
+<br>1. server端安裝vnc server與ssh server。ssh部份可參考
+<a href="http://cloudtu.blogspot.tw/2013/02/ssh-server.html" target="_blank">這篇</a>，vnc部份參考下行指令進行安裝 
+<br>
+<pre class="prettyprint"><code>sudo apt-get install tightvncserver<br></code></pre>2.client端用putty設定ssh連線，並將tunnel的port設定成5901
+<br>
+<a href="../../../img/2013/02/201302201325_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="383" src="../../../img/2013/02/201302201325_1.png" width="400"></a>
+<br>client端是linux的user可以執行下行指令來做同樣的事 
+<br>
+<pre class="prettyprint"><code>ssh user@192.168.1.40 -L5901:localhost:5901<br></code></pre>3.client端用putty連上server，接著在putty console裡面執行下列指令 
+<br>
+<pre class="prettyprint"><code>Xvnc :1 -geometry 1024x768 &amp;<br></code></pre>執行後的畫面類似下面這樣。這功能代表你讓linux上的X server具有了vnc server功能 
+<br>
+<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~$ Xvnc :1 -geometry 1024x768 &amp;<br>[1] 2690<br>cloudtu@cloudtu-VirtualBox:~$ 20/02/13 10:34:04 Xvnc version TightVNC-1.3.9<br>20/02/13 10:34:04 Copyright (C) 2000-2007 TightVNC Group<br>20/02/13 10:34:04 Copyright (C) 1999 AT&amp;T Laboratories Cambridge<br>20/02/13 10:34:04 All Rights Reserved.<br>20/02/13 10:34:04 See http://www.tightvnc.com/ for information on TightVNC<br>20/02/13 10:34:04 Desktop name 'x11' (cloudtu-VirtualBox:1)<br>20/02/13 10:34:04 Protocol versions supported: 3.3, 3.7, 3.8, 3.7t, 3.8t<br>20/02/13 10:34:04 Listening for VNC connections on TCP port 5901<br>Font directory '/usr/share/fonts/X11/Speedo/' not found - ignoring<br>Font directory '/usr/share/fonts/X11/75dpi/' not found - ignoring<br>Font directory '/usr/share/fonts/X11/100dpi/' not found - ignoring<br></code></pre>在putty console接著執行下行指令。這代表要把server端所有具有gui畫面程式的畫面輸出都導到vnc client。 
+<br>
+<pre class="prettyprint"><code>export DISPLAY=:1<br></code></pre>在putty console接著執行jconsole指令，此時會把jconsole的gui畫面導到vnc client。 
+<br>
+<pre class="prettyprint"><code>jconsole &amp;<br></code></pre>4.client端執行vnc client，連到127.0.0.1:5901。這時就會看到server上面執行的jconsle，而且可以進行jvm的監控與分析
+<br>
+<a href="../../../img/2013/02/201302201325_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="../../../img/2013/02/201302201325_2.png" width="400"></a>
+<br>===========================================================================
+<br>&lt;補充說明&gt;
+<br>
+<br>1.Xvnc指令是指「an X server providing VNC connectivity」，它的重要參數簡述如下。還有不懂之處自已用man指令去查吧 
+<br>
+<pre class="prettyprint"><code>Xvnc [:display] [-geometry  widthxheight]<br>[:display] -&gt; The display number to use.<br>[-geometry widthxheight] -&gt; Set desktop width and height.<br></code></pre>2.Xvnc裡的「:display」參數(在我的實做中是用「:1」)對應到vnc的port number是 590X，X就是你指定的「:display」數值。
+<br>3.要能順利的從client端經由vnc連到server，記的把server端firewall裡的vnc port開啟，不然會一直被server打臉不給連
+<br>4.Xvnc指令本身並沒有提供綁定密碼或其它安全機制，client端在看完jconsole監控的jvm狀況後，建議就把server端的Xvnc給關掉，有需要時才利用ssh方式去啟動它。另外就是，記的要在server端設定好firewall的規則，讓特定的ip才許可經由vnc方式連線過來
+<br>5.我只用到tightvncserver裡的Xvnc功能，如果想使用tightvncserver的完整功能，可以參考
+<a href="http://www.ubuntututorials.com/install-vnc-server-ubuntu-12-04/" target="_blank">這篇</a>的簡介
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2013/02/linux-serverjconsolejvm.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2013/02/linux-serverjconsolejvm.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

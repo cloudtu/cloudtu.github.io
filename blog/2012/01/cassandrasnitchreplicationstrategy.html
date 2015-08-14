@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Cassandra的Snitch、ReplicationStrategy功能與關聯</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Cassandra的Snitch、ReplicationStrategy功能與關聯</h1>
+      </div>
+
+      <p><em>2012-01-04</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/cassandra.html">cassandra</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+這篇的說明是以Cassandra 1.x版為基準，早期版本可能不是這樣。
+<br>
+<br>接著...進入正題，先來個名詞解釋!
+<br>
+<br>Snitch：用來設定cassandra ring裡的node怎麼分群。如果所有node都在同個網段時(e.g. 172.16.0.x)這部份可用預設SimpleSnitch設定不需修改，如果各個node分布的硬體在多個dc(datacenter)或是多個rank，而且各個node的網段又完全不同的話，這部份就要改設定，不然cassandra ring可能會串不起來。半官方解說在
+<a href="http://www.datastax.com/docs/1.0/cluster_architecture/replication#about-snitches" target="_blank">這裡</a>。可以設定的值有下列儿種
+<br>* SimpleSnitch
+<br>* DseSimpleSnitch
+<br>* RackInferringSnitch
+<br>* PropertyFileSnitch
+<br>* EC2Snitch
+<br>* EC2MultiRegionSnitch
+<br>
+<br>Replication Strategy：根據Snitch設定值的不同，當建立新keyspace時所需對應設定的參數。半官方解說在
+<a href="http://www.datastax.com/docs/1.0/configuration/storage_configuration#placement-strategy" target="_blank">這裡</a>。可以設定的值有下列儿種
+<br>* SimpleStrategy
+<br>* NetworkTopologyStrategy
+<br>
+<br>看完上面這堆後，真的知道它是怎麼一回事的，應該沒多少人。覺的文件像在講外星語是很正常的，所以接下來直接來看實作吧。看完實作後再回頭來看前面的名詞解釋，就會了解是怎麼一回事了。
+<br>
+<br>實作的機器有下面二台
+<br>Cassandra Server1：172.16.0.157
+<br>Cassandra Server2：172.16.0.220
+<br>
+<br>因為Snitch跟Replication Strategy要搭配才會發生效用，然後這二台機器又在同個網段(172.16.0.X)，所以可以用最簡單也是最常用的搭配組合「SimpleSnitch + SimpleStrategy」。官方文件中最常見的介紹方式也是這個組合。
+<br>
+<br>===========================================================================
+<br>SimpleSnitch + SimpleStrategy設定方式
+<br>1.修改二個node的cassandra.yaml的設定
+<br>
+<pre class="prettyprint"><code>endpoint_snitch: org.apache.cassandra.locator.SimpleSnitch</code></pre>2.用nodetool進行測試，會發現結果中的dc被命名為datacenter1，rank則是rack1，這二個部份無法手動調整
+<br>
+<pre class="prettyprint"><code>loudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    datacenter1 rack1       Up     Normal  123.46 KB       50.00%  0                                           <br>172.16.0.157    datacenter1 rack1       Up     Normal  111.73 KB       50.00%  85070591730234615865843651857942052864<br></code></pre>3.建立新的keyspace。配合SimpleSnitch，有其對應的SimpleStrategy語法。範列中{replication_factor:2}指的是
+<code>{replication_factor:number_of_replicas}</code>
+<br>
+<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{replication_factor:2}]<br>    and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';<br></code></pre>===========================================================================
+<br>
+<br>如果多個node的IP是跨不同網段(e.g. "110.82.155.1"、"110.82.156.1")，這時可以用「RackInferringSnitch+NetworkTopologyStrategy」的組合。半官方的範例在
+<a href="http://www.datastax.com/docs/1.0/install/cluster_init#initializing-a-multi-node-or-multi-data-center-cluster" target="_blank">這裡</a>。雖然說一般是跨網段時才要這樣設定，但是在同個網段內也是可以這樣設定，只是node會被分配在同個datacenter或是rank。
+<br>
+<br>===========================================================================
+<br>RackInferringSnitch + NetworkTopologyStrategy設定方式
+<br>1.修改二個node的cassandra.yaml的設定
+<br>
+<pre class="prettyprint"><code>endpoint_snitch: org.apache.cassandra.locator.RackInferringSnitch</code></pre>2.用nodetool進行測試，會發現結果中的dc被命名為16，rank則是0，這二個部份無法手動調整。但是這個命名是有規則的，相關規則可參照
+<a href="http://www.datastax.com/docs/1.0/cluster_architecture/replication#rackinferringsnitch" target="_blank">這裡</a>的說明。
+<br>
+<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    16          0           Up     Normal  107.69 KB       50.00%  0                                           <br>172.16.0.157    16          0           Up     Normal  111.83 KB       50.00%  85070591730234615865843651857942052864 <br></code></pre>3.建立新的keyspace。配合RackInferringSnitch，有其對應的NetworkTopologyStrategy語法。範列中{16:2}指的是
+<code>{datacenter_name:number_of_replicas}</code>
+<br>
+<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{16:2}]<br>    and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';<br></code></pre>===========================================================================
+<br>
+<br>如果「RackInferringSnitch+NetworkTopologyStrategy」的組合還是無法滿足實務上的需求，想要更有彈性，則是可以考慮「PropertyFileSnitch + NetworkTopologyStrategy」的組合。半官方的範例在
+<a href="http://www.datastax.com/docs/1.0/cluster_architecture/cluster_planning#configuring-the-propertyfilesnitch" target="_blank">這裡</a>。在這種組合的設定裡，連dc、rank的名字都可以自己設定。
+<br>
+<br>===========================================================================
+<br>PropertyFileSnitch + NetworkTopologyStrategy設定方式
+<br>1.修改二個node的cassandra.yaml的設定 
+<br>
+<pre class="prettyprint"><code>endpoint_snitch: org.apache.cassandra.locator.PropertyFileSnitch</code></pre>2.因為設定成PropertyFileSnitch，所以接著必需到二個node的cassandra-topology.properties設定所有node的IP與其相對應的dc與rank。
+<br>
+<pre class="prettyprint"><code># Data Center One<br>172.16.0.157=DC1:RAC1<br><br># Data Center Two<br>172.16.0.220=DC2:RAC1<br><br># default for unknown nodes<br>default=DC1:RAC1<br></code></pre>
+<br>3.用nodetool進行測試，會發現結果中的dc與rank的名稱是來自於cassandra-topology.properties裡的設定。
+<br>
+<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    DC2         RAC1        Up     Normal  150.59 KB       50.00%  0                                           <br>172.16.0.157    DC1         RAC1        Up     Normal  155.01 KB       50.00%  85070591730234615865843651857942052864<br></code></pre>4.建立新的keyspace。配合PropertyFileSnitch，有其對應的NetworkTopologyStrategy語法。範列中{DC1:1,DC2:1}指的是
+<code>{datacenter_name:number_of_replicas}</code>。本範例中有多個dc，所以設定值之間必需用「,」隔開。
+<br>
+<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{DC1:1,DC2:1}]<br>    and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';<br></code></pre>===========================================================================
+<br>
+<br>把這些範例看完後，想必對Snitch與Replication Strategy比較有感覺了。簡單來說，cassandra ring裡有多個node，但是多個node到底是分布在哪個dc、哪個rank，這部份在cassandra裡有可能無法自動判定(e.g. 不同網段的node可能會分布在多個dc、多個rank，也可能這些不同網段的node其實是在同個dc、同個rank)，所以才衍生了必需設定Snitch的議題。又因為你設定了Snitch等於是你自行幫這堆node進行了分群的動作，所以必需在keyspace建立時，自行指定資料之後要存到哪個dc、那個rank裡。而Replication Strategy就是在做這件事。
+<br>
+<br>在了解這個前因後果後，再回到最前面把名詞解釋的部份再看一次，如此一來就會真的了解這二個名詞是在講啥東東，為何二者之間的關聯會這麼的密切。
+<br>
+<br>補充說明：Snitch的設定，除了文中實作的SimpleSnitch、 RackInferringSnitch、PropertyFileSnitch這三個最常見的設定外；如果是把cassandra放在Amazon的EC2上，則是需要設成EC2Snitch或EC2MultiRegionSnitch，這部份如果有實際需求的話，可以參考半官方的
+<a href="http://www.datastax.com/docs/1.0/cluster_architecture/replication#ec2snitch" target="_blank">文件</a>，了解如何設定。
+<br>
+<br>
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2012/01/cassandrasnitchreplicationstrategy.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2012/01/cassandrasnitchreplicationstrategy.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Android的Task、Activity Stack 心得筆記</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Android的Task、Activity Stack 心得筆記</h1>
+      </div>
+
+      <p><em>2011-12-23</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/android.html">android</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+Task指一連串Activity記錄歷程(e.g. A activity -&gt; B activity -&gt; C activity -&gt; A activity)。Task可以跨Application，也就是說不同Application的Activiy可能會在同個Task中(e.g. App1's A activity -&gt; App1's B activity -&gt; App2's X activity -&gt; App1's B activity)。
+<br>
+<br>由Task的既念，衍生出Activity記錄歷程相關的議題。Activity記錄歷程存放在Activity Stack之中，又因為是Stack的結構，所以它的資料是LIFO(後進先出)。
+<br>
+<br>&nbsp;Activity Stack中，每個Activity的存放順序與邏輯是由AndroidManifest.xml裡，Activity tag的"android:launchMode"屬性來設定。然後..."android:launchMode"屬性裡的設定值表示的意義很
+<strike>
+ <span style="font-size: large;">它媽的</span>
+</strike>難懂，官方原文的說明在
+<a href="http://developer.android.com/guide/topics/manifest/activity-element.html#lmode" target="_blank">這裡</a>，基本上看完你就知道怎麼回事，那真的是神人一個。
+<br>
+<br>直到我很好運的找到下面這超簡單清楚的佛心文之後，我終於真正了解"android:launchMode"屬性是怎麼一回事了(以前搞不太清楚前，只敢用standard跟singleTop，免的app出包)。
+<br>
+<a href="http://slashgill.blogspot.com/2010/09/activity-androidlaunchmode1-standard.html" target="_blank">activity - android:launchMode(1) - standard介紹</a>
+<br>
+<a href="http://slashgill.blogspot.com/2010/09/activity-androidlaunchmode2-singletop.html" target="_blank">activity - android:launchMode(2) - singleTop介紹</a>
+<br>
+<a href="http://slashgill.blogspot.com/2010/09/activity-androidlaunchmode3-singletask.html" target="_blank">activity - android:launchMode(3) - singleTask介紹</a>
+<br>
+<a href="http://slashgill.blogspot.com/2010/09/activity-androidlaunchmode4.html" target="_blank">activity - android:launchMode(4) - singleInstance介紹</a>
+<br>
+<a href="http://slashgill.blogspot.com/2010/09/activity-androidlaunchmode5-onnewintent.html" target="_blank">activity - android:launchMode(5) - onNewIntent()目的</a>
+<br>
+<br>Activity的"android:launchMode"屬性的四種設定值說明摘要如下
+<br>
+<ol>
+ <li>standard(預設值)：在每次被叫用時都產生新的instance。</li>
+ <li>singleTop：如果是在Activity Stack的最頂層，被叫用時不產生新的instance，其它狀況下則會產生新的instance。</li>
+ <li> singleTask：在目前這個Application所屬的Task中，只會存在一個instance。在這個instance未被清出Activity Stack前，若遇到重覆叫用，會一直reuse現有的instance。此外，從其它Activity跳轉到這個instance時，在Activity Stack這個instance之上的所有Activity都會被清掉(e.g. 執行"A(standard) -&gt; B(standard) -&gt; C(singleTask) -&gt; D(standard) -&gt; E(standard) -&gt; C(singleTask)"的動作，執行後整個Activity Stack裡的資料從底端到頂端依序是"A、B、C"，"D、E"會被自動清掉)</li>
+ <li>singleInstance：第一次被叫用時，產生新的instance，並把它放到新的Task，但是該Task只會存放這一個instance。在這個instance未被清出Activity Stack前，若遇到重覆叫用，會一直reuse現有的instance。</li>
+</ol>在某些狀況下，將Application的首頁Activity屬性設成singleTop、singleTask會非常實用。比較吃系統資源又需要一直reuse的Activity則是可以考慮設成singleInstance。
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2011/12/androidtaskactivity-stack.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2011/12/androidtaskactivity-stack.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

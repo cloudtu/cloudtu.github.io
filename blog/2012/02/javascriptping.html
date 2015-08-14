@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>利用JavaScript實作Ping程式</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>利用JavaScript實作Ping程式</h1>
+      </div>
+
+      <p><em>2012-02-10</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/javascript.html">javascript</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/jquery.html">jquery</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+要用JavaScript實作Ping程式，用jQuery裡的ajax功能來實作是我想到最簡單的方式(自己用JavaScript純手工打造也ok啦，但是可以用jQuery爽爽做事就不想自己當苦行僧了...:P)。然後...我自己在實作時遇到下面所提的問題。
+<br>
+<br>JavaScript基於同源策略(Same-origin policy)，"
+<code>一般而言</code>"位於不同domain的網頁是無法相互叫用的(e.g. 放在test1.mydomain.com的JavaScript不能執行test2.mydomain.com的JavaScript)。 不給相互叫用的原因是基於安全性的考量，怕會發生
+<a href="http://zh.wikipedia.org/wiki/%E8%B7%A8%E7%B6%B2%E7%AB%99%E6%8C%87%E4%BB%A4%E7%A2%BC" target="_blank">XSS(Cross-site scripting)</a>的問題。
+<br>
+<br>用JavaScript去實作Ping一定會違背同源策略，所以要想辦法突破這個Cross-Domain Requests的難題。相對的解法有儿種，可以參考
+<a href="http://blog.longwin.com.tw/2008/12/javascript-ajax-get-cross-domain-data-2008/" target="_blank">這篇文章</a>。話說回來，看完後應該會覺的都很麻煩，但是現行也沒什麼其它的選擇就是了。
+<br>
+<br>最後我解決這問題的方式是用了JSONP(相關說明：
+<a href="http://openhome.cc/Gossip/JavaScript/JSONP.html" target="_blank">其一</a>、
+<a href="http://zh.wikipedia.org/wiki/JSONP" target="_blank">其二</a>)的方式來處理。因為&lt;script&gt;&lt;/script&gt;裡面
+<span class="commentBody" data-jsid="text">src屬性</span>指到的網址所包含的內容不受同源策略限制(這就是前面那段"
+<code>一般而言</code>"裡的例外啦)，所以JSONP的方法才能成功運作。
+<br>
+<br>因為用的是JSONP的方式，所以你預期ServerSide一定會吐回一個JavaScript格式的資料，但是這在Ping程式上是一定辦不到的。因為ServerSide可不是你管的，你無權在ServerSide上加入任何Server端程式碼(e.g. JSP、PHP、ASP.Net...etc)。不過沒關系，反正只要ServerSide能成功吐回任何資料，Ping程式就有辦法判斷執行的結果(Ping是否成功、執行花了多久...etc)，吐回資料的內容不是JavaScript格式只是導致jQuery在"
+<code>成功</code>"取得資料後(指http status code為200，並拿到回傳的資料)，每次都會發生parsererror。發生parsererror的原因是由於ServerSide執行成功時，丟回來的資料會是html格式，所以jQuery在接手處理後一定會發生parsererror，這其實是我們預期中的狀況。
+<br>
+<br>有了解法後，就可以開始實作了，下面是用jQuery實作出來的解法。
+<br>
+<br>ping.js 
+<br>
+<pre class="prettyprint"><code>$.ping = function(url,callBack) <br>{<br>    var requestTime;<br>    <br>    function appendHttpPrefix(url){<br>  //保證url帶http://<br>        var strReg="^((https|http)?://){1}";<br>        var re=new RegExp(strReg); <br>        return re.test(url)?url:"http://"+url;<br>    }<br>    <br> $.ajax({<br>  url: appendHttpPrefix(url),<br>  type: "GET",<br>  dataType: "jsonp", //設成jsonp來解決cross-domain requests的問題<br>  timeout: 5000, //超過5秒沒回應就timeout<br>  cache: false, //不保留cache <br>  beforeSend: function(){<br>   requestTime = new Date().getTime();<br>  }, <br>  complete: function(jqXHR, textStatus){<br>   var responseTime = new Date().getTime();<br>   var ackTime = responseTime - requestTime;         <br>   var status;<br>   <br>   //因為dataType用jsonp格式，但是Server端未針對這部份進行處理，所以執行成功時<br>   //必定會發生"parsererror"(因為回傳的資料格式不為JavaScript，所以會"parsererror")。<br>   //此時將需將status手動改回"success"<br>   if(textStatus == "parsererror"){<br>    status = "success";<br>   }<br>   else{<br>    status = textStatus;<br>   }<br>   <br>   callBack({ <br>      url: url,<br>      ackTime: ackTime,<br>      status: status<br>     });<br>  } <br> }); <br>};<br></code></pre>
+<br>ping_demo.html 
+<br>
+<pre class="prettyprint"><code>&lt;html&gt;<br>&lt;head&gt;<br>&lt;script language="javascript" src="jquery-1.7.1.min.js"&gt;&lt;/script&gt;<br>&lt;script language="javascript" src="ping.js"&gt;&lt;/script&gt;<br>&lt;script&gt;<br>$(function(){&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; var timerId;<br>&nbsp;&nbsp;&nbsp; var isStopPing = false;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; $("#pingStart").click(function(){&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $(this).attr("disabled", true);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $("#pingStop").attr("disabled", false);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $.ping($("#webSiteUrl").val(),<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; function(pingResult){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; timerId = setInterval(function(){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if(isStopPing == true){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; clearInterval(timerId);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; isStopPing = false;<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return;<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if(pingResult){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $("#pingResultMsg").append("{ url:" + pingResult.url + " ,ackTime:" + pingResult.ackTime + " ,status:" + pingResult.status + " }&lt;br&gt;");<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; clearInterval(timerId);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $("#pingStart").trigger("click");<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; },1000);&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; );&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; });<br>&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; $("#pingStop").click(function(){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; isStopPing = true;<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $("#pingStart").attr("disabled", false);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $(this).attr("disabled", true);<br>&nbsp;&nbsp;&nbsp; });<br>&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; $("#clearPingResultMsg").click(function(){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $("#pingResultMsg").html("");<br>&nbsp;&nbsp;&nbsp; });&nbsp;&nbsp;&nbsp; <br>});<br>&lt;/script&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;div&gt;<br>&nbsp;&nbsp;&nbsp; WebSiteURL:&lt;input type="text" size="50" id="webSiteUrl"&gt;<br>&lt;/div&gt;<br>&lt;div&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type="button" id="pingStart" value="PingStart"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type="button" id="pingStop" value="PingStop" disabled="disabled"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type="button" id="clearPingResultMsg" value="ClearPingResultMsg"&gt;<br>&lt;/div&gt;<br>&lt;div id="pingResultMsg"&gt;&lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt; <br></code></pre>
+<br>後記：
+<br>
+<ul>
+ <li>關於jQuery利用JSONP實作Cross-Domain Request的程式，StackOverflow有一篇蠻簡潔的討論串，有興趣的人可以<a href="http://stackoverflow.com/questions/1197802/cross-site-ajax-using-jquery" target="_blank">去看一看</a>。</li>
+ <li>當初會想實作Web版的Ping程式，是用來解決China網路連到敝社某些產品的分流網站時，連線超慢的問題。在China想用GeoIP來找出最佳連線網站是無義意的事。在China，有句話是這麼說的「<a href="http://blog.sina.com.cn/s/blog_4fbe9c370102dvsb.html" target="_blank">世界上最遠的距離不是天涯和海角，是電信和聯通</a>」，實在是很悲劇呀~~~</li>
+</ul>
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2012/02/javascriptping.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2012/02/javascriptping.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

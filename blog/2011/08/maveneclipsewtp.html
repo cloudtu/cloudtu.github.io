@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Maven整合EclipseWTP的設定方法</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Maven整合EclipseWTP的設定方法</h1>
+      </div>
+
+      <p><em>2011-08-01</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+Maven結合Eclipse進行一般的JavaSE project開發很容易，但是要結合Eclipse裡的WTP進行Web project開發就不太容易，目前在網路上也沒看到很好的解決方式。以下是我在Eclipse 3.6上結合m2eclipse plugin，試出的可行方式，有興趣的人可以參考一下，這個方法應該在eclipse 3.7也是可行才對。
+<br>
+<br>相關流程順序如下所示(所有小圖都可以點擊後看原圖)
+<br>
+<ol>
+ <br>
+ <li>安裝<code>[m2eclipse plugin]</code> (update site url : http://m2eclipse.sonatype.org/sites/m2e)</li>
+ <br>
+ <li>安裝<code>[Maven Integration for WTP]</code> (update site url : http://m2eclipse.sonatype.org/sites/m2e-extras)</li>
+ <br>
+ <li>建立Maven project，選取ArtifactId為<code>[maven-archetype-webapp]</code>的project<br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_1.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 262px;" src="../../../img/2011/08/201108011722_1.png" alt="" id="BLOGGER_PHOTO_ID_5635816441499632610" border="0"></a></li>
+ <br>
+ <li>進到所建立專案的<code>[.settings]</code>子目錄裡，開啟子目錄所有檔案，並修正裡面的設定。(Maven自動建立的web project會幫你把jdk、servlet設成比較舊的版本，所以必需視需要自行修正)<br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_2.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 245px;" src="../../../img/2011/08/201108011722_2.png" alt="" id="BLOGGER_PHOTO_ID_5635816445699773858" border="0"></a><br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_3.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 64px;" src="../../../img/2011/08/201108011722_3.png" alt="" id="BLOGGER_PHOTO_ID_5635816447332596130" border="0"></a><br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_4.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 94px;" src="../../../img/2011/08/201108011722_4.png" alt="" id="BLOGGER_PHOTO_ID_5635816451708072018" border="0"></a><br></li>
+ <br>
+ <li>檢查project裡的<code>[Java Build Path]</code>，有錯的話進行修正<br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_5.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 307px;" src="../../../img/2011/08/201108011722_5.png" alt="" id="BLOGGER_PHOTO_ID_5635816453345883666" border="0"></a><br></li>
+ <br>
+ <li>如果web proejct使用servlet 2.4以上(包含2.4)版本，web.xml的檔頭要進行修正<br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_6.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 85px;" src="../../../img/2011/08/201108011722_6.png" alt="" id="BLOGGER_PHOTO_ID_5635816731140739906" border="0"></a><br></li>
+ <br>
+ <li>自行建立<code>java、test...等子目錄</code>，並將這些目錄設定到project設定裡的<code>[Java Build Path]</code>(註：這些子目錄的結構要符合Maven web project的目錄結構。可參考<code>[Effective POM]</code>裡的設定值進行設定，不可以亂設)<br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_7.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 279px; height: 320px;" src="../../../img/2011/08/201108011722_7.png" alt="" id="BLOGGER_PHOTO_ID_5635816736969767938" border="0"></a><br><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="../../../img/2011/08/201108011722_8.png"><img style="margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 320px; height: 286px;" src="../../../img/2011/08/201108011722_8.png" alt="" id="BLOGGER_PHOTO_ID_5635816735664631842" border="0"></a></li>
+ <br>
+ <li>設定完成後就可以結合Maven與WTP進行web project開發。如果遇到設定完成後出現一些莫名奇妙的異常，可試著將project關掉後再重新開啟，或是重新開啟eclipse，應該可以解決這些怪問題(因為直接修改了<code>[.settings]</code>子目錄裡的設定值，所以最好在整個web project設定好後把project關掉後重開，可以避免一些不可預期的怪問題)</li>
+ <br>
+</ol>
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2011/08/maveneclipsewtp.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2011/08/maveneclipsewtp.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

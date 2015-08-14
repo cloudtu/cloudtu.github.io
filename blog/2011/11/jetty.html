@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Jetty使用心得筆記</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Jetty使用心得筆記</h1>
+      </div>
+
+      <p><em>2011-11-21</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/jetty.html">jetty</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+儿個月前試用了一陣子Jetty，當時對Jetty印象蠻好的。如果需要的是一個非常輕量或是可模組化設定的APServer，可以考慮這東東。不過...我自己用一陣子後還是換回Tomcat就是了...XD...這不是說Jetty不好，而是因為剛好Tomcat上有一些現成Webbase的APServer monitor工具，但是Jetty沒有。我又蠻需要這些工具，所以就還是換回Tomcat了。有時...好維護比高效來的重要呀...&lt;(T_T)&gt;
+<br>
+<br>癈言結束，Jetty筆記(以7.4.5版本為基準)正文開始~~~
+<br>
+<br>================================================================== 
+<br>快速上手簡介
+<br>請參考JavaWorld@TW的
+<a href="http://www.javaworld.com.tw/jute/post/view?bid=9&amp;id=183376&amp;tpg=1&amp;ppg=1&amp;sty=1&amp;age=0#183376" target="_blank">這篇</a>文章
+<br>================================================================== 
+<br>使用的好處，我個人覺的有這儿點
+<br>1.速度快
+<br>2.功能模組化，可以只啟用想要用的功能(e.g. 讓它只支援Servlet，不支援JSP)
+<br>3.還有很多，請上官網查詢
+<br>================================================================== 
+<br>Jetty比較重要的子目錄與相關說明如下
+<br>
+<pre class="prettyprint"><code>Z:\JETTY-7.4.5<br>├─bin --&gt; 存放Jetty的啟動批次檔(只有linux版的bash script)。此目錄等同於tomcat的/bin。<br>├─contexts --&gt; 存放hot deploy相關設定檔(e.g. 如果有一個app叫test.war，可在這裡寫個test.xml設定檔，檔內可設定ContextPath相關設定。此目錄等同於tomcat的/conf。<br>├─contexts-available<br>├─etc --&gt; 存放Jetty各功能模組的設定檔(e.g. jetty.xml、jetty-ssl.xml)，其中最重要的一個是jetty.xml，Jetty在啟動時一定要載入此設定檔。<br>├─lib<br>│  ├─annotations<br>│  ├─ext<br>│  ├─jndi<br>│  ├─jsp<br>│  ├─jta<br>│  └─policy<br>├─logs<br>├─overlays<br>│  ├─instances<br>│  ├─nodes<br>│  ├─templates<br>│  └─webapps<br>├─resources<br>└─webapps --&gt; 存放各個webapp(war檔格式)的地方。此目錄等同於tomcat的/webapps。<br></code></pre>================================================================== 
+<br>Jetty啟動方式
+<br>1.Standalone：在Console下指令啟動
+<br>2.Embedded：寫JavaCode呼叫Jetty相關class來啟動(可參考
+<a href="http://wiki.eclipse.org/Jetty/Tutorial/Embedding_Jetty" target="_blank">這裡</a>的文件)
+<br>
+<br>Standalone方式啟動與關閉Jetty 
+<br>
+<pre class="prettyprint"><code>啟動指令：java -jar start.jar<br>關閉指令：直接按[Ctrl + C]<br></code></pre>也可以用指定StopPort的方式來啟動與關閉Jetty，範例如下 
+<br>
+<pre class="prettyprint"><code>啟動指令：java -DSTOP.PORT=8888 -DSTOP.KEY=jetty-password -jar start.jar<br>啟動指令：java -DSTOP.PORT=8888 -DSTOP.KEY=jetty-password -jar start.jar --stop<br><br>註："STOP.PORT"用來指定要停止Jetty時所用的port，"STOP.KEY"用來指定要停止Jetty時，所用的密碼<br></code></pre>
+<br>輸入"java -jar start.jar --help"，可以得到Jetty在Console指令下的所有用法與參數說明。其中除了上述啟動與關閉Jetty的指令外，還有儿項比較有用的指令，分述如下。 
+<br>
+<pre class="prettyprint"><code>"java -jar start.jar --list-options"指令：列出Jetty的"OPTIONS"參數可以設定的設定值清單<br>"java -jar start.jar --dry-run"指令：Print the command line that the start.jar generates,then exit. This may be used to generate command lines(不啟動Jetty，只列出啟動Jetty時，jvm實際上被呼叫的Consle指令)<br></code></pre>================================================================== 
+<br>"java -jar start.jar"指令的啟動流程如下
+<br>step1.載入/JettyInstallFolder/start.ini設定檔
+<br>step2.依據start.ini內容戴入各項Jetty設定
+<br>step3.載入/JettyInstallFolder/etc/webdefault.xml的設定供"所有"webapp使用
+<br>step4.載入各個webapp的web.xml設定
+<br>
+<br>start.ini的內容其實只是指定Jetty要戴入哪些功能模組(e.g. "etc/jetty.xml"、"etc/jetty-ssl.xml")，如果針對這些模組有客制化的需求，必需到各別模組設定檔中調整。
+<br>
+<br>webdefault.xml的設定值會在所有webapp啟動前被載入，如果有各別webapp在web.xml裡都一致的設定，可以將它移至此設定檔。
+<br>
+<br>jetty.xml裡比較重要的參數說明如下
+<br>
+<pre class="prettyprint"><code>&lt;Call name="addConnector"&gt;<br>  &lt;Arg&gt;<br>   &lt;New class="org.eclipse.jetty.server.nio.SelectChannelConnector"&gt;<br>  &lt;!-- 指定http connection port --&gt;<br>  &lt;Set name="port"&gt;&lt;Property name="jetty.port" default="8080"/&gt;&lt;/Set&gt;<br>  <br>  &lt;!-- 指定connection time out的等待時間，單位為millisec --&gt;<br>  &lt;Set name="maxIdleTime"&gt;43200000&lt;/Set&gt;<br>  <br>  &lt;!-- 指定同一時間可以處理多少個request，同一時間要處理多個client的需求時，此值要加大。此值的設定跟CPU有關，CPU不夠力時，這個值不能設太大 --&gt;<br>  &lt;Set name="Acceptors"&gt;2&lt;/Set&gt;<br>  <br>  &lt;!-- 指定https connection port --&gt;<br>  &lt;Set name="confidentialPort"&gt;8443&lt;/Set&gt;<br>   &lt;/New&gt;<br>  &lt;/Arg&gt;<br>&lt;/Call&gt;<br></code></pre>
+<br>webdefault.xml裡比較重要的參數說明如下 
+<br>
+<pre class="prettyprint"><code>acceptRanges      If true, range requests and responses are<br>                  supported<br><br>dirAllowed        If true, directory listings are returned if no<br>                  welcome file is found. Else 403 Forbidden.<br><br>welcomeServlets   If true, attempt to dispatch to welcome files<br>                  that are servlets, but only after no matching static<br>                  resources could be found. If false, then a welcome<br>                  file must exist on disk. If "exact", then exact<br>                  servlet matches are supported without an existing file.<br>                  Default is true.<br><br>                  This must be false if you want directory listings,<br>                  but have index.jsp in your welcome file list.<br><br>redirectWelcome   If true, welcome files are redirected rather than<br>                  forwarded to.<br><br>gzip              If set to true, then static content will be served as<br>                  gzip content encoded if a matching resource is<br>                  found ending with ".gz"<br><br>resourceBase      Set to replace the context resource base<br><br>resourceCache     If set, this is a context attribute name, which the servlet <br>                  will use to look for a shared ResourceCache instance. <br>                      <br>relativeResourceBase<br>                  Set with a pathname relative to the base of the<br>                  servlet context root. Useful for only serving static content out<br>                  of only specific subdirectories.<br><br>aliases           If True, aliases of resources are allowed (eg. symbolic<br>                  links and caps variations). May bypass security constraints.<br><br>maxCacheSize      The maximum total size of the cache or 0 for no cache.<br>maxCachedFileSize The maximum size of a file to cache<br>maxCachedFiles    The maximum number of files to cache<br><br>useFileMappedBuffer<br>                  If set to true, it will use mapped file buffer to serve static content<br>                  when using NIO connector. Setting this value to false means that<br>                  a direct buffer will be used instead of a mapped file buffer.<br>                  By default, this is set to true.<br><br>cacheControl      If set, all static content will have this value set as the cache-control<br>                  header.<br></code></pre>
+<br>如果希望Jetty啟動時不要載入start.ini裡的設定，可以先刪除start.ini設定檔，並在啟動時指定明確的載入參數(e.g. "java -jar start.jar OPTIONS=Server,jsp,jmx etc/jetty.xml /etc/jetty-jmx.xml")，這樣就不會載入start.ini裡的設定。不過在start.ini設定檔中設好各項設定是比較方便的作法。 
+<br>==================================================================
+<br>Webapp若要deploy至Jetty，先將該webapp打包成war後，丟到webapps目錄裡即完成deploy動作(還有其它的方式，但是這是最簡單的方式)
+<br>
+<br>如果要把某個webapp當成Jetty的RootApp(代表"http://localhost:8080/"的url指到該webapp)，可將該webapp更名成root.war放至"webapp"目錄，並刪除"contexts"目錄裡的所有的檔案與子目錄。接著再重啟Jetty server，就會把root.war當成是RootApp。
+<br>==================================================================
+<br>Jetty在eclipse上有官方的plugin可供安裝(參考
+<a href="http://wiki.eclipse.org/Jetty_WTP_Plugin" target="_blank">這份</a>文件)。以前聽人說官方的效能很差，整合不好，很容易就當掉，多數人比較推"run-jetty-run"這個plugin；不過我自已試了官方最新版倒是沒有這些問題，覺的可以推薦給大家試試。
+<br>================================================================== 
+<br>要限制Jetty使用的記憶體大小可以用下面的指令達成
+<br>java -Xms64m -Xmx128m -jar start.jar
+<br>==================================================================
+<br>使用JConsole來reomote monitor jetty有二種方式，分述如下
+<br>
+<br>&lt;方式1&gt;：使用JVM本身提供的JMX功能，步驟如下
+<br>
+<br>step1.利用文字編輯器撰寫一個 jmxremote.password 設定檔(參考下面範例內容)，並設定檔案的讀寫權限(在windows上執行的話，要確定硬碟的資料格式一定要是NTFS，FAT32格式是無法設定檔案權限的。此外，Windows上改檔案權限方式比較麻煩(可參考
+<a href="http://download.oracle.com/javase/1,5.0/docs/guide/management/security-windows.html" target="_blank">這份</a>文件)，在Linux上則是用chmod指令去改)
+<br>
+<pre class="prettyprint"><code>user1 password1<br></code></pre>
+<br>step2.利用文字編輯器撰寫一個 jmxremote.access 設定檔(參考下面範例內容)
+<br>
+<pre class="prettyprint"><code>user1 readonly<br></code></pre>
+<br>step3.Jetty在啟動時，利用下述的指令啟動JMX功能
+<br>
+<pre class="prettyprint"><code>java ^<br>-Dcom.sun.management.jmxremote ^<br>-Djava.rmi.server.hostname=127.0.0.1 ^<br>-Dcom.sun.management.jmxremote.port=1099 ^<br>-Dcom.sun.management.jmxremote.ssl=false ^<br>-Dcom.sun.management.jmxremote.authenticate=true ^<br>-Dcom.sun.management.jmxremote.access.file=jmxremote.access ^<br>-Dcom.sun.management.jmxremote.password.file=jmxremote.password ^<br>-jar start.jar <br></code></pre>
+<br>step4.Jetty啟動後，可利用JConsle連進Jetty觀察系統狀況(Jconsole的連線設定範例如下)。
+<br>
+<pre class="prettyprint"><code>url:127.0.0.1:1099<br>username:user1<br>password:password1<br></code></pre>
+<br>硬
+<strike>
+ 大濕
+</strike>大師有寫一篇&lt;方式1&gt;的相關文章，建議大家去
+<a href="http://www.javaworld.com.tw/roller/ingramchen/entry/2006_12_3_JconsoleRemoteManagement" target="_blank">看一看</a>，了解其中的一些細節
+<br>
+<br>&lt;方式2&gt;：使用Jetty提供的JMX功能，步驟如下
+<br>
+<br>step1.在start.ini內把jetty-jmx.xml設定檔啟用。在start.ini設定檔裡"Configuration files"設定區塊的第一行加進"etc/jetty-jmx.xml"(一定要放在這個區塊的第一行，不然JMX功能會失效)
+<br>
+<br>step2.在jetty-jmx.xml設定檔內把所有mark起來的功能unmark，啟用RMI功能。
+<br>
+<br>Jetty本身提供的功能無法設定以帳號、密碼方式來進行登入驗証，只要連上線就直接登入系統，使用上要小心。
+<br>==================================================================
+<br>&nbsp;Jetty的TestRealm功能是用來設定使用者群組與權限，相關說明可參考
+<a href="http://stackoverflow.com/questions/5323855/jetty-webserver-security" target="_blank">這裡</a>
+<br>==================================================================
+<br>如果想對Jetty服務器架構及性能進行優化，可以參考之前我找到的
+<a href="http://cloudtu.blogspot.com/2011/09/jetty.html" target="_blank">這份</a>Slide
+<br>================================================================== 
+<br>Jetty官網在
+<a href="http://www.eclipse.org/jetty/" target="_blank">這裡</a>
+<br>Jetty官方文件在
+<a href="http://wiki.eclipse.org/Jetty" target="_blank">這裡</a>
+<br>==================================================================
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2011/11/jetty.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2011/11/jetty.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

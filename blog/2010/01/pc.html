@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>老舊PC無法開機時的解決方法</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>老舊PC無法開機時的解決方法</h1>
+      </div>
+
+      <p><em>2010-01-31</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/心情記事.html">心情記事</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/敗~敗家啦.html">敗~敗家啦</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+這篇算是Memo，為何會有這篇?還不是因為我遇到了這鳥事...Orz...怕忘掉，還是寫下來卡實在。
+<br>
+<br>通常老舊PC(大約二三年機齡)無法正常開機時的症狀是下面這儿個
+<br>
+<ol>
+ <br> 
+ <li>在BIOS開機過程中就自動Shutdown</li>
+ <br> 
+ <li>在BIOS開機過程中不斷的Reboot</li>
+ <br> 
+ <li>開機可順利進OS(作業系統)，但是OS在用一陣子(半小時內)就無故當機</li>
+ <br>
+</ol>
+<br>
+<br>會發生這問題，通常都是下面這儿樣東西出了問題
+<br>
+<ol>
+ <br> 
+ <li>PowerSupply</li>
+ <br> 
+ <li>MainBoard</li>
+ <br> 
+ <li>RAM</li>
+ <br> 
+ <li>機殼裡那一堆power switch、reset switch...etc的線</li>
+ <br>
+</ol>
+<br>
+<br>檢查跟解決方式，我的經驗法則是照下面這個順序一個個來查
+<br>
+<ol>
+ <br> 
+ <li>開機時，主機會不會嗶嗶叫。如果會，大概就是MB(MainBoard)或RAM的硬體出了問題。會嗶嗶叫，就可以去查MB的說明手冊，看看它叫聲代表的對應意義，可以很容易的追到問題。</li>
+ <br> 
+ <li>出問題時，如果可以進BIOS看的話，一定要進去BIOS設定，查看CPU、RAM的電壓值正不常。如果值不正常，硬體方面可以假定PowerSupply或是MB裡的穩壓元件快掛了，電壓不穩導致PC一直重開，此時先去借一組PowerSupply來試，看看目題有沒有解。軔體方面可以假定BIOS設定的電壓值跑掉，重新設定後試試正不正常。如果運氣不好，可能會遇到BIOS損毀，或是目前在使用的這個版本BIOS本身就有Bug，你現在的硬體組合或是室溫(天氣冷時，PC的怪事真的特多)剛好觸發了這個Bug，導致PC不斷重開。此時可以刷新版BIOS或原先的BIOS重刷一次試試，以解決問題</li>
+ <br> 
+ <li>機殼老舊，機殼面版上的power switch或reset switch發生短路，導致PC不斷重開。如果把MB上面那堆power switch、reset switch、speaker...etc插座的線都拔掉，用螺絲起子去觸動MB上面power switch跳針可正常開機，那就是機殼的問題</li>
+ <br> 
+ <li>PowerSupply後面接電源的三孔電源線可以換一條試試，這條線太老舊也會出現PC無法開機的問題</li>
+ <br> 
+ <li>上面這些都查過了，卻查不出所以然來，那就把整個機殼的灰塵清一清，MB上面的固定螺絲拆起來重鎖一次，確認MB的固定螺絲沒有因為跟機殼太過貼近而發生短路的現象。灰塵太多的主機，鳥事通常也特多。</li>
+ <br> 
+ <li>如果還是不行，那大概就真的要換MB或CPU了，MB掛掉的機會比較高，CPU如果不玩超頻，掛掉的機會則比較低</li>
+ <br>
+</ol>
+<br>
+<br>仔細想想，現在的電腦零件真的很不耐用，就算買比較高檔一點的，也是一二年後就會出現一些有的沒的小問題。就MB來說，Asus、Gigabyte、MSI、Abit、DFI...etc，常見的牌子我大概都有用過，但是用個一二年後不出問題的，實在不多。3C產品在Costdown後，到底廠商與消費者間爽到了什麼，我想…真的該好好想一想。不過...以前是便宜沒好貨，現在則是貴也有不少爛貨，要買這些東西前，真的要多做些功課才不會踩到地雷呀。像我前陣子買了個Coolermaster的外接盒，心想有些名氣的公司，應該比較不會出包。結果小問題一堆，現在已經被我收起來不用，反而是後來再買的一個阿殺不魯牌子的便宜外接盒，穩定性跟相容性還比較好...Orz
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2010/01/pc.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2010/01/pc.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

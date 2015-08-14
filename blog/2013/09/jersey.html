@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Jersey 心得筆記</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Jersey 心得筆記</h1>
+      </div>
+
+      <p><em>2013-09-01</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/jax-rs.html">jax-rs</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/jersey.html">jersey</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+這陣子因為工作上的需求，想把一些舊 code 改用 
+<a href="http://zh.wikipedia.org/wiki/JAX-RS" target="_blank">JAX-RS </a>寫法，藉以減輕舊 code 複雜度。不過...評估後發現似乎沒簡化多少，只好直接放棄。雖然如此，但在研究 JAX-RS 的過程中有不少收獲，所以把它記錄下來，以備未來不時之需。
+<br>
+<br>JAX-RS 是什麼玩意兒，可參考這份slide，看完後會有完整概念
+<br>
+<iframe allowfullscreen frameborder="0" height="356" marginheight="0" marginwidth="0" mozallowfullscreen="" scrolling="no" src="http://www.slideshare.net/slideshow/embed_code/8759658" style="border-width: 1px 1px 0; border: 1px solid #CCC; margin-bottom: 5px;" webkitallowfullscreen="" width="427"> </iframe> 
+<br>
+<div style="margin-bottom: 5px;">
+ <b> <a href="https://www.slideshare.net/javatwo2011/jaxrsjerseyrestful-web-services" target="_blank" title="用JAX-RS和Jersey完成RESTful Web Services">用JAX-RS和Jersey完成RESTful Web Services</a> </b> from 
+ <b><a href="http://www.slideshare.net/javatwo2011" target="_blank">javatwo2011</a></b> 
+</div>
+<br>JAX-RS 的實作有蠻多家的可以選的，我的選擇是 
+<a href="http://jersey.java.net/" target="_blank">Jersey</a>，選它的原因是我認識的眾
+<strike>
+ 大濕
+</strike>大師都對它有好評，所以就決定是它了...XD
+<br>
+<br>
+<a href="http://zh.wikipedia.org/wiki/REST" target="_blank">Restful</a> 的應用目前我知道可以區分成二種
+<br>
+<ol>
+ <li>Restful Web Service</li>
+ <li>Restful Web Application</li>
+</ol>這二者的差異其實也只在於後者把 Restful URI 應用到 web application 而已，單純是應用上的不同，技術上其實是一致的。
+<br>
+<br>Jersey 快速上手文件，可以參考下面這儿份，看完後就有辦法寫出 Restful Web Service
+<br>
+<ul>
+ <li><a href="http://www.vogella.com/articles/REST/article.html" target="_blank">REST with Java (JAX-RS) using Jersey - Tutorial</a></li>
+ <li><a href="http://www.ibm.com/developerworks/cn/web/wa-aj-tomcat/" target="_blank">使用 Jersey 和 Apache Tomcat 構建 RESTful Web 服務</a></li>
+</ul>如果是想用 Jersey 寫出 Restful Web Application 的話，則是參考下面這份文件。
+<br>
+<ul>
+ <li><a href="http://www.lucubratory.eu/simple-jerseyrest-and-jsp-based-web-application/" target="_blank">Simple Jersey/REST and JSP based Web Application</a></li>
+</ul>在找 Jersey 資料的當時，也有想到如果用 Spring，它是怎麼實 作Restful。當時找到的文件是這份，有興趣的可以參考一下。
+<br>
+<ul>
+ <li><a href="http://www.ibm.com/developerworks/cn/web/wa-spring3webserv/" target="_blank">使用 Spring 3 來創建 RESTful Web Services</a></li>
+</ul>在官方文件方面，Jersey 分成 1.x 跟 2.x 的文件，請挑自己需要的版本來看。如果要用 Jersey 做深入應用，這些文件最好還是乖乖看一看。
+<br>
+<ul>
+ <li><a href="https://jersey.java.net/documentation/1.17/index.html" target="_blank">Jersey 1.17 User Guide</a></li>
+ <li><a href="https://jersey.java.net/documentation/latest/index.html" target="_blank">Jersey 2.2 User Guide</a></li>
+</ul>最後，在這邊提一下使用 Jersey 要注意的儿個地方
+<br>
+<ol>
+ <li>要注意 Jersey 回傳資料的型別，如果回傳值是 int，可能會遇到些問題。Stackoverflow 有<a href="http://stackoverflow.com/questions/16408950/jax-rs-jersey-getinteger-class-and-single-json-primitive-integer-values" target="_blank">相關討論</a>，可以去看看前人的解法。</li>
+ <li>Jersey 有 1.x 跟 2.x 的版本， 二個版本在一般使用上差異不大，可是 2.x 的版本最低要求是 "Java 6 + Servlet 2.5"，如果你的 Servlet container 太舊的話，建議用 1.x 的版本就好。如果沒特別的需求，其實用 1.x 的版本就已經足夠，而且白老鼠夠多，該踩的地雷大概也都被踩完了。</li>
+ <li>Jersey 1.x 跟 2.x 在 API 的變動之處，可參考<a href="https://jersey.java.net/documentation/latest/migration.html" target="_blank">官方文件</a>。我大略看了下，Server API 的變動對只簡單使用 Jersey 的人影響應該不大，但是 Client API 變動的影響就大了，有用的人要去注意新舊版的差異。</li>
+</ol>
+<ul></ul>
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2013/09/jersey.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2013/09/jersey.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

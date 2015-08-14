@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>Cassandra Data Modeling 心得筆記</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Cassandra Data Modeling 心得筆記</h1>
+      </div>
+
+      <p><em>2014-02-15</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/cassandra.html">cassandra</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+使用 Cassandra 時要設計出合適的 Data Model 是件苦差事，這篇是基於 Cassandra 2.0 版本整理出的一些心得，有興趣的人可以參考一下。以下...正文開始! 
+<br>
+<br>目前找到比較好而且完整的文章是「Cassandra Data Modeling Best Practices」這份文章(
+<a href="http://www.infoq.com/cn/articles/best-practice-of-cassandra-data-model-design" target="_blank">簡中版 part1</a>,
+<a href="http://www.infoq.com/cn/articles/best-practices-cassandra-data-model-design-part2" target="_blank">簡中版 part2</a>)(
+<a href="http://www.ebaytechblog.com/2012/07/16/cassandra-data-modeling-best-practices-part-1" target="_blank">原文版 part1</a>,
+<a href="http://www.ebaytechblog.com/2012/08/14/cassandra-data-modeling-best-practices-part-2" target="_blank">原文版 part2</a>)，建議先把它整個讀過一遍。讀完後接著可以看看原作著以這份文章為基礎整理出來的下面這份投影片
+<br>
+<iframe allowfullscreen frameborder="0" height="356" marginheight="0" marginwidth="0" scrolling="no" src="http://www.slideshare.net/slideshow/embed_code/21134577" style="border-width: 1px 1px 0; border: 1px solid #CCC; margin-bottom: 5px; max-width: 100%;" width="427"> </iframe> 
+<br>
+<div style="margin-bottom: 5px;">
+ <b> <a href="https://www.slideshare.net/jaykumarpatel/cassandra-data-modeling-best-practices" target="_blank" title="Cassandra Data Modeling Best Practices">Cassandra Data Modeling Best Practices</a> </b> from 
+ <b><a href="http://www.slideshare.net/jaykumarpatel" target="_blank">Jay Patel</a></b> 
+</div>
+<br>不過，既然都用了 Cassandra 2.0，我想多數人應該會盡量用 CQL3 來操作資料，讓自己不要用的那麼痛苦。利用 CQL3 進行 Modeling 可以參考下面這份投影片
+<br>
+<iframe allowfullscreen frameborder="0" height="356" marginheight="0" marginwidth="0" scrolling="no" src="http://www.slideshare.net/slideshow/embed_code/17917955" style="border-width: 1px 1px 0; border: 1px solid #CCC; margin-bottom: 5px; max-width: 100%;" width="427"> </iframe> 
+<br>
+<div style="margin-bottom: 5px;">
+ <b> <a href="https://www.slideshare.net/jericevans/cassandra-by-example-data-modelling-with-cql3" target="_blank" title="Cassandra By Example: Data Modelling with CQL3">Cassandra By Example: Data Modelling with CQL3</a> </b> from 
+ <b><a href="http://www.slideshare.net/jericevans" target="_blank">Eric Evans</a></b> 
+</div>
+<br>依據上面儿份資料，整理出的 Modeling 重點如下
+<br>
+<ol>
+ <li>中心思想 
+  <ul>
+   <li>依據「系統如何查詢資料」來設計 Data Model</li>
+   <li>不要以傳統 RDBMS 的 relational table 思維來設計 Data Model，要把 column family 想成是 HashMap&lt;RowKey,&nbsp; SortedMap&lt;ColumnName, ColumnValue&gt;&gt;</li>
+   <li>CQL 只是讓資料操作起來「長的像」RDBMS 的 relational table，Modeling 時請先忘掉 CQL</li>
+   <li>設計之初就要考量是不是會用到 Secondary Index </li>
+  </ul></li>
+ <li>效能考量 
+  <ul>
+   <li>使用 wide row，wide row 在 ordering, grouping, filtering 有效能優勢</li>
+   <li>使用合適的 row key (挑合適的 row key 其實就是在做 sharding) 以避免資料過度集中在 ring 上特定 node，因而避免發生 hotspot 危機</li>
+   <li>為了增加讀(select)寫(upsert)速度，Data Model 進行 De-normalize，部份 column family 許可發生 column duplicate。簡單來說就是用空間換取時間</li>
+   <li>read-heavy data 跟 write-heavy data 放在不同 column family。如此一來 read-heavy data 可以常常進到 row cache，讀(select)資料時會快很多</li>
+   <li>熱門資料與冷門資料放在不同 column family</li>
+  </ul></li>
+ <li>其它 
+  <ul>
+   <li>CQL3 的 compound primary key 摘要 
+    <ul>
+     <li>語法範列 
+      <ul>
+       <li><pre class="prettyprint"><code>PRIMARY KEY(partition_key,clustering_column_1,clustering_column_2)</code></pre>partition_key 對應到 column family 的 row key，clustering_column_1、clustering_column_2 則是 composite column</li>
+       <li><pre class="prettyprint"><code>PRIMARY KEY((partition_key1,partition_key2),clustering_column_1,clustering_column_2,clustering_column_3)<br></code></pre>partition_key1 + partition_key2 組合了 column family 的 row key，clustering_column_1、clustering_column_2、clustering_column_3 則是 composite column </li>
+      </ul></li>
+     <li>圖解
+      <ol>
+       <li>先用 CQL3 執行下述指令產生 table 與資料 <pre class="prettyprint"><code>CREATE TABLE passbook (<br> user varchar,<br> date timestamp,<br> deposit int,<br> withdraw int, <br> PRIMARY KEY(user,date)<br>);<br>INSERT INTO passbook (user, date, deposit,withdraw) VALUES ('nekobean','2014-01-01',1000,10);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('nekobean','2014-01-02',20);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('nekobean','2014-01-03',30);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('duke','2014-02-01',300);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('duke','2014-02-02',200);<br>INSERT INTO passbook (user, date, deposit, withdraw) VALUES ('duke','2014-02-03',2000, 100);<br></code></pre></li>
+       <li>產生的資料利用 CQL3 與 CLI 查詢的對照如下圖<br><a href="../../../img/2014/02/201402151522_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2014/02/201402151522_1.png" height="115" width="400"></a></li>
+       <li>也可以參考 datastax 寫的<a href="http://www.datastax.com/docs/1.1/ddl/column_family#composite-columns" target="_blank">這份文件</a>裡針對 composite columns 章節設計出來的 timeline table 圖例解說</li>
+      </ol></li>
+    </ul></li>
+   <li>CQL3 的 insert、update 語法在異動資料時都是做 upsert 動作。也就是說二者在異動資料的邏輯相同，資料不存在的話進行新增(insert)動作，資料若存在則進行更新(update)動作</li>
+  </ul></li>
+</ol>
+<br>
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2014/02/cassandra-data-modeling.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2014/02/cassandra-data-modeling.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

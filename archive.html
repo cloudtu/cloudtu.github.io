@@ -1,0 +1,3454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>老涂的咁仔店</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+      <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+      <div class="page-header">
+        <h1>Blog Archive</h1>
+      </div>
+
+      
+        <h4>2015-07</h4>
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2015/07/java-library-for-github-api.html" shape="rect">java library for github api 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2015-02</h4>
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2015/02/https-github-push-pull.html" shape="rect">用 https 連線到 github 進行 push(或 pull) 時，略過每次都要打帳密的動作</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2015/02/github-project-branch-bitbucket.html" shape="rect">如何備份 github 各別 project 所有 branch 到本地端，並將該專案搬移至 bitbucket</a>
+        </div>
+      
+
+      
+        <h4>2014-12</h4>
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2014/12/oauth2.html" shape="rect">OAuth2 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2014-10</h4>
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2014/10/cassandra-summit-2014.html" shape="rect">Cassandra Summit 2014 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2014-09</h4>
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2014/09/iaas-cassandra-node.html" shape="rect">雲端 IaaS 主機建立 cassandra node 的注意事項</a>
+        </div>
+      
+
+      
+        <h4>2014-05</h4>
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2014/05/cassandra-hintscolumnfamily.html" shape="rect">Cassandra 出現 HintsColumnFamily 異常巨大的解決辦法</a>
+        </div>
+      
+
+      
+        <h4>2014-02</h4>
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2014/02/cassandra-data-modeling.html" shape="rect">Cassandra Data Modeling 心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2014/02/router-switch.html" shape="rect">把 router 當 switch 用的設定步驟</a>
+        </div>
+      
+
+      
+        <h4>2013-12</h4>
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2013/12/cassandra-java-client-library.html" shape="rect">cassandra java client library 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2013-09</h4>
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2013/09/new-nexus-7nexus-7-2nexus-7-2013memo.html" shape="rect">New Nexus 7(Nexus 7 2代)(Nexus 7 2013)流水帳Memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2013/09/jersey.html" shape="rect">Jersey 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2013-08</h4>
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2013/08/eclipsecode-completioncontent-assist.html" shape="rect">eclipse 4.3 發生「code completion」、「content assist」功能失效時的解法</a>
+        </div>
+      
+
+      
+        <h4>2013-06</h4>
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2013/06/selenium-webdriver-fast-memo.html" shape="rect">Selenium Webdriver fast memo</a>
+        </div>
+      
+
+      
+        <h4>2013-05</h4>
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2013/05/awsome-day-taipei-2003.html" shape="rect">AWSome Day Taipei 2013 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2013-03</h4>
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2013/03/tomato-firmware.html" shape="rect">Tomato firmware 刷機與常用功能心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2013/03/memory-analyzer-tool-mat.html" shape="rect">Memory Analyzer Tool (MAT) 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2013-02</h4>
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2013/02/linux-serverjconsolejvm.html" shape="rect">在文字模式的linux server上執行jconsole進行jvm監控</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2013/02/ssh-server.html" shape="rect">SSH Server 安裝與使用</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2013/02/ssassql-server-analysis-services-access.html" shape="rect">SSAS(SQL Server Analysis Services) access Oracle DB is Shit Solution [安裝篇]</a>
+        </div>
+      
+
+      
+        <h4>2013-01</h4>
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2013/01/pspmemo.html" shape="rect">PSP流水帳Memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2013/01/blog-post.html" shape="rect">讓遠端桌面連線畫面就如同近端本機登入一樣</a>
+        </div>
+      
+
+      
+        <h4>2012-11</h4>
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2012/11/guava_24.html" shape="rect">Guava 心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2012/11/guava.html" shape="rect">Guava 使用教學</a>
+        </div>
+      
+
+      
+        <h4>2012-10</h4>
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2012/10/python3.html" shape="rect">Python3 學習二三事</a>
+        </div>
+      
+
+      
+        <h4>2012-09</h4>
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2012/09/git-from-dispbbs.html" shape="rect">Git 使用教學 from DispBBS</a>
+        </div>
+      
+
+      
+        <h4>2012-08</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2012/08/git-tutorial-for-windows-user-windows.html" shape="rect">Git tutorial for windows user(給 Windows user 的 Git 教學)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2012/08/git-command-fast-memo.html" shape="rect">Git command fast memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2012/08/blog-post.html" shape="rect">不同作業系統間的純文字檔案格式轉換</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2012/08/tomcat-7-config-memo.html" shape="rect">Tomcat 7 config memo</a>
+        </div>
+      
+
+      
+        <h4>2012-07</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2012/07/windows-service.html" shape="rect">手動移除Windows Service的流程</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2012/07/eclipse-42.html" shape="rect">eclipse 4.2 安裝歷程筆記</a>
+        </div>
+      
+
+      
+        <h4>2012-03</h4>
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2012/03/androidmediaplayer.html" shape="rect">利用Android的MediaPlayer播放影片並動態調整影片畫面大小</a>
+        </div>
+      
+
+      
+        <h4>2012-02</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2012/02/nine-patchandroid.html" shape="rect">利用Nine-patch的技巧在Android上畫格線</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2012/02/google-app-enginelogs-storage.html" shape="rect">Google App Engine裡的logs storage要收費了</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2012/02/javascriptping.html" shape="rect">利用JavaScript實作Ping程式</a>
+        </div>
+      
+
+      
+        <h4>2012-01</h4>
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2012/01/cassandracqlsh.html" shape="rect">Cassandra的cqlsh安裝步驟</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2012/01/cassandrasnitchreplicationstrategy.html" shape="rect">Cassandra的Snitch、ReplicationStrategy功能與關聯</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2012/01/cassandra.html" shape="rect">快速重新初始化Cassandra節點的方法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2012/01/cassandrafirewallport.html" shape="rect">多個Cassandra節點跨firewall所需開啟的port</a>
+        </div>
+      
+
+      
+        <h4>2011-12</h4>
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2011/12/androidtaskactivity-stack.html" shape="rect">Android的Task、Activity Stack 心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2011/12/android-app.html" shape="rect">Android App的保護與破解攻防戰</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2011/12/cassandra.html" shape="rect">Cassandra心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          11 -
+          <a href="blog/2011/12/cassandra-in-twjug-2011-12-10.html" shape="rect">Cassandra in TWJUG 2011-12-10</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2011/12/java-memory-leak.html" shape="rect">Java memory leak 簡略心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2011/12/jpsjava-virtual-machine-process-status.html" shape="rect">jps：Java Virtual Machine Process Status Tool</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2011/12/eclipse-plugins-for-android-sources.html" shape="rect">Eclipse plugins for Android Sources</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2011/12/adbvirtualboxusb-portandroid.html" shape="rect">ADB經由VirtualBox上的USB Port存取Android硬體</a>
+        </div>
+      
+
+      
+        <h4>2011-11</h4>
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2011/11/jetty.html" shape="rect">Jetty使用心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2011/11/cassandra-secondary-indexes.html" shape="rect">Cassandra Secondary indexes心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2011/11/cassandra.html" shape="rect">Cassandra 1.0 安裝筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2011/11/cassandratoken.html" shape="rect">Cassandra的Token計算器</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2011/11/cassandra-authentication-and.html" shape="rect">Cassandra authentication and authorization configuration</a>
+        </div>
+      
+
+      
+        <h4>2011-10</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2011/10/google-app-engine-sdk-155.html" shape="rect">Google App Engine SDK 1.5.5 讓你加量不加價</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2011/10/dbcp-connection-pool.html" shape="rect">DBCP Connection Pool 參數設置筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2011/10/bonecp-connection-pool.html" shape="rect">BoneCP Connection Pool 參數設置筆記</a>
+        </div>
+      
+
+      
+        <h4>2011-09</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2011/09/google-app-engine_27.html" shape="rect">Google App Engine 中文教學投影片</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2011/09/jetty.html" shape="rect">Jetty服務器架構及性能優化</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2011/09/google-app-engine.html" shape="rect">Google App Engine 要大幅漲價了</a>
+        </div>
+      
+
+      
+        <h4>2011-08</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2011/08/gae-backend-service-2.html" shape="rect">GAE Backend Service 簡略心得筆記(2)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2011/08/gae-backend-service.html" shape="rect">GAE Backend Service 簡略心得筆記(1)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2011/08/coscup-2011-day1.html" shape="rect">COSCUP 2011 Day1 超簡略心得</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2011/08/maveneclipsewtp.html" shape="rect">Maven整合EclipseWTP的設定方法</a>
+        </div>
+      
+
+      
+        <h4>2011-07</h4>
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2011/07/ssdwin7memo.html" shape="rect">SSD安裝Win7相關注意事項Memo</a>
+        </div>
+      
+
+      
+        <h4>2011-05</h4>
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2011/05/gaej-on-twjug-20110528.html" shape="rect">「GAE/J 簡介」on TWJUG 2011/05/28</a>
+        </div>
+      
+
+      
+        <h4>2010-10</h4>
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2010/10/wd-caviar-green.html" shape="rect">WD Caviar Green(綠標節能) 硬碟機瘟</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2010/10/google-devfest-taipei-2010.html" shape="rect">Google DevFest Taipei 2010 簡略心得</a>
+        </div>
+      
+
+      
+        <h4>2010-09</h4>
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2010/09/windowsubuntu-1004grub.html" shape="rect">重裝Windows後修復Ubuntu 10.04上的Grub多重開機方法</a>
+        </div>
+      
+
+      
+        <h4>2010-08</h4>
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2010/08/coscup-2010-day1.html" shape="rect">COSCUP 2010 Day1 超簡略心得</a>
+        </div>
+      
+
+      
+        <h4>2010-03</h4>
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2010/03/mg-1100-rx-0-unicorn-gundam-ms-cage-sp.html" shape="rect">MG 1/100 RX-0 Unicorn Gundam + MS Cage (獨角獸SP映像版 + 格納庫)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2010/03/android-bluetooth-api.html" shape="rect">Android Bluetooth API 使用心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2010-01</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2010/01/pc.html" shape="rect">老舊PC無法開機時的解決方法</a>
+        </div>
+      
+
+      
+        <h4>2009-08</h4>
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2009/08/coscup-2009-day2.html" shape="rect">COSCUP 2009 Day2 超簡略心得</a>
+        </div>
+      
+
+      
+        <h4>2009-05</h4>
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2009/05/eclipse-birt-memo.html" shape="rect">Eclipse Birt Memo</a>
+        </div>
+      
+
+      
+        <h4>2009-04</h4>
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2009/04/osdc-2009.html" shape="rect">OSDC 2009 超簡略心得</a>
+        </div>
+      
+
+      
+        <h4>2009-03</h4>
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2009/03/swingworker.html" shape="rect">SwingWorker 學習心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2009/03/javatwo2009.html" shape="rect">JavaTwo2009 超簡略心得</a>
+        </div>
+      
+
+      
+        <h4>2009-02</h4>
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2009/02/osgi.html" shape="rect">OSGi 學習心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2008-10</h4>
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2008/10/wiimemo.html" shape="rect">Wii流水帳Memo</a>
+        </div>
+      
+
+      
+        <h4>2008-07</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2008/07/eclipseno-default-proposals.html" shape="rect">Eclipse出現No Default Proposals異常的解決辦法</a>
+        </div>
+      
+
+      
+        <h4>2008-05</h4>
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2008/05/2008517-twjug.html" shape="rect">2008/5/17  TWJUG新竹場 簡報</a>
+        </div>
+      
+
+      
+        <h4>2008-04</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2008/04/happyweb10.html" shape="rect">HappyWeb10活動心得</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2008/04/vigorip.html" shape="rect">居易Vigor系列IP分享器軔體更新失敗自救大法</a>
+        </div>
+      
+
+      
+        <h4>2008-03</h4>
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2008/03/postgresql-83-installation-memo.html" shape="rect">PostgreSQL 8.3 Installation Memo</a>
+        </div>
+      
+
+      
+        <h4>2008-02</h4>
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2008/02/happyweb9.html" shape="rect">HappyWeb9活動心得</a>
+        </div>
+      
+
+      
+        <h4>2008-01</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2008/01/richliu.html" shape="rect">Richliu對「十年一覺程設夢」的看法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2008/01/blog-post.html" shape="rect">十年一覺程設夢</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2008/01/apache-wicket-in-javaedge-2007.html" shape="rect">Apache Wicket in JavaEdge 2007</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2008/01/eclipseword-completion.html" shape="rect">Eclipse中Word Completion失效的解決辦法</a>
+        </div>
+      
+
+      
+        <h4>2007-12</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2007/12/blog-post_29.html" shape="rect">各價位帶之耳機整理</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2007/12/apache-wicket.html" shape="rect">Apache Wicket簡報</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2007/12/blog-post.html" shape="rect">好像什麼工具都用不好吶?!</a>
+        </div>
+      
+
+      
+        <h4>2007-11</h4>
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2007/11/tomcat-basic-setting-memo.html" shape="rect">Tomcat basic setting memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2007/11/blog-post_14.html" shape="rect">軟體業界有救了?!</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2007/11/blog-post.html" shape="rect">歹年終，多瘋子</a>
+        </div>
+      
+
+      
+        <h4>2007-10</h4>
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2007/10/blog-post_20.html" shape="rect">天線寶寶之霍元甲</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2007/10/blog-post.html" shape="rect">天線寶寶之特務丁</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2007/10/tomcat-5055-with-ssl-cluster-load.html" shape="rect">Tomcat 5.0/5.5 with SSL + cluster + load balance 心得筆記(Part II)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2007/10/eclipse-with-junit-and-code-coverage.html" shape="rect">Eclipse with JUnit and Code Coverage tool</a>
+        </div>
+      
+
+      
+        <h4>2007-09</h4>
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2007/09/blog-post_28.html" shape="rect">無蝦米輸入法相關記事</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2007/09/hibernate-with-foreign-keys-refer-to.html" shape="rect">Hibernate with &quot;foreign keys refer to composite primary keys&quot; memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2007/09/hibernate-annotation-with-one-to-one.html" shape="rect">Hibernate Annotation with one-to-one relation 心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2007/09/blog-post.html" shape="rect">爆肝 ?!</a>
+        </div>
+      
+
+      
+        <h4>2007-08</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2007/08/blog-post.html" shape="rect">幹...這真的很難笑呀!!!</a>
+        </div>
+      
+
+      
+        <h4>2007-07</h4>
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2007/07/blog-post_30.html" shape="rect">真．丁丁大站</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2007/07/blog-post.html" shape="rect">很讚的旅行遊記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2007/07/eclipsememo.html" shape="rect">Eclipse啟動參數設置Memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2007/07/javaweb-servicememo.html" shape="rect">Java實作Web Service的相關Memo</a>
+        </div>
+      
+
+      
+        <h4>2007-06</h4>
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2007/06/webserviceuse-xfire-12x-spring-2x.html" shape="rect">WebService實作(Use Xfire 1.2.x + Spring 2.x) 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2007-05</h4>
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2007/05/blog-post_30.html" shape="rect">好同事的定義</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2007/05/crystal-report-xi-memo.html" shape="rect">Crystal Report XI Memo</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2007/05/tomcat-5055-with-ssl-cluster-load.html" shape="rect">Tomcat 5.0/5.5 with SSL + cluster + load balance 心得筆記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2007/05/blog-post_23.html" shape="rect">波蘿日報</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2007/05/tjug.html" shape="rect">第二次公開性TJUG聚會</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2007/05/tomcat-5055-jndic3p0-connection-pool.html" shape="rect">Tomcat 5.0/5.5 利用JNDI方式存取c3p0 connection pool</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2007/05/blog-post_13.html" shape="rect">鋼普拉的家</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2007/05/archivelog.html" shape="rect">定時自動Archive系統log的方法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2007/05/c3p0-connection-pool.html" shape="rect">c3p0 Connection Pool 參數設置心得</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2007/05/blog-post_09.html" shape="rect">蔡神大戰丁丁大站</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2007/05/blog-post.html" shape="rect">又破記錄了!!!</a>
+        </div>
+      
+
+      
+        <h4>2007-04</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2007/04/tomcat-5055get.html" shape="rect">Tomcat 5.0/5.5使用GET方式傳送中文參數的解決之道</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2007/04/tomcat-5055-defaultapplicationtomcatapp.html" shape="rect">Tomcat 5.0/5.5 設置DefaultApplication並且讓Tomcat內所有Application都具有AutoReload的設置法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2007/04/blog-post.html" shape="rect">世界真的變了?!</a>
+        </div>
+      
+
+      
+        <h4>2007-03</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2007/03/log4jconsole-log-file-log-mail-log-db.html" shape="rect">利用log4j實作console log + file log + mail log + db log</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2007/03/300.html" shape="rect">300壯士：斯巴達的逆襲</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2007/03/blog-post.html" shape="rect">最近的一些勞騷</a>
+        </div>
+      
+
+      
+        <h4>2007-02</h4>
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2007/02/blog-post.html" shape="rect">地海戰記</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2007/02/xddd.html" shape="rect">男人的最愛...XDDD</a>
+        </div>
+      
+
+      
+        <h4>2007-01</h4>
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2007/01/javadoc.html" shape="rect">javadoc指令參數</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2007/01/bloggergoogle-blogger.html" shape="rect">從Blogger搬到Google Blogger</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2007/01/hguc-1144-zeta-gundam-sd-zeta-gundam.html" shape="rect">HGUC 1/144 Zeta Gundam &amp; SD Zeta Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2007/01/commons-beanutils.html" shape="rect">Commons BeanUtils</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2007/01/bb293-strike-noir-gundam.html" shape="rect">BB293 Strike Noir Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2007/01/hibernate-with-junit.html" shape="rect">Hibernate with JUnit</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2007/01/blog-post_15.html" shape="rect">史上最昂貴的測試系統</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2007/01/blog-post.html" shape="rect">在公牛身上擠奶(續)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2007/01/eclipse-test-and-performance-tools.html" shape="rect">Eclipse Test and Performance Tools Platform(續)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2007/01/wii-wii-wii.html" shape="rect">WII Wii wii ...</a>
+        </div>
+      
+
+      
+        <h4>2006-12</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2006/12/javascript.html" shape="rect">JavaScript版本的週曆計算公式</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2006/12/blog-post_21.html" shape="rect">守備範圍愈來愈大</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2006/12/blog-post.html" shape="rect">中華亞運棒球隊 + 電音燒肉粽 is 金牌冠軍</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2006/12/eclipse-test-and-performance-tools.html" shape="rect">Eclipse Test and Performance Tools Platform</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2006/12/euml2.html" shape="rect">eUML2</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2006/12/e04.html" shape="rect">啊E04!這是在演哪套劇本呀?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2006/12/wicket.html" shape="rect">Wicket開發指南(繁體中文版)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2006/12/webserviceclient.html" shape="rect">WebService原理與前端Client應用</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2006/12/decompilejava-class.html" shape="rect">一次decompile一堆java class的方法</a>
+        </div>
+      
+
+      
+        <h4>2006-11</h4>
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2006/11/blog-post_25.html" shape="rect">蠢事總是一再發生</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2006/11/windows-terminal-serverport.html" shape="rect">Windows Terminal Server更改預設Port的方法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2006/11/windows.html" shape="rect">變更Windows輸入法順序</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2006/11/blog-post.html" shape="rect">公司的本質</a>
+        </div>
+      
+
+      
+        <h4>2006-10</h4>
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2006/10/blog-post_26.html" shape="rect">我昇級了</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2006/10/sap-business-solution.html" shape="rect">SAP Business Solution</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          11 -
+          <a href="blog/2006/10/blog-post.html" shape="rect">懶病持續發作中</a>
+        </div>
+      
+
+      
+        <h4>2006-09</h4>
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2006/09/reff3.html" shape="rect">reFF3</a>
+        </div>
+      
+
+      
+        <h4>2006-08</h4>
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2006/08/java-vs-net.html" shape="rect">Java vs .Net</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2006/08/javawindows-ad.html" shape="rect">Java呼叫Windows AD的參考資料</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2006/08/blog-post_115599065182368292.html" shape="rect">施主席的轟趴</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2006/08/orz-speaker.html" shape="rect">Orz Speaker</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2006/08/blog-post_19.html" shape="rect">版面改造計劃</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2006/08/commons4e.html" shape="rect">Commons4E</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2006/08/blog-post.html" shape="rect">趕羚羊? 草枝擺?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2006/08/head-first-html-with-css-xhtml.html" shape="rect">Head First HTML with CSS &amp; XHTML</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2006/08/psp.html" shape="rect">PSP版魔界村</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2006/08/disney-gundam.html" shape="rect">Disney Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2006/08/jsp-jndi-spring-hibernate.html" shape="rect">JSP + Jndi + Spring + Hibernate 心得筆記</a>
+        </div>
+      
+
+      
+        <h4>2006-07</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2006/07/head-rush-ajax.html" shape="rect">Head Rush Ajax 中譯本</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/07/nintendo-ds-lite.html" shape="rect">Nintendo DS Lite</a>
+        </div>
+      
+
+      
+        <h4>2006-06</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2006/06/java-puzzlers.html" shape="rect">Java Puzzlers 中譯本</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2006/06/nintendo-wii.html" shape="rect">Nintendo Wii 勸敗網站</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2006/06/blog-post_13.html" shape="rect">漸行漸遠</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2006/06/opensource-freeware.html" shape="rect">OpenSource 不等於 FreeWare</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/06/eclipseoutofmemory.html" shape="rect">Eclipse出現OutOfMemory的解決之道</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2006/06/blog-post_03.html" shape="rect">當蠟筆小新碰上名偵探柯南</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2006/06/blog-post.html" shape="rect">當蠟筆小新碰上哆啦A夢</a>
+        </div>
+      
+
+      
+        <h4>2006-05</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2006/05/strike-freedom-vs-destiny.html" shape="rect">Strike Freedom vs. Destiny</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2006/05/keroro-gundam.html" shape="rect">Keroro Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2006/05/2006-wii.html" shape="rect">任天堂2006年底新主機 -- WII</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2006/05/blog-post_12.html" shape="rect">沒啥道理又有點道理</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/05/blog-post.html" shape="rect">有趣?無趣?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/05/ajaxasynchronous-javascript-and-xml.html" shape="rect">Ajax(Asynchronous JavaScript and XML)</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2006/05/keroro.html" shape="rect">幼年期Keroro</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2006/05/final-fantasy-7.html" shape="rect">Final Fantasy 7 中文版</a>
+        </div>
+      
+
+      
+        <h4>2006-04</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2006/04/blog-post_29.html" shape="rect">分析你的成分</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2006/04/blog-post_27.html" shape="rect">蝦米的求生之道?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2006/04/blog-post_22.html" shape="rect">櫻桃小丸子-日劇版</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2006/04/eclipse.html" shape="rect">Eclipse最佳環境參數設定</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2006/04/programer.html" shape="rect">有良心的Programer</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2006/04/blog-post.html" shape="rect">鋼普拉的家</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2006/04/bandai.html" shape="rect">Bandai博物館 &amp; 三鷹之森吉卜利美術館</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2006/04/keroro-base.html" shape="rect">Keroro Base</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/04/keroro-15.html" shape="rect">Keroro普拉 1.5版</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/04/bb288-strike-freedom-gundam.html" shape="rect">BB288 Strike Freedom Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/04/log4j.html" shape="rect">Log4j</a>
+        </div>
+      
+
+      
+        <h4>2006-03</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2006/03/blog-post_31.html" shape="rect">超合金--哆啦A夢(電影版)轉蛋機</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2006/03/blog-post_28.html" shape="rect">正港的藍星侵略</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2006/03/java.html" shape="rect">Java深度歷險</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2006/03/blog-post_18.html" shape="rect">網拍詐騙新手法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2006/03/blog-post_13.html" shape="rect">叫不出名字</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2006/03/wga.html" shape="rect">WGA：微軟的機車事</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2006/03/spring-framework.html" shape="rect">Spring Framework</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2006/03/1100-mg-strike-gundam.html" shape="rect">1/100 MG Strike Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2006/03/blog-post_07.html" shape="rect">國立的就是王道</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2006/03/blog-post_05.html" shape="rect">保值的電腦書</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2006/03/blog-post.html" shape="rect">競爭力</a>
+        </div>
+      
+
+      
+        <h4>2006-02</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2006/02/blog-post_27.html" shape="rect">跳火坑</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2006/02/blog-post_113958204276636838.html" shape="rect">第一名</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2006/02/blog-post_10.html" shape="rect">世界是平的</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2006/02/ptt.html" shape="rect">Ptt鄉民發生大爆動</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2006/02/blog-post_06.html" shape="rect">情侶去死去死團</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2006/02/blog-post.html" shape="rect">創巨官方驅動寫的真爛</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2006/02/xddd.html" shape="rect">[XDDD]贛，好笑的閃光</a>
+        </div>
+      
+
+      
+        <h4>2006-01</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2006/01/1144-hg-gundam_31.html" shape="rect">1/144 HG Gundam 續</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2006/01/1144-hg-gundam.html" shape="rect">1/144 HG Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2006/01/blog-post_26.html" shape="rect">日劇十連發</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2006/01/blog-post_24.html" shape="rect">無法量化的東西</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2006/01/blog-post_21.html" shape="rect">漫畫海</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2006/01/creative-soundblaster-audigy2-value.html" shape="rect">Creative SoundBlaster Audigy2 Value</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2006/01/blog-post_10.html" shape="rect">省長專用的手機</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2006/01/blog-post.html" shape="rect">嘜阿喜</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2006/01/happy-2006-year.html" shape="rect">Happy 2006 Year</a>
+        </div>
+      
+
+      
+        <h4>2005-12</h4>
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2005/12/blog-post_30.html" shape="rect">關公大戰外星人</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2005/12/blog-post_28.html" shape="rect">這樣算是成功還是失敗?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/12/blog-post_26.html" shape="rect">彎彎的漫畫日誌</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/12/blog-post_25.html" shape="rect">俺的第一支手機遊戲</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2005/12/blog-post_23.html" shape="rect">亂亂拍</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2005/12/blog-post_22.html" shape="rect">佳節愉快</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2005/12/blog-post_21.html" shape="rect">無知就是幸福</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2005/12/costdowncostdowncostdown.html" shape="rect">Costdown.Costdown.Costdown</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2005/12/blog-post_16.html" shape="rect">好亮的小夜燈</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/12/blog-post_14.html" shape="rect">好人難當</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2005/12/blog-post_12.html" shape="rect">被牽著鼻子走</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/12/vcddvd.html" shape="rect">VCD轉DVD</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2005/12/blog-post_07.html" shape="rect">無所不在的軍曹</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/12/blog-post.html" shape="rect">冷到不行</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/12/keroro.html" shape="rect">Keroro小隊...集合</a>
+        </div>
+      
+
+      
+        <h4>2005-11</h4>
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/11/4400_26.html" shape="rect">The 4400</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/11/blog-post_25.html" shape="rect">不穩定的心情</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/11/blog-post_19.html" shape="rect">官僚</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2005/11/head-frist-java-2nd-edition.html" shape="rect">Head Frist Java 2nd Edition</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2005/11/blog-post_16.html" shape="rect">路小比</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/11/blog-post_14.html" shape="rect">世事難料</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2005/11/blog-post_13.html" shape="rect">懶人派模型製作法</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          11 -
+          <a href="blog/2005/11/blog-post.html" shape="rect">腰痛</a>
+        </div>
+      
+
+      
+        <h4>2005-10</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2005/10/blog-post_29.html" shape="rect">物件導向的學問很大</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/10/blog-post_26.html" shape="rect">又包了</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2005/10/gundam-gp03d-giroro.html" shape="rect">Gundam GP03D + Giroro</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2005/10/40.html" shape="rect">40件電影裡才會發生的事</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/10/mis.html" shape="rect">MIS的現況</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/10/blog-post_06.html" shape="rect">惡搞福田</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/10/blog-post.html" shape="rect">深入淺出設計樣式</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/10/hibernate.html" shape="rect">深入浅出Hibernate</a>
+        </div>
+      
+
+      
+        <h4>2005-09</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2005/09/blog-post_29.html" shape="rect">無米樂</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2005/09/blog-post_28.html" shape="rect">官大學問大</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2005/09/keroro-gunso-plamo-collection.html" shape="rect">KERORO GUNSO PLAMO COLLECTION</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2005/09/blog-post_20.html" shape="rect">表裡不一</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2005/09/blog-post_17.html" shape="rect">繁簡互換的神兵利器</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          11 -
+          <a href="blog/2005/09/blog-post_11.html" shape="rect">我的高中母校</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2005/09/blog-post.html" shape="rect">工程師常說的話</a>
+        </div>
+      
+
+      
+        <h4>2005-08</h4>
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2005/08/subversion.html" shape="rect">Subversion</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/08/keroro.html" shape="rect">Keroro軍曹</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2005/08/blog-post_16.html" shape="rect">花蓮六日遊</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/08/blog-post_06.html" shape="rect">現在、很想見你</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/08/blog-post.html" shape="rect">颱風天、日劇天</a>
+        </div>
+      
+
+      
+        <h4>2005-07</h4>
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2005/07/rz.html" shape="rect">幹..幹..幹的好啦..囧rz</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/07/blog-post_26.html" shape="rect">復活的軍團</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2005/07/blog-post_21.html" shape="rect">從彩色變回黑白</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2005/07/vs.html" shape="rect">天才 vs 白痴</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/07/coolnquiet.html" shape="rect">Cool&#39;n&#39;Quiet</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/07/kuso.html" shape="rect">Kuso大辭典</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2005/07/ht.html" shape="rect">軟體模擬HT技術</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/07/mtv-movie.html" shape="rect">MTV Movie的惡搞電影</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/07/blog-post.html" shape="rect">爛屁股果然是臭到不行</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/07/mg-1100-freedom-gundam.html" shape="rect">MG 1/100  Freedom Gundam</a>
+        </div>
+      
+
+      
+        <h4>2005-06</h4>
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2005/06/ram-disk.html" shape="rect">正港的RAM Disk</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/06/blog-post_26.html" shape="rect">熱、熱、熱</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2005/06/blog-post_22.html" shape="rect">在公牛身上擠奶</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2005/06/sata2.html" shape="rect">SATA2真的快...好厲害...</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2005/06/blog-post.html" shape="rect">在對的公司，用對的技術，做對的事</a>
+        </div>
+      
+
+      
+        <h4>2005-05</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2005/05/java2-j2se50.html" shape="rect">Java2 全方位學習 J2SE5.0 增修版</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2005/05/blog-post_27.html" shape="rect">真.變裝無雙</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2005/05/blog-post_23.html" shape="rect">爽到你,甘苦到我!!!</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2005/05/scjp-50-upgrade-exam-310-056-on-line.html" shape="rect">SCJP 5.0 upgrade exam (310-056) on line</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/05/blog-post_15.html" shape="rect">敗很大的行動</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2005/05/blog-post_13.html" shape="rect">找對頭家真的很重要</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2005/05/i-hacked-127001.html" shape="rect">I hacked 127.0.0.1</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/05/blog-post_05.html" shape="rect">網路報稅</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2005/05/blog-post.html" shape="rect">瓦斯桶老伯</a>
+        </div>
+      
+
+      
+        <h4>2005-04</h4>
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2005/04/blog-post_29.html" shape="rect">真.台海無雙</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2005/04/blog-post_28.html" shape="rect">任天狗</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/04/coding.html" shape="rect">會找比會Coding更重要</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2005/04/blog-post_21.html" shape="rect">四二○醫界大遊行</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2005/04/scjp-50-online.html" shape="rect">SCJP 5.0 online</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2005/04/eclipse.html" shape="rect">Eclipse</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/04/oracle-10g-database.html" shape="rect">Oracle 10g Database</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/04/blog-post_09.html" shape="rect">神奇的專案</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/04/bandaia.html" shape="rect">Bandai來A錢了</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/04/blog-post.html" shape="rect">哥吉拉</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/04/html.html" shape="rect">搞網頁的人一定要懂HTML嗎？</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/04/dvd.html" shape="rect">次世代DVD規格大戰</a>
+        </div>
+      
+
+      
+        <h4>2005-03</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2005/03/blog-post_31.html" shape="rect">金耳朵測試</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2005/03/partii.html" shape="rect">哆啦A夢 PartII</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/03/strikegundam-with-weapon-system.html" shape="rect">StrikeGundam with Weapon System</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/03/blog-post_25.html" shape="rect">爛攤子</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2005/03/word.html" shape="rect">Word排版藝術</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/03/blog-post_19.html" shape="rect">電子寵物</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/03/gundam.html" shape="rect">愈收愈多的Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2005/03/blog-post_18.html" shape="rect">數位相機的保固陷阱</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/03/blog-post_15.html" shape="rect">心有戚威焉</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/03/patch.html" shape="rect">新的Patch</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2005/03/blog-post_13.html" shape="rect">哆啦A夢</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2005/03/duke.html" shape="rect">Duke</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2005/03/javadoc.html" shape="rect">好用的javadoc</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/03/blog-post_111028959224598764.html" shape="rect">窮人的開發工具</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/03/blog-post_08.html" shape="rect">免錢的最好!!!</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/03/blog-post.html" shape="rect">杉磯時報評論台灣媒體的專欄</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/03/mastering-enterprise-java-beans-third.html" shape="rect">Mastering Enterprise Java Beans Third Edition</a>
+        </div>
+      
+
+      
+        <h4>2005-02</h4>
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/02/firefox.html" shape="rect">愈來愈好用的Firefox</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2005/02/blog-post_26.html" shape="rect">日本國的小玩具</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/02/sd-gundam.html" shape="rect">SD Gundam</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2005/02/design-patterns-in-java.html" shape="rect">Design Patterns in Java</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/02/mp3-player.html" shape="rect">MP3 Player</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/02/blog-post_15.html" shape="rect">天下烏鴉一般黑</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/02/akg-k12p.html" shape="rect">AKG K12P</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/02/happy-new-year-2005.html" shape="rect">Happy New Year 2005</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/02/dvd.html" shape="rect">DVD燒錄空片</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2005/02/blog-post_07.html" shape="rect">充電電池</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/02/cosplay-part-ii.html" shape="rect">Cosplay Part II</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/02/j2se-50.html" shape="rect">J2SE 5.0</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/02/ipod.html" shape="rect">惡搞iPod</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/02/cosplay.html" shape="rect">Cosplay</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2005/02/blog-post_03.html" shape="rect">遲到</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/02/pd.html" shape="rect">PD七彩小精靈Ⅲ</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/02/kmall.html" shape="rect">KMall</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          01 -
+          <a href="blog/2005/02/blog-post.html" shape="rect">霍爾的移動城堡模型展</a>
+        </div>
+      
+
+      
+        <h4>2005-01</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2005/01/blog-post_31.html" shape="rect">世界真小</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2005/01/blog-post_30.html" shape="rect">事件的背後</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2005/01/pioneer-dvr-a09xl.html" shape="rect">Pioneer DVR-A09XL</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2005/01/blog-post_28.html" shape="rect"> 洪志鵬-上廁所，學問大</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2005/01/ati9550.html" shape="rect">啟亨ATI9550退貨的新聞</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2005/01/blog-post_27.html" shape="rect">讓人傻眼的通知</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/01/part-ii.html" shape="rect">改運 Part II</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/01/blog-post_110665233653187988.html" shape="rect">黃金聖鬥士</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2005/01/blog-post_25.html" shape="rect">光劍</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2005/01/hacd-burner.html" shape="rect">Ha!CD Burner</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2005/01/blog-post_22.html" shape="rect">國王的新衣</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          21 -
+          <a href="blog/2005/01/911.html" shape="rect">華氏911</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2005/01/ahhhhhhhhhhhh.html" shape="rect">AHHHhhh...hhh...hh..h..</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          20 -
+          <a href="blog/2005/01/vs.html" shape="rect">自信 vs 自大</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/01/taiwan-msdn.html" shape="rect">Taiwan MSDN</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          19 -
+          <a href="blog/2005/01/blog-post_19.html" shape="rect">頭殼裝&quot;賽&quot;的老闆</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          18 -
+          <a href="blog/2005/01/ipod-shuffle.html" shape="rect">iPod shuffle</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2005/01/blog-post_110597253650070426.html" shape="rect">股市分析</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          17 -
+          <a href="blog/2005/01/blog-post_17.html" shape="rect">改運</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2005/01/blog-post_110586311154021985.html" shape="rect">仁愛醫院事件</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          16 -
+          <a href="blog/2005/01/blog-post_16.html" shape="rect">雲豹甲車</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/01/blog-post_110577679120546662.html" shape="rect">碰碰車實驗</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          15 -
+          <a href="blog/2005/01/blog-post_15.html" shape="rect">脫掉!脫掉!通通脫掉!</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/01/blog-post_14.html" shape="rect">軟體証照</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          14 -
+          <a href="blog/2005/01/java-servlet-and-jsp-cookbook.html" shape="rect">Java Servlet and JSP Cookbook</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2005/01/blog-post_13.html" shape="rect">霍爾的移動城堡</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          13 -
+          <a href="blog/2005/01/mac-mini.html" shape="rect">Mac mini</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2005/01/blog-post_110553554305499057.html" shape="rect">洪志鵬-技術人員轉型秘笈</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          12 -
+          <a href="blog/2005/01/blog-post_12.html" shape="rect">黃金梅利號</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          11 -
+          <a href="blog/2005/01/blog-post_11.html" shape="rect">歹戲拖棚</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          10 -
+          <a href="blog/2005/01/ff7ac.html" shape="rect">FF7AC</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/01/blog-post_09.html" shape="rect">老鼠起舞，大象當心</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          09 -
+          <a href="blog/2005/01/gundam-story.html" shape="rect">Gundam Story</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/01/blog.html" shape="rect">Blog? 部落格? ...... ?_?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/01/blog-post_08.html" shape="rect">魔戒三部曲</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          08 -
+          <a href="blog/2005/01/pcdiy.html" shape="rect">正港的PCDIY</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2005/01/blog-post_07.html" shape="rect">東京都</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2005/01/cpu.html" shape="rect">CPU編年史</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          07 -
+          <a href="blog/2005/01/starwar.html" shape="rect">StarWar六部曲角色大合照</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/01/blog-post_110501653904376367.html" shape="rect">大野狼</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/01/blog-post_06.html" shape="rect">世界大同...嗎?</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          06 -
+          <a href="blog/2005/01/amd_06.html" shape="rect">AMD雙核心處理器</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/01/microsoft-media-center-edition-2005.html" shape="rect">Microsoft Media Center Edition 2005</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          05 -
+          <a href="blog/2005/01/blog-post_05.html" shape="rect">爆出超大流量</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          04 -
+          <a href="blog/2005/01/scjp-50-beta-exam.html" shape="rect">SCJP 5.0 Beta Exam 出籠</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          03 -
+          <a href="blog/2005/01/ejb-cookbook.html" shape="rect">EJB Cookbook</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/01/blog-post.html" shape="rect">放羊的小孩</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          02 -
+          <a href="blog/2005/01/amd.html" shape="rect">AMD終於出頭天了</a>
+        </div>
+      
+
+      
+        <h4>2004-12</h4>
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2004/12/java.html" shape="rect">Java的十八銅仁陣</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2004/12/ati-9550.html" shape="rect">像滾雪球般的ATI 9550黑心貨事件</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          31 -
+          <a href="blog/2004/12/sony-psp.html" shape="rect">SONY PSP勸敗廣告</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2004/12/nitendo-ds.html" shape="rect">Nitendo DS</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          30 -
+          <a href="blog/2004/12/blog-post_30.html" shape="rect">民營的也不怎麼樣</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2004/12/blog-post_110432988086746313.html" shape="rect">史上最爆笑的電腦書</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2004/12/java-swing.html" shape="rect">Java Swing</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          29 -
+          <a href="blog/2004/12/blog-post_29.html" shape="rect">科技新貧</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2004/12/mb.html" shape="rect">豪華到會讓人摔倒的MB</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          28 -
+          <a href="blog/2004/12/blog-post_28.html" shape="rect">再簡單的天書還是天書</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2004/12/blog-post_110414953606138435.html" shape="rect">電視版的可魯開播囉!</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2004/12/blog-post_110414777055860577.html" shape="rect">在世界中心呼喊愛</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          27 -
+          <a href="blog/2004/12/blog-post_27.html" shape="rect">核震過後</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2004/12/sony-psp-play-station-portable.html" shape="rect">SONY PSP-Play Station Portable</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          26 -
+          <a href="blog/2004/12/blog-post_26.html" shape="rect">出錢的就是老大</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2004/12/blog-post_110397113612198601.html" shape="rect">不是該死，而是罪該萬死</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2004/12/blog-post_110396835271078645.html" shape="rect">周星馳的電影-功夫</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          25 -
+          <a href="blog/2004/12/blog-post_25.html" shape="rect">黑心電腦產品愈來愈多了</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          24 -
+          <a href="blog/2004/12/blog-post_24.html" shape="rect">從喜歡看電視到不喜歡看電視</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          23 -
+          <a href="blog/2004/12/blog-post_23.html" shape="rect">與熊共舞：軟體專案的風險管理</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2004/12/blog-post_110372010748733628.html" shape="rect">有良心的電腦書出版社不多了</a>
+        </div>
+      
+
+      
+        
+        <div style="margin-left: 20px;">
+          22 -
+          <a href="blog/2004/12/blog-post.html" shape="rect">呼!終於開張了</a>
+        </div>
+      
+
+    </div>
+  </div>
+
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>讓遠端桌面連線畫面就如同近端本機登入一樣</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>讓遠端桌面連線畫面就如同近端本機登入一樣</h1>
+      </div>
+
+      <p><em>2013-01-16</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/remote-control.html">remote-control</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p>
+Windows內建的「遠端桌面連線」功能在進行遠端登入時，如果不加入一些特別參數，它的操作行為跟用VNC登入的狀況是不同的。VNC的登入就真的如同你人在那台電腦前面進行操作，不同人用VNC而且用同樣的Windows帳號登入系統看到的畫面都是一樣的，同時多人登入時，多個人還可以互搶操作的游標...XD。如果這狀況改成用「遠端桌面連線」登入，會發現不同人看到的畫面都不一樣，每個人雖然用同個Windows帳號登入，但是卻像是各自存在於各自的世界中，不會互相干擾。
+<br>
+<code><br></code>
+<code>「遠端桌面連線」的特性，簡述如下</code>
+<br>
+<code><br></code>
+<code>默認情況下一台伺服器同時可以打開3個遠端桌面，兩個「虛桌面（mstsc命令打開）」和一個「實桌面（mstsc /admin帶參數打開）」，並且打開的視窗相互都看不見。如果想看到別的桌面連接情況可以打開任務管理器，查看用戶連接，選中要查看的連接右鍵選擇連接即可。</code>
+<br>
+<code><br></code>
+<code>遠端桌面mstsc /admin連接的是session 0，而mstsc是另外打開一個虛擬的session，這樣的話就是相當與另外登陸電腦。也就是說帶admin參數連接的是顯示器顯示的「實桌面」。很多時候需要用mstsc /admin 打開遠端桌面才能看到所有的應用程式視窗，否則只能使用其他遠端工具連接才可見，比如VNC PcAnywhere等。</code>
+<br>
+<br>從上面的說明看的出來，一般利用遠端桌面連線都是產生自己的虛桌面。如果你想像真的在那台電腦前進行本機登入，你要讓登入時產生的桌面是實桌面。有二種做法可以達到這目的
+<br>
+<br>1.執行 
+<code>mstsc /admin</code> 指令，接著再輸入登入IP
+<br>2.執行遠端桌面連線時，在登入IP後面加入 
+<code>/admin</code> 參數
+<br>
+<a href="../../../img/2013/01/201301161635_1.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2013/01/201301161635_1.jpg"></a>
+<br>
+<br>在登入後，看一下工作管理員裡登入的Session，如果發現是Session0，代表的就是實桌面，就跟跑到那台電腦前進行本機登入看到的畫面是一模一樣的。
+<br>
+<a href="../../../img/2013/01/201301161635_2.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2013/01/201301161635_2.jpg"></a>
+<br>
+<br>如果你並沒有加admin參數進行登入，會發現你的登入Session是0以外的值，這時你其實還是有辦法直接切到Session0所在的那個實桌面的，只要照下圖這樣幹，就可以切換過去。
+<br>
+<a href="../../../img/2013/01/201301161635_3.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="../../../img/2013/01/201301161635_3.jpg"></a>
+<br>
+<br>如果在這個當下，有其他人正在用Session0的桌面(可能的情況會是其它人遠端登入、或是其它人直接跑到那台電腦前本機登入)，他就會被強制踢出來，發出哀嚎...XD。簡單來說，加了admin參數方式的登入有獨佔性，同時只能有一人登入就對了。
+<br>
+<br>當然...在這個畫面下能幹的事不只這樣，還可以把別人強制登出或是強制斷線，讓別人馬上哇哇叫。不過...身為有品人士最好沒事還是別這樣惡搞就是了。
+<br>
+<br>最後...補上一些參考資料，有興趣的人可以去看看。
+<br>1.
+<a href="http://nathanmint.pixnet.net/blog/post/5912770-%E9%81%A0%E7%AB%AF%E6%A1%8C%E9%9D%A2%E9%80%A3%E7%B7%9A-mstsc--admin" target="_blank">遠端桌面連線 mstsc /admin</a>
+<br>2.
+<a href="http://blog.miniasp.com/post/2008/02/How-to-login-Console-session-when-using-mstsc-Remote-Desktop.aspx" target="_blank">遠端桌面如何登入主機的主控台(Console)工作階段</a>
+</p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2013/01/blog-post.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2013/01/blog-post.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2015</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>
