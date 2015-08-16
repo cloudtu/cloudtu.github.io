@@ -228,18 +228,18 @@
 <ol>
  <li>解開cassandra binary tar file到特定目錄下 </li>
  <li>修改 cassandra_root/conf/cassandra-env.sh 設定檔裡下列所示參數值 <pre class="prettyprint"><code>MAX_HEAP_SIZE="128M"<br>HEAP_NEWSIZE="32M"<br>JMX_PORT="7199"<br></code></pre></li>
- <li>修改 cassandra_root/conf/cassandra.yaml 設定檔裡下列所示參數值。initial_token參數的算法可以參考<a href="http://cloudtu.blogspot.com/2011/11/cassandratoken.html" target="_blank">這篇</a>文章 <pre class="prettyprint"><code>cluster_name: 'Test Cluster'<br>initial_token: 0<br>data_file_directories:<br>&nbsp;&nbsp;&nbsp; - /home/cloudtu/cassandra-1.0.0/data<br>commitlog_directory: /home/cloudtu/cassandra-1.0.0/commitlog<br>saved_caches_directory: /home/cloudtu/cassandra-1.0.0/saved_caches<br>seed_provider:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - seeds: "127.0.0.1,127.0.0.2"<br>listen_address: 127.0.0.1<br>rpc_address: 127.0.0.1<br>rpc_port: 9160<br></code></pre></li>
+ <li>修改 cassandra_root/conf/cassandra.yaml 設定檔裡下列所示參數值。initial_token參數的算法可以參考<a href="/blog/2011/11/cassandratoken.html" target="_blank">這篇</a>文章 <pre class="prettyprint"><code>cluster_name: 'Test Cluster'<br>initial_token: 0<br>data_file_directories:<br>&nbsp;&nbsp;&nbsp; - /home/cloudtu/cassandra-1.0.0/data<br>commitlog_directory: /home/cloudtu/cassandra-1.0.0/commitlog<br>saved_caches_directory: /home/cloudtu/cassandra-1.0.0/saved_caches<br>seed_provider:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - seeds: "127.0.0.1,127.0.0.2"<br>listen_address: 127.0.0.1<br>rpc_address: 127.0.0.1<br>rpc_port: 9160<br></code></pre></li>
  <li>修改 cassandra_root/conf/log4j-server.properties 設定檔裡下列所示參數值<br><pre class="prettyprint"><code># rolling log file<br>log4j.appender.R.File=/home/cloudtu/cassandra-1.0.0/system.log<br></code></pre></li>
- <li>如果要讓cassandra有認証與授權功能，可參照<a href="http://cloudtu.blogspot.com/2011/11/cassandra-authentication-and.html" target="_blank">這篇</a>文章進行設定</li>
+ <li>如果要讓cassandra有認証與授權功能，可參照<a href="/blog/2011/11/cassandra-authentication-and.html" target="_blank">這篇</a>文章進行設定</li>
 </ol>
 <br>Windows平台的安裝方式
 <br>
 <ol>
  <li>解開cassandra binary tar file到特定目錄下 </li>
  <li>修改 cassandra_root\bin\cassandra.bat 設定檔裡下列所示參數值 <pre class="prettyprint"><code>set JAVA_OPTS=-ea^<br> -Xms32m^<br> -Xmx128m^<br> -Dcom.sun.management.jmxremote.port=7199^<br></code></pre></li>
- <li>修改 cassandra_root\conf\cassandra.yaml 設定檔裡下列所示參數值。initial_token參數的算法可以參考<a href="http://cloudtu.blogspot.com/2011/11/cassandratoken.html" target="_blank">這篇</a>文章 <pre class="prettyprint"><code>cluster_name: 'Test Cluster'<br>initial_token: 0<br>data_file_directories:<br>&nbsp;&nbsp;&nbsp; - d:\cassandra-1.0.0\data<br>commitlog_directory: d:\cassandra-1.0.0\commitlog<br>saved_caches_directory: d:\cassandra-1.0.0\saved_caches<br>seed_provider:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - seeds: "127.0.0.1,127.0.0.2"<br>listen_address: 127.0.0.1<br>rpc_address: 127.0.0.1<br>rpc_port: 9160<br></code></pre></li>
+ <li>修改 cassandra_root\conf\cassandra.yaml 設定檔裡下列所示參數值。initial_token參數的算法可以參考<a href="/blog/2011/11/cassandratoken.html" target="_blank">這篇</a>文章 <pre class="prettyprint"><code>cluster_name: 'Test Cluster'<br>initial_token: 0<br>data_file_directories:<br>&nbsp;&nbsp;&nbsp; - d:\cassandra-1.0.0\data<br>commitlog_directory: d:\cassandra-1.0.0\commitlog<br>saved_caches_directory: d:\cassandra-1.0.0\saved_caches<br>seed_provider:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - seeds: "127.0.0.1,127.0.0.2"<br>listen_address: 127.0.0.1<br>rpc_address: 127.0.0.1<br>rpc_port: 9160<br></code></pre></li>
  <li>修改 cassandra_root\conf\log4j-server.properties 設定檔裡下列所示參數值<br><pre class="prettyprint"><code># rolling log file<br>log4j.appender.R.File=d:\cassandra-1.0.0\system.log<br></code></pre></li>
- <li>如果要讓cassandra有認証與授權功能，可參照<a href="http://cloudtu.blogspot.com/2011/11/cassandra-authentication-and.html" target="_blank">這篇</a>文章進行設定</li>
+ <li>如果要讓cassandra有認証與授權功能，可參照<a href="/blog/2011/11/cassandra-authentication-and.html" target="_blank">這篇</a>文章進行設定</li>
  <li>在console下執行"cassandra.bat install"指令可以將cassandra安裝成windows servcie，要移除此項service則是執行"cassandra.bat uninstall"指令</li>
 </ol>
 </p>
