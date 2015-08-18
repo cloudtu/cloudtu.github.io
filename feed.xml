@@ -5,8 +5,131 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Tue, 18 Aug 2015 15:33:06 +0800</pubDate>
-    <lastBuildDate>Tue, 18 Aug 2015 15:33:06 +0800</lastBuildDate>
+    <pubDate>Tue, 18 Aug 2015 15:43:08 +0800</pubDate>
+    <lastBuildDate>Tue, 18 Aug 2015 15:43:08 +0800</lastBuildDate>
+
+    <item>
+      <title>利用 jbake 從 blogger 搬家到 github</title>
+      <link>http://cloudtu.github.io/blog/2015/08/migrate-from-blogger-to-jbake.html</link>
+      <pubDate>Tue, 18 Aug 2015 18:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2015/08/migrate-from-blogger-to-jbake.html</guid>
+      <description>&lt;p&gt;打算搬離 &lt;a href=&quot;http://blogger.com&quot;&gt;blogger&lt;/a&gt; 的念頭很早就有了，只是一直沒有行動。主要原因還是打包整個站台的文章、圖片太麻煩，所以就一直沒動手。二週前開始有了段長時間的空檔，所以下定決心告別 blogger，自己蓋個新 blog 站台。&lt;/p&gt;&lt;h2&gt;為何搬離 blogger&lt;/h2&gt;&lt;p&gt;沒事 blogger 用的好好的為何會想搬家呢? 原因大略是下述儿點&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;不易撰寫技術文章。blogger 上面寫一般生活記事很容易，但是寫程式開發技術文就不是這麼回事了，要讓美美的程式碼秀出正常樣子實在太累人。&lt;/li&gt;
+  &lt;li&gt;發佈文章前的文章檢視功能跑起來超慢。這可能跟我在 blogger 上插了很多外掛模組有關，但是這些模組我都會用到呀不能拿掉，所以這問題無解 囧rz&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;選擇新家&lt;/h2&gt;&lt;p&gt;既然要搬家了，那新家要怎麼選呢? 我決定 &lt;code&gt;自己的 blog 自己蓋&lt;/code&gt;。&lt;/p&gt;&lt;p&gt;ingram 的 &lt;a href=&quot;http://ingramchen.io/blog/2014/01/move-to-new-home-again.html&quot;&gt;新年搬新家- Jbake&lt;/a&gt; 裡提到 &lt;code&gt;任何 Hosting Service 最終都會消失&lt;/code&gt; 是非常中肯的見解。雖然不見得一定會消失，但是未來的事實在太難說。現在寫 blog 早就不潮了，但是寫了十多年累積的 400 多篇文章說什麼也不能隨著搬家歸零重來。為了避免未來一而再再而三的搬家，還是自己蓋 blog 吧!&lt;/p&gt;&lt;h2&gt;新 blog 怎麼搭建?&lt;/h2&gt;&lt;p&gt;既然要自己土砲了，那當然是找目前市面上 &lt;code&gt;static site generator&lt;/code&gt; 產品有哪些。 &lt;a href=&quot;https://www.staticgen.com/&quot;&gt;StaticGen&lt;/a&gt; 上看到的統計報表裡，最熱門的產品是 &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyll&lt;/a&gt;，不過我是 java guy 所以我選 &lt;a href=&quot;http://jbake.org&quot;&gt;jbake&lt;/a&gt; 這個 java solution。&lt;/p&gt;&lt;p&gt;下列儿項 jbake 產品特性是我選它的原因&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;完整的&lt;a href=&quot;http://www.jbake.org/docs/2.4.0/&quot;&gt;說明書&lt;/a&gt;。&lt;/li&gt;
+  &lt;li&gt;多人維護的&lt;a href=&quot;https://github.com/jbake-org/jbake&quot;&gt;專案&lt;/a&gt;，不用擔心突然被放生。&lt;/li&gt;
+  &lt;li&gt;blog 文章支援 &lt;code&gt;markdown&lt;/code&gt;, &lt;code&gt;html&lt;/code&gt; 格式。html 格式就不用說了，算是舊時代的遺物，一定會支援。寫新文章的話，如果不是文章格式很複雜，我是一定會選擇 markdown 格式，可以省時又省力。&lt;/li&gt;
+  &lt;li&gt;內建 &lt;code&gt;jetty&lt;/code&gt;，文章寫完後可以馬上在 local 跑起來看看結果正不正確，不需丟到 remote 才能進行驗証&lt;/li&gt;
+  &lt;li&gt;文章裡貼的程式碼可以用 &lt;code&gt;pretty print&lt;/code&gt; 風格來呈現。&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;jbake 快速上手&lt;/h2&gt;&lt;p&gt;下載 &lt;a href=&quot;http://www.jbake.org/download.html&quot;&gt;jbake&lt;/a&gt; 進行安裝。目前 v2.4.0 最新版有個&lt;a href=&quot;https://github.com/jbake-org/jbake/issues/226&quot;&gt;嚴重的 bug&lt;/a&gt;，每次 site gen 時一定會全部資料重建，沒辦法進行 incremental render，建議安裝 v2.3.2 版。&lt;/p&gt;&lt;p&gt;jbake v2.3.2 常用指令沒儿個，搞懂它吧!&lt;/p&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# init jbake project
+jbake -i
+jbake -i &amp;lt;freemarker|groovy|thymeleaf&amp;gt;
+
+# site gen
+jbake -b
+jbake -b &amp;lt;source&amp;gt; &amp;lt;output&amp;gt;
+
+# start local server
+jbake -s
+jbake -s &amp;lt;directory&amp;gt;
+
+# site gen &amp;amp; start local server
+jbake -b -s
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&quot;http://www.jbake.org/docs/2.4.0/&quot;&gt;官方文件&lt;/a&gt;不長而且很完整，建議看過一遍。&lt;/p&gt;&lt;h2&gt;jbake.properties 設定檔說明&lt;/h2&gt;&lt;p&gt;其中比較需要特別說明的是 &lt;code&gt;db.store=local&lt;/code&gt;，設成這值代表每次 jbake 只會針對異動(新增或修改)的文章進行 site gen，不會全部的文章都進行 site gen，這是一個很有用的功能!&lt;/p&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# defines the host URL for the site
+site.host={my_blog_site_url}
+
+# render index file?
+render.index=true
+# render archive file?
+render.archive=true
+# render feed file?
+render.feed=true
+# render tag files?
+render.tags=true
+# render sitemap.xml file?
+render.sitemap=true
+
+# filename of index template file
+template.index.file=index.thyme
+# filename of archive template file
+template.archive.file=archive.thyme
+# filename of tag template file
+template.tag.file=tags.thyme
+# filename of sitemap template file
+template.sitemap.file=sitemap.thyme
+# filename of post template file
+template.post.file=post.thyme
+# filename of page template file
+template.page.file=page.thyme
+# filename of feed template file
+template.feed.file=feed.thyme
+
+# default date format used in content files
+date.format=yyyy-MM-dd
+
+# database store (local, memory)
+# This option defines whether the content store built while parsing your content files is persisted to disk or not.When it is persisted to disk the next time you perform a bake only those content files that have changed will be rendered speeding up the process. When it is not persisted to disk, i.e. kept in memory, a full bake of all content is performed every time.
+db.store=local
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;撰寫 markdown 文件的注意事項&lt;/h2&gt;&lt;p&gt;文章如果出現 &lt;code&gt;包了太多層的條列式項目&lt;/code&gt; 可能會導致 site gen 後的 html 出現排版亂掉的問題，撰寫文章時要迴避這問題。&lt;/p&gt;&lt;h2&gt;markdown 文件如何插入圖片?&lt;/h2&gt;&lt;p&gt;只是單純的文章插入圖片可以直接用 markdown 語法&lt;/p&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code&gt;![imageName](imageFileUrl)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果要有 &lt;code&gt;點擊縮圖時開啟原始大圖&lt;/code&gt; 效果，必需用 html 語法&lt;/p&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&amp;lt;a href=&amp;quot;/img/{myImage.jpg}&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;
+    &amp;lt;img src=&amp;quot;/img/{myImage.jpg}&amp;quot; width=&amp;quot;{width}&amp;quot; /&amp;gt;
+&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;markdown 文件如何插入程式碼?&lt;/h2&gt;&lt;p&gt;可以用 markdown 或 html 語法，個人推薦用 markdown 語法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# markdown 格式
+&amp;lt;!--?prettify linenums=true?--&amp;gt;
+```java
+public class CloudTu {
+  public static void main(String[] args) {
+    System.out.print(&amp;quot;hello world!&amp;quot;);
+  }
+}
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;# html 格式
+&amp;lt;pre class=&amp;quot;prettyprint linenums&amp;quot;&amp;gt;
+public class CloudTu {
+  public static void main(String[] args) {
+    System.out.print(&amp;quot;hello world!&amp;quot;);
+  }
+}
+&amp;lt;/pre&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;site gen 結果像下面這樣，程式碼帶有行號而且是 pretty print 風格&lt;/p&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;public class CloudTu {
+  public static void main(String[] args) {
+    System.out.print(&amp;quot;hello world!&amp;quot;);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果不想帶行號的話則是把 &lt;code&gt;linenums&lt;/code&gt; 拿掉&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# markdown 格式
+&amp;lt;!--?prettify?--&amp;gt;
+my code...etc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;# html 格式
+&amp;lt;pre class=&amp;quot;prettyprint&amp;quot;&amp;gt;
+    my code...etc
+&amp;lt;pre&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;新 blog 要放在哪?&lt;/h2&gt;&lt;p&gt;任何可以放 static site 的雲端空間都可以當存放站台，我自己的選擇是放在 github。原因的話有二個&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;static site 放 github &lt;strike&gt;正潮&lt;/strike&gt;不用錢&lt;/li&gt;
+  &lt;li&gt;github 的網路頻寬夠大，連過去速度夠快&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;在 github 上建立 static site 的&lt;a href=&quot;https://pages.github.com/&quot;&gt;方法&lt;/a&gt;很簡單，分成二種方式&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;第一種是在 github 上建立 &lt;code&gt;{myAccount}.github.io&lt;/code&gt; 的 repository，接著把 static site 推上去，然後連到 &lt;code&gt;http://{myAccount}.github.io&lt;/code&gt; 就可以看到建立的站台&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;第二種則是在 github 現有的 &lt;code&gt;{myProject}&lt;/code&gt; repository 建立 &lt;code&gt;gh-pages&lt;/code&gt; branch，接著把 static site 推上去，然後連到 &lt;code&gt;http://{myAccount}.github.io/{myProject}&lt;/code&gt; 就可以看到建立的站台&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;舊資料要怎麼搬過去?&lt;/h2&gt;&lt;p&gt;搬舊資料沒啥現成工具可用，只好自己寫工具。我利用 &lt;a href=&quot;http://jsoup.org/&quot;&gt;jsoup&lt;/a&gt;, &lt;a href=&quot;https://github.com/rometools/rome&quot;&gt;rome&lt;/a&gt; lib 寫了 &lt;a href=&quot;https://github.com/cloudtu/blogger-to-jbake&quot;&gt;blogger-to-jbake&lt;br/&gt;&lt;/a&gt; 這個專門從 blogger 搬家到 jbake 的搬遷工具。它可以把放在 blogger 裡的個人文章、圖片全部匯出至本地端，並且轉成 jbake 可以匯入的檔案格式。&lt;/p&gt;&lt;h2&gt;後記&lt;/h2&gt;&lt;p&gt;其實 blog 搬家很辛苦，自建 static blog site 就更辛苦了，但是相對的獲益也非常巨大。什麼都自己來代表什麼都掌控在手中，未來如果發生任何狀況都可以自己應付，也不會遇到 vendor 倒了就全部資料人間蒸發的鳥事。記得以前無名小站倒了時網路上哀聲遍野，未來收掉的 blog service 只會更多不會更少，長遠考量下還是自己的 blog 自己蓋比較實際呀~~~&lt;/p&gt;</description>
+    </item>
 
     <item>
       <title>java library for github api 心得筆記</title>
@@ -324,41 +447,7 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
 </description>
     </item>
 
-    <item>
-      <title>cassandra java client library 心得筆記</title>
-      <link>http://cloudtu.github.io/blog/2013/12/cassandra-java-client-library.html</link>
-      <pubDate>Wed, 25 Dec 2013 09:56:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2013/12/cassandra-java-client-library.html</guid>
-      <description>
-沒空深入研究，先寫個簡單筆記
-&lt;br&gt;
-&lt;ul&gt;
- &lt;li&gt;我心目中的侯選者&lt;br&gt;
-  &lt;ol&gt;
-   &lt;li&gt;&lt;a href=&quot;https://github.com/hector-client/hector&quot; target=&quot;_blank&quot;&gt;hector&lt;/a&gt;&lt;br&gt;
-    &lt;ul&gt;
-     &lt;li&gt;最早出現&lt;/li&gt;
-     &lt;li&gt;支援 thrift api 跟 cql&lt;/li&gt;
-    &lt;/ul&gt;&lt;/li&gt;
-   &lt;li&gt;&lt;a href=&quot;https://github.com/Netflix/astyanax&quot; target=&quot;_blank&quot;&gt;astyanax&lt;/a&gt;&lt;br&gt;
-    &lt;ul&gt;
-     &lt;li&gt;在 hector 之後出現，有 netflix 這支超大的白老鼠背書&lt;/li&gt;
-     &lt;li&gt;支援 thrift api 跟 cql&lt;/li&gt;
-    &lt;/ul&gt;&lt;/li&gt;
-   &lt;li&gt;&lt;a href=&quot;https://github.com/datastax/java-driver&quot; target=&quot;_blank&quot;&gt;DataStax Java Driver for Apache Cassandra&lt;/a&gt;&lt;br&gt;
-    &lt;ul&gt;
-     &lt;li&gt;datastax 這個半官方發布的 client lib&lt;/li&gt;
-     &lt;li&gt;只支援 cql&lt;/li&gt;
-     &lt;li&gt;server 端 cassandra 版本必需 &amp;gt;= 1.2&lt;/li&gt;
-     &lt;li&gt;語法跟 jdbc 很像&lt;/li&gt;
-    &lt;/ul&gt;&lt;/li&gt;
-  &lt;/ol&gt;&lt;/li&gt;
- &lt;li&gt;使用的白老鼠(由多至少)&lt;br&gt;hector &amp;gt; astyanax &amp;gt; datastax java driver&lt;/li&gt;
- &lt;li&gt;api 操作的便捷性(由最好用到最難用)&lt;br&gt;datastax java driver &amp;gt; astyanax &amp;gt; hector&lt;/li&gt;
- &lt;li&gt;補充說明&lt;br&gt;datastax java driver 的文件跟程式碼都還很新，白老鼠不夠多。有沒有隱性地雷也不是很確定，要多去網路上爬一下有沒有人用了後變苦主。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
+    
 
     
 

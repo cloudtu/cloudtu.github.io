@@ -77,6 +77,9 @@
                   <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
                 </li>
                 <li>
+                  <a shape="rect" href="/tags/jbake.html">jbake</a>
+                </li>
+                <li>
                   <a shape="rect" href="/tags/jersey.html">jersey</a>
                 </li>
                 <li>
@@ -189,6 +192,147 @@
       <div class="index_page_banner">
         <h1 style="margin-top: 0px; margin-bottom: 0px;">老涂的咁仔店</h1>
         <p style="margin-top: 50px; margin-bottom: 0px;">記載生活點滴、敗家記事、程式撰寫...etc</p>
+      </div>
+
+      <div>
+        <a href="blog/2015/08/migrate-from-blogger-to-jbake.html" shape="rect"><h1>利用 jbake 從 blogger 搬家到 github</h1></a>
+        <p>2015-08-18</p>
+
+        <p>
+          <em>Tags:
+            <span>
+              <a shape="rect" href="tags/程式語言.html">程式語言</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/java.html">java</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/jbake.html">jbake</a>
+              
+            </span>
+          </em>
+        </p>
+
+        <p><p>打算搬離 <a href="http://blogger.com">blogger</a> 的念頭很早就有了，只是一直沒有行動。主要原因還是打包整個站台的文章、圖片太麻煩，所以就一直沒動手。二週前開始有了段長時間的空檔，所以下定決心告別 blogger，自己蓋個新 blog 站台。</p><h2>為何搬離 blogger</h2><p>沒事 blogger 用的好好的為何會想搬家呢? 原因大略是下述儿點</p>
+<ol>
+  <li>不易撰寫技術文章。blogger 上面寫一般生活記事很容易，但是寫程式開發技術文就不是這麼回事了，要讓美美的程式碼秀出正常樣子實在太累人。</li>
+  <li>發佈文章前的文章檢視功能跑起來超慢。這可能跟我在 blogger 上插了很多外掛模組有關，但是這些模組我都會用到呀不能拿掉，所以這問題無解 囧rz</li>
+</ol><h2>選擇新家</h2><p>既然要搬家了，那新家要怎麼選呢? 我決定 <code>自己的 blog 自己蓋</code>。</p><p>ingram 的 <a href="http://ingramchen.io/blog/2014/01/move-to-new-home-again.html">新年搬新家- Jbake</a> 裡提到 <code>任何 Hosting Service 最終都會消失</code> 是非常中肯的見解。雖然不見得一定會消失，但是未來的事實在太難說。現在寫 blog 早就不潮了，但是寫了十多年累積的 400 多篇文章說什麼也不能隨著搬家歸零重來。為了避免未來一而再再而三的搬家，還是自己蓋 blog 吧!</p><h2>新 blog 怎麼搭建?</h2><p>既然要自己土砲了，那當然是找目前市面上 <code>static site generator</code> 產品有哪些。 <a href="https://www.staticgen.com/">StaticGen</a> 上看到的統計報表裡，最熱門的產品是 <a href="http://jekyllrb.com/">jekyll</a>，不過我是 java guy 所以我選 <a href="http://jbake.org">jbake</a> 這個 java solution。</p><p>下列儿項 jbake 產品特性是我選它的原因</p>
+<ol>
+  <li>完整的<a href="http://www.jbake.org/docs/2.4.0/">說明書</a>。</li>
+  <li>多人維護的<a href="https://github.com/jbake-org/jbake">專案</a>，不用擔心突然被放生。</li>
+  <li>blog 文章支援 <code>markdown</code>, <code>html</code> 格式。html 格式就不用說了，算是舊時代的遺物，一定會支援。寫新文章的話，如果不是文章格式很複雜，我是一定會選擇 markdown 格式，可以省時又省力。</li>
+  <li>內建 <code>jetty</code>，文章寫完後可以馬上在 local 跑起來看看結果正不正確，不需丟到 remote 才能進行驗証</li>
+  <li>文章裡貼的程式碼可以用 <code>pretty print</code> 風格來呈現。</li>
+</ol><h2>jbake 快速上手</h2><p>下載 <a href="http://www.jbake.org/download.html">jbake</a> 進行安裝。目前 v2.4.0 最新版有個<a href="https://github.com/jbake-org/jbake/issues/226">嚴重的 bug</a>，每次 site gen 時一定會全部資料重建，沒辦法進行 incremental render，建議安裝 v2.3.2 版。</p><p>jbake v2.3.2 常用指令沒儿個，搞懂它吧!</p>
+<!--?prettify?-->
+<pre><code class="sh"># init jbake project
+jbake -i
+jbake -i &lt;freemarker|groovy|thymeleaf&gt;
+
+# site gen
+jbake -b
+jbake -b &lt;source&gt; &lt;output&gt;
+
+# start local server
+jbake -s
+jbake -s &lt;directory&gt;
+
+# site gen &amp; start local server
+jbake -b -s
+</code></pre><p><a href="http://www.jbake.org/docs/2.4.0/">官方文件</a>不長而且很完整，建議看過一遍。</p><h2>jbake.properties 設定檔說明</h2><p>其中比較需要特別說明的是 <code>db.store=local</code>，設成這值代表每次 jbake 只會針對異動(新增或修改)的文章進行 site gen，不會全部的文章都進行 site gen，這是一個很有用的功能!</p>
+<!--?prettify?-->
+<pre><code class="sh"># defines the host URL for the site
+site.host={my_blog_site_url}
+
+# render index file?
+render.index=true
+# render archive file?
+render.archive=true
+# render feed file?
+render.feed=true
+# render tag files?
+render.tags=true
+# render sitemap.xml file?
+render.sitemap=true
+
+# filename of index template file
+template.index.file=index.thyme
+# filename of archive template file
+template.archive.file=archive.thyme
+# filename of tag template file
+template.tag.file=tags.thyme
+# filename of sitemap template file
+template.sitemap.file=sitemap.thyme
+# filename of post template file
+template.post.file=post.thyme
+# filename of page template file
+template.page.file=page.thyme
+# filename of feed template file
+template.feed.file=feed.thyme
+
+# default date format used in content files
+date.format=yyyy-MM-dd
+
+# database store (local, memory)
+# This option defines whether the content store built while parsing your content files is persisted to disk or not.When it is persisted to disk the next time you perform a bake only those content files that have changed will be rendered speeding up the process. When it is not persisted to disk, i.e. kept in memory, a full bake of all content is performed every time.
+db.store=local
+</code></pre><h2>撰寫 markdown 文件的注意事項</h2><p>文章如果出現 <code>包了太多層的條列式項目</code> 可能會導致 site gen 後的 html 出現排版亂掉的問題，撰寫文章時要迴避這問題。</p><h2>markdown 文件如何插入圖片?</h2><p>只是單純的文章插入圖片可以直接用 markdown 語法</p>
+<!--?prettify?-->
+<pre><code>![imageName](imageFileUrl)
+</code></pre><p>如果要有 <code>點擊縮圖時開啟原始大圖</code> 效果，必需用 html 語法</p>
+<!--?prettify?-->
+<pre><code class="html">&lt;a href=&quot;/img/{myImage.jpg}&quot; target=&quot;_blank&quot;&gt;
+    &lt;img src=&quot;/img/{myImage.jpg}&quot; width=&quot;{width}&quot; /&gt;
+&lt;/a&gt;
+</code></pre><h2>markdown 文件如何插入程式碼?</h2><p>可以用 markdown 或 html 語法，個人推薦用 markdown 語法</p>
+<pre><code># markdown 格式
+&lt;!--?prettify linenums=true?--&gt;
+```java
+public class CloudTu {
+  public static void main(String[] args) {
+    System.out.print(&quot;hello world!&quot;);
+  }
+}
+```
+</code></pre>
+<pre><code class="html"># html 格式
+&lt;pre class=&quot;prettyprint linenums&quot;&gt;
+public class CloudTu {
+  public static void main(String[] args) {
+    System.out.print(&quot;hello world!&quot;);
+  }
+}
+&lt;/pre&gt;
+</code></pre><p>site gen 結果像下面這樣，程式碼帶有行號而且是 pretty print 風格</p>
+<!--?prettify linenums=true?-->
+<pre><code class="java">public class CloudTu {
+  public static void main(String[] args) {
+    System.out.print(&quot;hello world!&quot;);
+  }
+}
+</code></pre><p>如果不想帶行號的話則是把 <code>linenums</code> 拿掉</p>
+<pre><code># markdown 格式
+&lt;!--?prettify?--&gt;
+my code...etc
+</code></pre>
+<pre><code class="html"># html 格式
+&lt;pre class=&quot;prettyprint&quot;&gt;
+    my code...etc
+&lt;pre&gt;
+</code></pre><h2>新 blog 要放在哪?</h2><p>任何可以放 static site 的雲端空間都可以當存放站台，我自己的選擇是放在 github。原因的話有二個</p>
+<ol>
+  <li>static site 放 github <strike>正潮</strike>不用錢</li>
+  <li>github 的網路頻寬夠大，連過去速度夠快</li>
+</ol><p>在 github 上建立 static site 的<a href="https://pages.github.com/">方法</a>很簡單，分成二種方式</p>
+<ul>
+  <li><p>第一種是在 github 上建立 <code>{myAccount}.github.io</code> 的 repository，接著把 static site 推上去，然後連到 <code>http://{myAccount}.github.io</code> 就可以看到建立的站台</p></li>
+  <li><p>第二種則是在 github 現有的 <code>{myProject}</code> repository 建立 <code>gh-pages</code> branch，接著把 static site 推上去，然後連到 <code>http://{myAccount}.github.io/{myProject}</code> 就可以看到建立的站台</p></li>
+</ul><h2>舊資料要怎麼搬過去?</h2><p>搬舊資料沒啥現成工具可用，只好自己寫工具。我利用 <a href="http://jsoup.org/">jsoup</a>, <a href="https://github.com/rometools/rome">rome</a> lib 寫了 <a href="https://github.com/cloudtu/blogger-to-jbake">blogger-to-jbake<br/></a> 這個專門從 blogger 搬家到 jbake 的搬遷工具。它可以把放在 blogger 裡的個人文章、圖片全部匯出至本地端，並且轉成 jbake 可以匯入的檔案格式。</p><h2>後記</h2><p>其實 blog 搬家很辛苦，自建 static blog site 就更辛苦了，但是相對的獲益也非常巨大。什麼都自己來代表什麼都掌控在手中，未來如果發生任何狀況都可以自己應付，也不會遇到 vendor 倒了就全部資料人間蒸發的鳥事。記得以前無名小站倒了時網路上哀聲遍野，未來收掉的 blog service 只會更多不會更少，長遠考量下還是自己的 blog 自己蓋比較實際呀~~~</p></p>
+
+        <hr />
       </div>
 
       <div>
@@ -398,46 +542,7 @@
         <hr />
       </div>
 
-      <div>
-        <a href="blog/2014/10/cassandra-summit-2014.html" shape="rect"><h1>Cassandra Summit 2014 心得筆記</h1></a>
-        <p>2014-10-01</p>
-
-        <p>
-          <em>Tags:
-            <span>
-              <a shape="rect" href="tags/cassandra.html">cassandra</a>
-              
-            </span>
-          </em>
-        </p>
-
-        <p>
-Datastax 把前陣子辦的 Cassandra Summit 2014 
-<a href="http://www.slideshare.net/planetcassandra/tag/cassandra-summit-2014" target="_blank">投影片</a>、
-<a href="http://www.youtube.com/playlist?list=PLqcm6qE9lgKJkxYZUOIykswDndrOItnn2" target="_blank">視訊影片</a>公開出來了，把這堆資料大略看完後針對比較重要的儿份摘要如下 ... :) 
-<br>
-<ol>
- <li>C* 2.1 新功能簡介<br> Real Data Models of Silicon Valley(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-real-data-models-of-silicon-valley" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=XGrJLZcRhAw" target="_blank">錄影</a>)<br> </li>
- <li>C* 2.1 的設定檔多了哪些重要參數<br> Lesser Known Features of Cassandra 2.1(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-lesser-known-features-of-cassandra-21" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=ppZfB2tCrEs" target="_blank">錄影</a>)<br> </li>
- <li>CQL3 在 C* 2.1 &amp; 2.0 的語法為何? CQL3 查詢顯示結果跟實際的 ColumFamily 是怎麼對照?<br> CQL Under the Hood(<a href="http://www.slideshare.net/rastrick/cql-under-the-hood-39023557" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?list=PLqcm6qE9lgKJkxYZUOIykswDndrOItnn2&amp;v=CY5-bWpqAVA" target="_blank">錄影</a>)<br> Understanding CQL3 Inside and Out(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-understanding-cql3-inside-and-out" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=XoUqfq54xuA" target="_blank">錄影</a>)<br> </li>
- <li>扮演 admin 角色負責管理維運<br> Monitor Everything!(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-monitor-everything" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=RhUoQPHNA1Y" target="_blank">錄影</a>)，裡面有提到 nodetool 監控指令參數(page 27~69)，JVM GC log 參數設定(page 74~78)<br> </li>
- <li>校能調教<br> Performance Tuning Cassandra in AWS(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-39501315" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=Qfzg7gcSK-g" target="_blank">錄影</a>)<br> </li>
- <li>Spark 與 C* 整合應用現況<br> Apache Spark - The SDK for All Big Data Platforms(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-apache-spark-the-sdk-for-all-big-data-platforms" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=Ot-nrOaJHLE" target="_blank">錄影</a>)<br> </li>
- <li>一些大公司在使用 C* 後分享的經驗談
-  <strike>
-   (血淚控訴)
-  </strike><br> Apache Cassandra Best Practices at Ebay(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-39677149" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=gn4MDRmrfKo" target="_blank">錄影</a>)，從 page 7 開始是經驗談<br> Launching PlayStation 4 with Apache Cassandra(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-launching-playstation-4-with-apache-cassandra" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=FwMWvhyEgmg" target="_blank">錄影</a>)，從 page 36 開始是經驗談<br> Cassandra at Instagram 2014(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-cassandra-at-instagram-2014" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=_gc94ITUitY" target="_blank">錄影</a>)，從 page 55 開始是經驗談 <br> Interactive OLAP Queries using Apache Cassandra and Spark(<a href="http://www.slideshare.net/planetcassandra/cassandra-summit-2014-interactive-olap-queries-using-apache-cassandra-and-spark" target="_blank">投影片</a>)(<a href="https://www.youtube.com/watch?v=zke8mp-kMMo" target="_blank">錄影</a>)，講 Cassandra 與 Spark 整合使用的經驗<br> </li>
-</ol>針對 C* 2.1 在 CQL 語法上提供的新功能，我個人不建議使用，因為有下述問題存在。這部份也提供給大家參考一下 
-<br>
-<ul>
- <li>UDT(User Defined Types) 功能還不成熟，未來的版本可能變動很大?</li>
- <li>雖然改善了 counter 效能，不過我猜想它可能又無法向下相容舊版? 還是不要用counter 型別為妙</li>
- <li>在 C* 2.1 有些語法宣告要加 frozen 這關鍵字，可是未來 C* 3.x 會把這關鍵字拿掉，未來版本八成無法向下相容這個宣告。為了個人身心健康，有這類宣告的功能就別用了吧</li>
-</ul>
-</p>
-
-        <hr />
-      </div>
+      
 
       
 
