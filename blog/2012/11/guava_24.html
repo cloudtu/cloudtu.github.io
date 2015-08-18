@@ -230,64 +230,64 @@
 <br>=========================================================================== 
 <br>常用package清單
 <br>
-<pre class="prettyprint"><code>com.google.common.base<br>com.google.common.collect<br>com.google.common.io<br>com.google.common.math<br>com.google.common.primitives<br></code></pre>===========================================================================
+<pre class="prettyprint">com.google.common.base<br>com.google.common.collect<br>com.google.common.io<br>com.google.common.math<br>com.google.common.primitives<br></pre>===========================================================================
 <br>com.google.common.base package
 <br>
 <br>1.通用的HelperClass在這個package
 <br>
 <br>2.供了Function programming功能
 <br>
-<pre class="prettyprint"><code>Function&lt;A,B&gt; == A =&gt; B，配合Colllections2.transform(),Iterables.transform(),Iterators.transform()使用<br>Predicate&lt;T&gt; == T =&gt; Boolean，配合Colllections2.filter(),Iterables.filter(),Iterators.filter()使用<br>Optional&lt;T&gt; == "Present" or "Absent"</code></pre>3.常用class的API或SampeCode如下
+<pre class="prettyprint">Function&lt;A,B&gt; == A =&gt; B，配合Colllections2.transform(),Iterables.transform(),Iterators.transform()使用<br>Predicate&lt;T&gt; == T =&gt; Boolean，配合Colllections2.filter(),Iterables.filter(),Iterators.filter()使用<br>Optional&lt;T&gt; == "Present" or "Absent"</pre>3.常用class的API或SampeCode如下
 <br>
-<pre class="prettyprint"><code>CharMatcher.DIGIT.retainFrom("test 1234");<br>CharMatcher.ASCII.retainFrom("test 1234"); <br></code></pre>
-<pre class="prettyprint"><code>String numbersAsString = Joiner.on(";").skipNulls().join(Ints.asList(numbers));<br>Iterable&lt;String&gt; splitResult = Splitter.on(",").split(numbsAsString);<br></code></pre>
-<pre class="prettyprint"><code>Preconditions.checkArgument(count &gt; 0, "must be positive: %s", count);<br></code></pre>
-<pre class="prettyprint"><code>Objects.equal(Object a, Object b)<br>Objects.hashCode(Object... objects)<br>Objects.toStringHelper(Object self)<br></code></pre>
-<pre class="prettyprint"><code>Strings.isNullOrEmpty(String string)<br>Strings.nullToEmpty(String string)<br>Strings.padStart(String string, int minLength, char padChar)<br>Strings.padEnd(String string, int minLength, char padChar)<br></code></pre>
-<pre class="prettyprint"><code>Charsets.UTF_8<br>Charsets.UTF_16 <br>Charsets.ISO_8859_1<br></code></pre>
-<pre class="prettyprint"><code>Stopwatch stopwatch = new Stopwatch().start();<br>stopwatch.stop();<br>long millis = stopwatch.elapsedMillis();<br></code></pre>===========================================================================
+<pre class="prettyprint">CharMatcher.DIGIT.retainFrom("test 1234");<br>CharMatcher.ASCII.retainFrom("test 1234"); <br></pre>
+<pre class="prettyprint">String numbersAsString = Joiner.on(";").skipNulls().join(Ints.asList(numbers));<br>Iterable&lt;String&gt; splitResult = Splitter.on(",").split(numbsAsString);<br></pre>
+<pre class="prettyprint">Preconditions.checkArgument(count &gt; 0, "must be positive: %s", count);<br></pre>
+<pre class="prettyprint">Objects.equal(Object a, Object b)<br>Objects.hashCode(Object... objects)<br>Objects.toStringHelper(Object self)<br></pre>
+<pre class="prettyprint">Strings.isNullOrEmpty(String string)<br>Strings.nullToEmpty(String string)<br>Strings.padStart(String string, int minLength, char padChar)<br>Strings.padEnd(String string, int minLength, char padChar)<br></pre>
+<pre class="prettyprint">Charsets.UTF_8<br>Charsets.UTF_16 <br>Charsets.ISO_8859_1<br></pre>
+<pre class="prettyprint">Stopwatch stopwatch = new Stopwatch().start();<br>stopwatch.stop();<br>long millis = stopwatch.elapsedMillis();<br></pre>===========================================================================
 <br>com.google.common.collect package
 <br>
 <br>1.集合相關的class在這個package
 <br>
 <br>2.提供一些特殊集合類型
 <br>
-<pre class="prettyprint"><code>Multiset：Set裡許可放入重覆的元素<br>Multimaps：Map裡的同個key可以有多個value值<br>BiMap：Map裡的key跟value都只有唯一值<br>Immutable Collections:集合中的元素都不可變<br></code></pre>3.提供集合相加減功能
+<pre class="prettyprint">Multiset：Set裡許可放入重覆的元素<br>Multimaps：Map裡的同個key可以有多個value值<br>BiMap：Map裡的key跟value都只有唯一值<br>Immutable Collections:集合中的元素都不可變<br></pre>3.提供集合相加減功能
 <br>
-<pre class="prettyprint"><code>Sets.union(a, b);//a聯集b<br>Sets.intersection(a, b);//a交集b<br>Sets.symmetricDifference(a, b);//a聯集b - a交集b<br>Sets.difference(a, b);//a裡面減掉b的部份<br>Sets.difference(b, a);//b裡面減掉a的部份<br><br>MapDifference differenceMap = Maps.difference(a, b); <br>differenceMap.entriesDiffering();<br>differenceMap.entriesOnlyOnLeft();<br>differenceMap.entriesInCommon();<br></code></pre>4.常用class的API或SampeCode如下
+<pre class="prettyprint">Sets.union(a, b);//a聯集b<br>Sets.intersection(a, b);//a交集b<br>Sets.symmetricDifference(a, b);//a聯集b - a交集b<br>Sets.difference(a, b);//a裡面減掉b的部份<br>Sets.difference(b, a);//b裡面減掉a的部份<br><br>MapDifference differenceMap = Maps.difference(a, b); <br>differenceMap.entriesDiffering();<br>differenceMap.entriesOnlyOnLeft();<br>differenceMap.entriesInCommon();<br></pre>4.常用class的API或SampeCode如下
 <br>
-<pre class="prettyprint"><code>Maps.newHashMap();<br>Lists.newArrayList();<br>Sets.newHashSet();<br><br>Map&lt;String, Integer&gt; map = Maps.newHashMap();<br>List&lt;Integer&gt; list = Lists.newArrayList(1, 2, 3);<br></code></pre>
-<pre class="prettyprint"><code>HashMultiset.create();<br>ArrayListMultimap.create();<br>BiMap.create();<br></code></pre>
-<pre class="prettyprint"><code>ImmutableList&lt;String&gt; list = ImmutableList.of("a", "b", "c", "d");<br>ImmutableMap&lt;String,String&gt; map = ImmutableMap.of("key1", "value1", "key2", "value2");<br>ImmutableMap&lt;String, Integer&gt; map = new ImmutableMap.Builder&lt;String, Integer&gt;().put("one", 1).put("two", 2).put("three", 3).build();<br></code></pre>
-<pre class="prettyprint"><code>Iterables、Iterators、Collections2這三個class提供了相似的功能，有相關需求可在這裡面找符合的功能來用<br><br>Iterables.filter(Iterable&lt;T&gt; unfiltered, Predicate&lt;? super T&gt; predicate)，過濾集合所有元素，回傳符合結果的新集合<br>Iterables.transform(Iterable&lt;F&gt; fromIterable, Function&lt;? super F,? extends T&gt; function)，將集合每個內容轉換成其它內容後回傳整個新集合<br>Iterables.partition(Iterable&lt;T&gt; iterable, int size)，將集合切割成多等份<br><br>List&lt;Integer&gt; integers = Lists.newArrayList(1, 2, 3);<br>List&lt;String&gt; strings = Lists.transform(integers, Functions.toStringFunction());<br>integers.add(4);<br>integers.add(5);<br>assertThat(strings.size()).isEqualTo(5);<br></code></pre>
-<pre class="prettyprint"><code>FluentIterable.from(database.getClientList()).filter(activeInLastMonth()).transform(Functions.toStringFunction()).limit(10).toImmutableList();<br></code></pre>
-<pre class="prettyprint"><code>Constraints.constrainedCollection(Collection&lt;E&gt; collection, Constraint&lt;? super E&gt; constraint)<br></code></pre>
-<pre class="prettyprint"><code>public int compareTo(Foo that) {<br> return ComparisonChain.start()<br>  .compare(this.aString, that.aString)<br>  .compare(this.anInt, that.anInt)<br>  .compare(this.anEnum, that.anEnum, Ordering.natural().nullsLast())<br>  .result();<br>}<br><br>Ordering.natural().lexicographical().compare(T left, T right);<br></code></pre>
-<pre class="prettyprint"><code>ObjectArrays.concat(T[] array, T element)<br>ObjectArrays.concat(T element, T[] array) <br>ObjectArrays.concat(T[] first, T[] second, Class&lt;T&gt; type)<br></code></pre>
-<pre class="prettyprint"><code>ConcurrentMap&lt;String, Object&gt; mapExpireAfter30Sec = new MapMaker().expireAfterWrite(30, TimeUnit.SECONDS).makeMap();<br></code></pre>===========================================================================
+<pre class="prettyprint">Maps.newHashMap();<br>Lists.newArrayList();<br>Sets.newHashSet();<br><br>Map&lt;String, Integer&gt; map = Maps.newHashMap();<br>List&lt;Integer&gt; list = Lists.newArrayList(1, 2, 3);<br></pre>
+<pre class="prettyprint">HashMultiset.create();<br>ArrayListMultimap.create();<br>BiMap.create();<br></pre>
+<pre class="prettyprint">ImmutableList&lt;String&gt; list = ImmutableList.of("a", "b", "c", "d");<br>ImmutableMap&lt;String,String&gt; map = ImmutableMap.of("key1", "value1", "key2", "value2");<br>ImmutableMap&lt;String, Integer&gt; map = new ImmutableMap.Builder&lt;String, Integer&gt;().put("one", 1).put("two", 2).put("three", 3).build();<br></pre>
+<pre class="prettyprint">Iterables、Iterators、Collections2這三個class提供了相似的功能，有相關需求可在這裡面找符合的功能來用<br><br>Iterables.filter(Iterable&lt;T&gt; unfiltered, Predicate&lt;? super T&gt; predicate)，過濾集合所有元素，回傳符合結果的新集合<br>Iterables.transform(Iterable&lt;F&gt; fromIterable, Function&lt;? super F,? extends T&gt; function)，將集合每個內容轉換成其它內容後回傳整個新集合<br>Iterables.partition(Iterable&lt;T&gt; iterable, int size)，將集合切割成多等份<br><br>List&lt;Integer&gt; integers = Lists.newArrayList(1, 2, 3);<br>List&lt;String&gt; strings = Lists.transform(integers, Functions.toStringFunction());<br>integers.add(4);<br>integers.add(5);<br>assertThat(strings.size()).isEqualTo(5);<br></pre>
+<pre class="prettyprint">FluentIterable.from(database.getClientList()).filter(activeInLastMonth()).transform(Functions.toStringFunction()).limit(10).toImmutableList();<br></pre>
+<pre class="prettyprint">Constraints.constrainedCollection(Collection&lt;E&gt; collection, Constraint&lt;? super E&gt; constraint)<br></pre>
+<pre class="prettyprint">public int compareTo(Foo that) {<br> return ComparisonChain.start()<br>  .compare(this.aString, that.aString)<br>  .compare(this.anInt, that.anInt)<br>  .compare(this.anEnum, that.anEnum, Ordering.natural().nullsLast())<br>  .result();<br>}<br><br>Ordering.natural().lexicographical().compare(T left, T right);<br></pre>
+<pre class="prettyprint">ObjectArrays.concat(T[] array, T element)<br>ObjectArrays.concat(T element, T[] array) <br>ObjectArrays.concat(T[] first, T[] second, Class&lt;T&gt; type)<br></pre>
+<pre class="prettyprint">ConcurrentMap&lt;String, Object&gt; mapExpireAfter30Sec = new MapMaker().expireAfterWrite(30, TimeUnit.SECONDS).makeMap();<br></pre>===========================================================================
 <br>com.google.common.io package
 <br>
 <br>1.IO操作(e.g.開檔、寫檔...etc)的class在這個package
 <br>
 <br>2.常用class的API或SampeCode如下
 <br>
-<pre class="prettyprint"><code>String content = Resources.toString(url);<br>String[] lines = Resources.readLines(url, Charsets.UTF_8);<br>byte[] content = Resources.toByteArray(url);<br></code></pre>
-<pre class="prettyprint"><code>URI uri = Resources.getResource("test.txt").toURI();<br>List&lt;String&gt; lines = Files.readLines(new File(uri), Charsets.UTF_8);<br>String content = Files.toString(textFile, Charsets.UTF_8);<br>byte[] byteArray = Files.toByteArray(binaryFile);<br>Files.copy(fromFile, toFile);<br></code></pre>
-<pre class="prettyprint"><code>CharStreams、ByteStreams這二個class針對Stream提供了多樣的操作功能<br><br>List&lt;String&gt; lines = CharStreams.readLines(reader);<br>CharStreams.copy(reader, writer);<br>String content = CharStreams.toString(reader);<br></code></pre>===========================================================================
+<pre class="prettyprint">String content = Resources.toString(url);<br>String[] lines = Resources.readLines(url, Charsets.UTF_8);<br>byte[] content = Resources.toByteArray(url);<br></pre>
+<pre class="prettyprint">URI uri = Resources.getResource("test.txt").toURI();<br>List&lt;String&gt; lines = Files.readLines(new File(uri), Charsets.UTF_8);<br>String content = Files.toString(textFile, Charsets.UTF_8);<br>byte[] byteArray = Files.toByteArray(binaryFile);<br>Files.copy(fromFile, toFile);<br></pre>
+<pre class="prettyprint">CharStreams、ByteStreams這二個class針對Stream提供了多樣的操作功能<br><br>List&lt;String&gt; lines = CharStreams.readLines(reader);<br>CharStreams.copy(reader, writer);<br>String content = CharStreams.toString(reader);<br></pre>===========================================================================
 <br>com.google.common.math package
 <br>
 <br>1.數學運算相關class在這個package
 <br>
 <br>2.常用class的API或SampeCode如下
 <br>
-<pre class="prettyprint"><code>IntMath.checkedAdd(int a, int b)，Returns the sum of a and b, provided it does not overflow.<br>IntMath.gcd(int a, int b)<br>IntMath.log10(int x, RoundingMode mode)<br></code></pre>===========================================================================
+<pre class="prettyprint">IntMath.checkedAdd(int a, int b)，Returns the sum of a and b, provided it does not overflow.<br>IntMath.gcd(int a, int b)<br>IntMath.log10(int x, RoundingMode mode)<br></pre>===========================================================================
 <br>com.google.common.primitives package
 <br>
 <br>1.基本型別、基本型別陣列相關操作，找這個package就對了
 <br>
 <br>2.常用class的API或SampeCode如下
 <br>
-<pre class="prettyprint"><code>Ints.compare(int a, int b)<br>Ints.max(int... array)<br>Ints.min(int... array)<br>String joined = Ints.join(",", intArray);<br></code></pre>
+<pre class="prettyprint">Ints.compare(int a, int b)<br>Ints.max(int... array)<br>Ints.min(int... array)<br>String joined = Ints.join(",", intArray);<br></pre>
 </p>
 
       <hr />

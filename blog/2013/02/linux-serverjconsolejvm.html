@@ -255,20 +255,20 @@
 <br>1. server端安裝vnc server與ssh server。ssh部份可參考
 <a href="/blog/2013/02/ssh-server.html" target="_blank">這篇</a>，vnc部份參考下行指令進行安裝 
 <br>
-<pre class="prettyprint"><code>sudo apt-get install tightvncserver<br></code></pre>2.client端用putty設定ssh連線，並將tunnel的port設定成5901
+<pre class="prettyprint">sudo apt-get install tightvncserver<br></pre>2.client端用putty設定ssh連線，並將tunnel的port設定成5901
 <br>
 <a href="/img/2013/02/201302201325_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="383" src="/img/2013/02/201302201325_1.png" width="400"></a>
 <br>client端是linux的user可以執行下行指令來做同樣的事 
 <br>
-<pre class="prettyprint"><code>ssh user@192.168.1.40 -L5901:localhost:5901<br></code></pre>3.client端用putty連上server，接著在putty console裡面執行下列指令 
+<pre class="prettyprint">ssh user@192.168.1.40 -L5901:localhost:5901<br></pre>3.client端用putty連上server，接著在putty console裡面執行下列指令 
 <br>
-<pre class="prettyprint"><code>Xvnc :1 -geometry 1024x768 &amp;<br></code></pre>執行後的畫面類似下面這樣。這功能代表你讓linux上的X server具有了vnc server功能 
+<pre class="prettyprint">Xvnc :1 -geometry 1024x768 &amp;<br></pre>執行後的畫面類似下面這樣。這功能代表你讓linux上的X server具有了vnc server功能 
 <br>
-<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~$ Xvnc :1 -geometry 1024x768 &amp;<br>[1] 2690<br>cloudtu@cloudtu-VirtualBox:~$ 20/02/13 10:34:04 Xvnc version TightVNC-1.3.9<br>20/02/13 10:34:04 Copyright (C) 2000-2007 TightVNC Group<br>20/02/13 10:34:04 Copyright (C) 1999 AT&amp;T Laboratories Cambridge<br>20/02/13 10:34:04 All Rights Reserved.<br>20/02/13 10:34:04 See http://www.tightvnc.com/ for information on TightVNC<br>20/02/13 10:34:04 Desktop name 'x11' (cloudtu-VirtualBox:1)<br>20/02/13 10:34:04 Protocol versions supported: 3.3, 3.7, 3.8, 3.7t, 3.8t<br>20/02/13 10:34:04 Listening for VNC connections on TCP port 5901<br>Font directory '/usr/share/fonts/X11/Speedo/' not found - ignoring<br>Font directory '/usr/share/fonts/X11/75dpi/' not found - ignoring<br>Font directory '/usr/share/fonts/X11/100dpi/' not found - ignoring<br></code></pre>在putty console接著執行下行指令。這代表要把server端所有具有gui畫面程式的畫面輸出都導到vnc client。 
+<pre class="prettyprint">cloudtu@cloudtu-VirtualBox:~$ Xvnc :1 -geometry 1024x768 &amp;<br>[1] 2690<br>cloudtu@cloudtu-VirtualBox:~$ 20/02/13 10:34:04 Xvnc version TightVNC-1.3.9<br>20/02/13 10:34:04 Copyright (C) 2000-2007 TightVNC Group<br>20/02/13 10:34:04 Copyright (C) 1999 AT&amp;T Laboratories Cambridge<br>20/02/13 10:34:04 All Rights Reserved.<br>20/02/13 10:34:04 See http://www.tightvnc.com/ for information on TightVNC<br>20/02/13 10:34:04 Desktop name 'x11' (cloudtu-VirtualBox:1)<br>20/02/13 10:34:04 Protocol versions supported: 3.3, 3.7, 3.8, 3.7t, 3.8t<br>20/02/13 10:34:04 Listening for VNC connections on TCP port 5901<br>Font directory '/usr/share/fonts/X11/Speedo/' not found - ignoring<br>Font directory '/usr/share/fonts/X11/75dpi/' not found - ignoring<br>Font directory '/usr/share/fonts/X11/100dpi/' not found - ignoring<br></pre>在putty console接著執行下行指令。這代表要把server端所有具有gui畫面程式的畫面輸出都導到vnc client。 
 <br>
-<pre class="prettyprint"><code>export DISPLAY=:1<br></code></pre>在putty console接著執行jconsole指令，此時會把jconsole的gui畫面導到vnc client。 
+<pre class="prettyprint">export DISPLAY=:1<br></pre>在putty console接著執行jconsole指令，此時會把jconsole的gui畫面導到vnc client。 
 <br>
-<pre class="prettyprint"><code>jconsole &amp;<br></code></pre>4.client端執行vnc client，連到127.0.0.1:5901。這時就會看到server上面執行的jconsle，而且可以進行jvm的監控與分析
+<pre class="prettyprint">jconsole &amp;<br></pre>4.client端執行vnc client，連到127.0.0.1:5901。這時就會看到server上面執行的jconsle，而且可以進行jvm的監控與分析
 <br>
 <a href="/img/2013/02/201302201325_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="/img/2013/02/201302201325_2.png" width="400"></a>
 <br>===========================================================================
@@ -276,7 +276,7 @@
 <br>
 <br>1.Xvnc指令是指「an X server providing VNC connectivity」，它的重要參數簡述如下。還有不懂之處自已用man指令去查吧 
 <br>
-<pre class="prettyprint"><code>Xvnc [:display] [-geometry  widthxheight]<br>[:display] -&gt; The display number to use.<br>[-geometry widthxheight] -&gt; Set desktop width and height.<br></code></pre>2.Xvnc裡的「:display」參數(在我的實做中是用「:1」)對應到vnc的port number是 590X，X就是你指定的「:display」數值。
+<pre class="prettyprint">Xvnc [:display] [-geometry  widthxheight]<br>[:display] -&gt; The display number to use.<br>[-geometry widthxheight] -&gt; Set desktop width and height.<br></pre>2.Xvnc裡的「:display」參數(在我的實做中是用「:1」)對應到vnc的port number是 590X，X就是你指定的「:display」數值。
 <br>3.要能順利的從client端經由vnc連到server，記的把server端firewall裡的vnc port開啟，不然會一直被server打臉不給連
 <br>4.Xvnc指令本身並沒有提供綁定密碼或其它安全機制，client端在看完jconsole監控的jvm狀況後，建議就把server端的Xvnc給關掉，有需要時才利用ssh方式去啟動它。另外就是，記的要在server端設定好firewall的規則，讓特定的ip才許可經由vnc方式連線過來
 <br>5.我只用到tightvncserver裡的Xvnc功能，如果想使用tightvncserver的完整功能，可以參考

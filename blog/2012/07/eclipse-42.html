@@ -309,7 +309,7 @@ eclipse 3.6 一直用的好好的也就懶的升到新版，這儿天因為 goog
 <ol>
  <li>直接連到 update site 線上安裝</li>
  <li>把 plugin 網站提供的 archived update site 抓下來，再離線安裝</li>
- <li>終極懶人大法則是把 archived update site 抓下來後 直接解開再丟到 eclipse 目錄裡的 dropin 子目錄中。因為 Eclipse 用到 OSGi 的架構，在啟動後如果發現這目錄有可以啟動的 plugin，會自動把它啟用。不過這招懶人大法不見的對所有的 plugin 都有效就是了...( <span class="st">ˊ_&gt;ˋ</span>) <pre class="prettyprint"><code>C:\NoNeedInstallPrograms\eclipse\dropins&gt;tree<br>C:.<br>└─eclemma-1.5.3   &lt;-- 1.先依plugin名稱建立合適的plugin folder name<br>  └─eclipse       &lt;-- 2.再建立一個名為"eclipse"的目錄<br>      ├─features  &lt;-- 3.把archived update site解開後的features、plugins目錄直接整個搬過來<br>      └─plugins<br></code></pre></li>
+ <li>終極懶人大法則是把 archived update site 抓下來後 直接解開再丟到 eclipse 目錄裡的 dropin 子目錄中。因為 Eclipse 用到 OSGi 的架構，在啟動後如果發現這目錄有可以啟動的 plugin，會自動把它啟用。不過這招懶人大法不見的對所有的 plugin 都有效就是了...( <span class="st">ˊ_&gt;ˋ</span>) <pre class="prettyprint">C:\NoNeedInstallPrograms\eclipse\dropins&gt;tree<br>C:.<br>└─eclemma-1.5.3   &lt;-- 1.先依plugin名稱建立合適的plugin folder name<br>  └─eclipse       &lt;-- 2.再建立一個名為"eclipse"的目錄<br>      ├─features  &lt;-- 3.把archived update site解開後的features、plugins目錄直接整個搬過來<br>      └─plugins<br></pre></li>
 </ol>
 <br>安裝完 ecipse 4.2 後會發現它預設的字型顯示中文很悲劇，要改成 Courier New 字型才會好看。如果 eclipse 要改字型時，發現字型下拉清單中找不到 Courier New 字型的話，要到作業系統中的 "控制台 &gt; 外觀及個人化 &gt; 字型" ，對裡面的 "Courier New" 按右鈕選 "顯示"，接著再回到 eclipse 裡改字型時，就可以發現 Courier New 字型出現了...:)
 <br>
@@ -318,7 +318,7 @@ eclipse 3.6 一直用的好好的也就懶的升到新版，這儿天因為 goog
 <br>
 <br>Eclipse 啟動時會去讀 eclipse.ini 裡的設定，有需要的話就改一下吧。我個人是喜歡改成下例這樣。 
 <br>
-<pre class="prettyprint"><code>預設的一堆設定...etc<br>-Xms128m<br>-Xmx512m<br>-XX:PermSize=64m<br>-XX:MaxPermSize=256m<br>-XX:+UseParallelOldGC<br>-Duser.language=en<br></code></pre>
+<pre class="prettyprint">預設的一堆設定...etc<br>-Xms128m<br>-Xmx512m<br>-XX:PermSize=64m<br>-XX:MaxPermSize=256m<br>-XX:+UseParallelOldGC<br>-Duser.language=en<br></pre>
 </p>
 
       <hr />

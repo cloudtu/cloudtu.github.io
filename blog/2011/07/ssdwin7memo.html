@@ -239,7 +239,7 @@
  <br>
  <li>所有重要資料全部移轉到HD，SSD單純只當OS跟Application專用空間。如果有在寫程式，記的把IDE的Workspace全指到HD，以免SSD出問題時損失慘重</li>
  <br>
- <li>重要資料勤做備份，Win7內建的robocopy指令就很好用了，請善用此指令做資料備份。以下是robocopy做partition to partition fully backup的sample script <pre class="prettyprint"><code>@echo off<br><br>set SourcePath=E:\<br>set TargetPath=K:\<br>set ProcessLogPath=K:\my_disk_backup.log<br><br>rem Do fully backup<br>robocopy %SourcePath% %TargetPath% /e /xo /xf *.tmp *.bak *.log /xa:sh /purge /r:0 /np /log+:%ProcessLogPath%<br><br>rem pause<br></code></pre></li>
+ <li>重要資料勤做備份，Win7內建的robocopy指令就很好用了，請善用此指令做資料備份。以下是robocopy做partition to partition fully backup的sample script <pre class="prettyprint">@echo off<br><br>set SourcePath=E:\<br>set TargetPath=K:\<br>set ProcessLogPath=K:\my_disk_backup.log<br><br>rem Do fully backup<br>robocopy %SourcePath% %TargetPath% /e /xo /xf *.tmp *.bak *.log /xa:sh /purge /r:0 /np /log+:%ProcessLogPath%<br><br>rem pause<br></pre></li>
 </ol>
 <br>簡單來說，使用SSD的守則就是最大量的降低沒必要的存取，所以才有上述這些注意事項。雖然現在SSD的保固已經開始到三、五年，但是在技術上跟HD比還是不夠成熟。在NAND Flash目前物理極限讀寫次數遠落後於HD的狀況下，在享受它帶來的高速存取之餘還是小心使用為妙呀...:)
 </p>

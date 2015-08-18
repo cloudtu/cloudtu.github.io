@@ -5,8 +5,8 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Mon, 17 Aug 2015 12:01:18 +0800</pubDate>
-    <lastBuildDate>Mon, 17 Aug 2015 12:01:18 +0800</lastBuildDate>
+    <pubDate>Tue, 18 Aug 2015 15:33:06 +0800</pubDate>
+    <lastBuildDate>Tue, 18 Aug 2015 15:33:06 +0800</lastBuildDate>
 
     <item>
       <title>java library for github api 心得筆記</title>
@@ -90,7 +90,7 @@
 &lt;br&gt;
 &lt;br&gt;先寫出備份 github project 專用的備份 script。我把它命名為 github_project_backup.sh
 &lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;#github_project_backup.sh&lt;br&gt;#!/bin/sh&lt;br&gt;&lt;br&gt;#執行前要先修改這裡，設定你的 github id&lt;br&gt;github_user_id=my_github_id&lt;br&gt;&lt;br&gt;#執行前要先修改這裡，設定你的 github password&lt;br&gt;github_user_pwd=my_github_pwd&lt;br&gt;&lt;br&gt;#執行這個 bash 時，在 console 要輸入的 github project name&lt;br&gt;read -p &quot;input the name of github project : &quot; github_project_name&lt;br&gt;&lt;br&gt;#在 local 端產生 bare repository，並將 remote 端的每個 branch 都在 local 端產生一份&lt;br&gt;#&lt;br&gt;# --mirror 參數的官方說明如下&lt;br&gt;# Set up a mirror of the source repository. This implies --bare. Compared to --bare, --mirror not only &lt;br&gt;# maps local branches of the source to local branches of the target, it maps all refs (including &lt;br&gt;# remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs &lt;br&gt;# are overwritten by a git remote update in the target repository.&lt;br&gt;#&lt;br&gt;git clone --mirror https://${github_user_id}:${github_user_pwd}@github.com/${github_user_id}/${github_project_name}.git&lt;br&gt;&lt;br&gt;cd ${github_project_name}.git&lt;br&gt;&lt;br&gt;#因為 remote repository 在你備份到 local 端之後可能會刪除，所以先把 remote 來源刪掉&lt;br&gt;git remote rm origin&lt;br&gt;&lt;br&gt;cd ..&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;進行備份，流程像下述這樣
+&lt;pre class=&quot;prettyprint&quot;&gt;#github_project_backup.sh&lt;br&gt;#!/bin/sh&lt;br&gt;&lt;br&gt;#執行前要先修改這裡，設定你的 github id&lt;br&gt;github_user_id=my_github_id&lt;br&gt;&lt;br&gt;#執行前要先修改這裡，設定你的 github password&lt;br&gt;github_user_pwd=my_github_pwd&lt;br&gt;&lt;br&gt;#執行這個 bash 時，在 console 要輸入的 github project name&lt;br&gt;read -p &quot;input the name of github project : &quot; github_project_name&lt;br&gt;&lt;br&gt;#在 local 端產生 bare repository，並將 remote 端的每個 branch 都在 local 端產生一份&lt;br&gt;#&lt;br&gt;# --mirror 參數的官方說明如下&lt;br&gt;# Set up a mirror of the source repository. This implies --bare. Compared to --bare, --mirror not only &lt;br&gt;# maps local branches of the source to local branches of the target, it maps all refs (including &lt;br&gt;# remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs &lt;br&gt;# are overwritten by a git remote update in the target repository.&lt;br&gt;#&lt;br&gt;git clone --mirror https://${github_user_id}:${github_user_pwd}@github.com/${github_user_id}/${github_project_name}.git&lt;br&gt;&lt;br&gt;cd ${github_project_name}.git&lt;br&gt;&lt;br&gt;#因為 remote repository 在你備份到 local 端之後可能會刪除，所以先把 remote 來源刪掉&lt;br&gt;git remote rm origin&lt;br&gt;&lt;br&gt;cd ..&lt;br&gt;&lt;/pre&gt;進行備份，流程像下述這樣
 &lt;br&gt;
 &lt;ol&gt;
  &lt;li&gt;remote repository 有二個 branch、二個 tag&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_1.png&quot; height=&quot;218&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
@@ -100,7 +100,7 @@
 &lt;br&gt;
 &lt;br&gt;如果是打算把 local repository push 到(或說是搬到) new remote repository，接下來要執行下列指令。
 &lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;cd /path/to/my_local_repository&lt;br&gt;git remote add origin https://my_new_remote_repository&lt;br&gt;git push -u origin --all #pushes up the repo and its refs for the first time &lt;br&gt;git push -u origin --tags #pushes up any tags&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;接續的搬移流程像下述這樣
+&lt;pre class=&quot;prettyprint&quot;&gt;cd /path/to/my_local_repository&lt;br&gt;git remote add origin https://my_new_remote_repository&lt;br&gt;git push -u origin --all #pushes up the repo and its refs for the first time &lt;br&gt;git push -u origin --tags #pushes up any tags&lt;br&gt;&lt;/pre&gt;接續的搬移流程像下述這樣
 &lt;br&gt;
 &lt;ol&gt;
  &lt;li&gt;new remote repository 指到 bitbucket&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_4.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_4.png&quot; height=&quot;246&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
@@ -196,12 +196,12 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
 &lt;br&gt;
 &lt;br&gt;假設我在 AWS 建了一台 EC2，並且將它綁定 EIP(Elastic IP)，EC2 的 ip 資訊如下
 &lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;private ip : 172.30.45.70&lt;br&gt;public ip : 50.190.20.220&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;目前的 cassandra ring(cluster) 分佈在多個 AWS region，seed node 的 public ip 是 60.190.20.210。我要將該台 EC2 加入其中，相關注意事項如下 
+&lt;pre class=&quot;prettyprint&quot;&gt;private ip : 172.30.45.70&lt;br&gt;public ip : 50.190.20.220&lt;br&gt;&lt;/pre&gt;目前的 cassandra ring(cluster) 分佈在多個 AWS region，seed node 的 public ip 是 60.190.20.210。我要將該台 EC2 加入其中，相關注意事項如下 
 &lt;br&gt;
 &lt;ol&gt;
- &lt;li&gt;cassandra.yaml&lt;br&gt;設定值要長像這樣，相關原因在官方文件有&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchEC2MultiRegion_c.html?scroll=concept_ds_gck_hrf_fk__other-settings&quot; target=&quot;_blank&quot;&gt;說明&lt;/a&gt;&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;endpoint_snitch: EC2MultiRegionSnitch&lt;br&gt;listen_address : ec2_private_ip&lt;br&gt;rpc_address : ec2_private_ip&lt;br&gt;broadcast_address : ec2_public_ip&lt;br&gt;seeds : seed_public_ip&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;以目前的例子來說則是設成 &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;endpoint_snitch: EC2MultiRegionSnitch&lt;br&gt;listen_address : 172.30.45.70&lt;br&gt;rpc_address : 172.30.45.70&lt;br&gt;broadcast_address : 50.190.20.220&lt;br&gt;seeds : 60.190.20.210&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
- &lt;li&gt;cassandra-env.sh&lt;br&gt;增加下面這行跟 JMX 有關的設定。為何要加這行? 這是為了防止&amp;nbsp; nodetool 指令執行時出現 &quot;Connection has timed out&quot; 異常。這問題在 &lt;a href=&quot;http://stackoverflow.com/questions/15299302/cassandra-nodetool-connection-timed-out&quot; target=&quot;_blank&quot;&gt;stackoverflow &lt;/a&gt;有被討論跟解釋過。&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;JVM_OPTS=&quot;$JVM_OPTS -Djava.rmi.server.hostname=127.0.0.1&quot;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
- &lt;li&gt;EC2 的 firewall 把該開的 port 都打開(從 EC2 &amp;gt; Security Group &amp;gt; Inbound 設定裡改)，一般來說是開啟下面儿個 &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;storage_port : 7000&lt;br&gt;jmx_port : 7199&lt;br&gt;native_transport_port : 9042&lt;br&gt;rpc_port : 9160&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+ &lt;li&gt;cassandra.yaml&lt;br&gt;設定值要長像這樣，相關原因在官方文件有&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchEC2MultiRegion_c.html?scroll=concept_ds_gck_hrf_fk__other-settings&quot; target=&quot;_blank&quot;&gt;說明&lt;/a&gt;&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;endpoint_snitch: EC2MultiRegionSnitch&lt;br&gt;listen_address : ec2_private_ip&lt;br&gt;rpc_address : ec2_private_ip&lt;br&gt;broadcast_address : ec2_public_ip&lt;br&gt;seeds : seed_public_ip&lt;br&gt;&lt;/pre&gt;以目前的例子來說則是設成 &lt;pre class=&quot;prettyprint&quot;&gt;endpoint_snitch: EC2MultiRegionSnitch&lt;br&gt;listen_address : 172.30.45.70&lt;br&gt;rpc_address : 172.30.45.70&lt;br&gt;broadcast_address : 50.190.20.220&lt;br&gt;seeds : 60.190.20.210&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
+ &lt;li&gt;cassandra-env.sh&lt;br&gt;增加下面這行跟 JMX 有關的設定。為何要加這行? 這是為了防止&amp;nbsp; nodetool 指令執行時出現 &quot;Connection has timed out&quot; 異常。這問題在 &lt;a href=&quot;http://stackoverflow.com/questions/15299302/cassandra-nodetool-connection-timed-out&quot; target=&quot;_blank&quot;&gt;stackoverflow &lt;/a&gt;有被討論跟解釋過。&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;JVM_OPTS=&quot;$JVM_OPTS -Djava.rmi.server.hostname=127.0.0.1&quot;&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
+ &lt;li&gt;EC2 的 firewall 把該開的 port 都打開(從 EC2 &amp;gt; Security Group &amp;gt; Inbound 設定裡改)，一般來說是開啟下面儿個 &lt;pre class=&quot;prettyprint&quot;&gt;storage_port : 7000&lt;br&gt;jmx_port : 7199&lt;br&gt;native_transport_port : 9042&lt;br&gt;rpc_port : 9160&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ol&gt;雖然這裡是用 EC2 當例子，不過只要是 IaaS 設定上應該都與此相似。比較大的差異在 cassandra.yaml 裡的 
 &lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchesAbout_c.html&quot; target=&quot;_blank&quot;&gt;endpoint_snitch&lt;/a&gt; 設定，EC2 用 
 &lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchEC2MultiRegion_c.html&quot; target=&quot;_blank&quot;&gt;EC2MultiRegionSnitch&lt;/a&gt;，GCE(GoogleComputerEngine) 用 
@@ -220,20 +220,20 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
       <description>
 這陣子在 Cassandra 的使用上遇到個很麻煩的怪事，那就是 ring 上某個 node 發生HintsColumnFamily 異常巨大的情況。執行下述指令後
 &lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;ls -lh {cassandra_data_folder}/system/HintsColumnFamily*&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;我發現 HintsColumnFamily 吃掉了 10儿G 的 HD，出問題的 node 跑起來跟快掛掉沒兩樣，實在是災難一場。
+&lt;pre class=&quot;prettyprint&quot;&gt;ls -lh {cassandra_data_folder}/system/HintsColumnFamily*&lt;br&gt;&lt;/pre&gt;我發現 HintsColumnFamily 吃掉了 10儿G 的 HD，出問題的 node 跑起來跟快掛掉沒兩樣，實在是災難一場。
 &lt;br&gt;
 &lt;br&gt;要如何解決這場災難，可以參考下列資料
 &lt;br&gt;
 &lt;ol&gt;
  &lt;li&gt;coordinator node 負擔是否過重?資料寫入動作不要集中單一 coordinator node ，要分散到多個 node &lt;/li&gt;
- &lt;li&gt;coordinator node 在跟 ring 裡其它 node 進行通訊(cassandra gossiping)時，是否通訊不良?在 coordinator node 執行下述指令，看看發生 &#39;Timed out replaying hint&#39; 訊息的是哪儿個 node，想辦法改善這些 node 的網路品質&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;cat {cassandra_root_folder}/system.log | grep &#39;Timed out replaying hint&#39; | less&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+ &lt;li&gt;coordinator node 在跟 ring 裡其它 node 進行通訊(cassandra gossiping)時，是否通訊不良?在 coordinator node 執行下述指令，看看發生 &#39;Timed out replaying hint&#39; 訊息的是哪儿個 node，想辦法改善這些 node 的網路品質&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;cat {cassandra_root_folder}/system.log | grep &#39;Timed out replaying hint&#39; | less&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
  &lt;li&gt;因為 HintsColumnFamily 過於巨大，要等裡面的資料慢慢被消化完是無意義的。最有效率的解決辦法是直接刪除 HintsColumnFamily 檔案，把 hinted handoff 資料全部放生，然後再到各個發生 &#39;Timed out replaying hint&#39; 的 node 執行 repair 動作。處理步驟如下&lt;br&gt;
   &lt;ol&gt;
    &lt;li&gt;連線到 coordinator node &lt;/li&gt;
-   &lt;li&gt;shutdown cassandra &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;nodetool -h coordinator_node disablegossip&lt;br&gt;nodetool -h coordinator_node disablethrift&lt;br&gt;nodetool -h coordinator_node drain&lt;br&gt;kill -9 {cassandra_service_pid}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-   &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;rm -rf {cassandra_data_folder}/system/HintsColumnFamily*&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+   &lt;li&gt;shutdown cassandra &lt;pre class=&quot;prettyprint&quot;&gt;nodetool -h coordinator_node disablegossip&lt;br&gt;nodetool -h coordinator_node disablethrift&lt;br&gt;nodetool -h coordinator_node drain&lt;br&gt;kill -9 {cassandra_service_pid}&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
+   &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;rm -rf {cassandra_data_folder}/system/HintsColumnFamily*&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
    &lt;li&gt;start cassandra&lt;/li&gt;
-   &lt;li&gt;連線到發生 &#39;Timed out replaying hint&#39; 的那儿個node，各別都執行下述指令，修復資料不一致的儿個 columnfamily&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;nodetool -h hint_fail_node repair {repaired_keyspace} {repaired_columnfamily} -pr&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+   &lt;li&gt;連線到發生 &#39;Timed out replaying hint&#39; 的那儿個node，各別都執行下述指令，修復資料不一致的儿個 columnfamily&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;nodetool -h hint_fail_node repair {repaired_keyspace} {repaired_columnfamily} -pr&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
    &lt;li&gt;如果不想讓 HintsColumnFamily 的資料保留時間過久，可以修改 coordinator node 的 cassandra.yaml 設定檔，將 max_hint_window_in_ms 設定值改小。這個設定值預設是 3600000，代表裡面的資料預設只保留 1 小時，時間超過時就會被系統自動清除&lt;/li&gt;
   &lt;/ol&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -292,12 +292,12 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
     &lt;ul&gt;
      &lt;li&gt;語法範列 
       &lt;ul&gt;
-       &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;PRIMARY KEY(partition_key,clustering_column_1,clustering_column_2)&lt;/code&gt;&lt;/pre&gt;partition_key 對應到 column family 的 row key，clustering_column_1、clustering_column_2 則是 composite column&lt;/li&gt;
-       &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;PRIMARY KEY((partition_key1,partition_key2),clustering_column_1,clustering_column_2,clustering_column_3)&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;partition_key1 + partition_key2 組合了 column family 的 row key，clustering_column_1、clustering_column_2、clustering_column_3 則是 composite column &lt;/li&gt;
+       &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;PRIMARY KEY(partition_key,clustering_column_1,clustering_column_2)&lt;/pre&gt;partition_key 對應到 column family 的 row key，clustering_column_1、clustering_column_2 則是 composite column&lt;/li&gt;
+       &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;PRIMARY KEY((partition_key1,partition_key2),clustering_column_1,clustering_column_2,clustering_column_3)&lt;br&gt;&lt;/pre&gt;partition_key1 + partition_key2 組合了 column family 的 row key，clustering_column_1、clustering_column_2、clustering_column_3 則是 composite column &lt;/li&gt;
       &lt;/ul&gt;&lt;/li&gt;
      &lt;li&gt;圖解
       &lt;ol&gt;
-       &lt;li&gt;先用 CQL3 執行下述指令產生 table 與資料 &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;CREATE TABLE passbook (&lt;br&gt; user varchar,&lt;br&gt; date timestamp,&lt;br&gt; deposit int,&lt;br&gt; withdraw int, &lt;br&gt; PRIMARY KEY(user,date)&lt;br&gt;);&lt;br&gt;INSERT INTO passbook (user, date, deposit,withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-01&#39;,1000,10);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-02&#39;,20);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-03&#39;,30);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-01&#39;,300);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-02&#39;,200);&lt;br&gt;INSERT INTO passbook (user, date, deposit, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-03&#39;,2000, 100);&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       &lt;li&gt;先用 CQL3 執行下述指令產生 table 與資料 &lt;pre class=&quot;prettyprint&quot;&gt;CREATE TABLE passbook (&lt;br&gt; user varchar,&lt;br&gt; date timestamp,&lt;br&gt; deposit int,&lt;br&gt; withdraw int, &lt;br&gt; PRIMARY KEY(user,date)&lt;br&gt;);&lt;br&gt;INSERT INTO passbook (user, date, deposit,withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-01&#39;,1000,10);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-02&#39;,20);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-03&#39;,30);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-01&#39;,300);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-02&#39;,200);&lt;br&gt;INSERT INTO passbook (user, date, deposit, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-03&#39;,2000, 100);&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
        &lt;li&gt;產生的資料利用 CQL3 與 CLI 查詢的對照如下圖&lt;br&gt;&lt;a href=&quot;/img/2014/02/201402151522_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/02/201402151522_1.png&quot; height=&quot;115&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
        &lt;li&gt;也可以參考 datastax 寫的&lt;a href=&quot;http://www.datastax.com/docs/1.1/ddl/column_family#composite-columns&quot; target=&quot;_blank&quot;&gt;這份文件&lt;/a&gt;裡針對 composite columns 章節設計出來的 timeline table 圖例解說&lt;/li&gt;
       &lt;/ol&gt;&lt;/li&gt;

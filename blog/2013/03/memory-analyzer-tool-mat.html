@@ -251,7 +251,7 @@ Memory Analyzer Tool (MAT) 這工具蠻好用的，但是常常太久沒用之�
 <br>
 <br>1.先產生一個會讓heap炸掉的程式 
 <br>
-<pre class="prettyprint"><code>public class MatDemo {<br><br> /**<br>  * @param args<br>  */<br> public static void main(String[] args) {<br>  List datas = new ArrayList();<br>  int counter = 1;<br>  while(true){<br>   datas.add(counter);<br>   counter ++;<br>  }<br> }<br>}<br></code></pre>2.接下來就是分析這個炸掉的HeapDump啦，我常用的MAT功能是下圖裡面紅框標示的這儿個
+<pre class="prettyprint">public class MatDemo {<br><br> /**<br>  * @param args<br>  */<br> public static void main(String[] args) {<br>  List datas = new ArrayList();<br>  int counter = 1;<br>  while(true){<br>   datas.add(counter);<br>   counter ++;<br>  }<br> }<br>}<br></pre>2.接下來就是分析這個炸掉的HeapDump啦，我常用的MAT功能是下圖裡面紅框標示的這儿個
 <br>
 <a href="/img/2013/03/201303012058_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="248" src="/img/2013/03/201303012058_1.png" width="400"></a>
 <br>3.Histogram功能展示。從下圖中可以看出來Integer class的instance超多，吃掉一堆memory

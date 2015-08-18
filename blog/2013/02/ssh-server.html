@@ -228,16 +228,16 @@
 <br>
 <br>1.安裝ssh client(ubuntu應該有內建，有缺的話才需要裝)，裝完後可以用ssh指令連到ssh server
 <br>
-<pre class="prettyprint"><code>sudo apt-get install openssh-client<br></code></pre>2.安裝ssh server
+<pre class="prettyprint">sudo apt-get install openssh-client<br></pre>2.安裝ssh server
 <br>
-<pre class="prettyprint"><code>sudo apt-get install openssh-server<br></code></pre>3.安裝完成後可以用下述指令檢查ssh service的狀態
+<pre class="prettyprint">sudo apt-get install openssh-server<br></pre>3.安裝完成後可以用下述指令檢查ssh service的狀態
 <br>
-<pre class="prettyprint"><code>#ssh service status<br>service ssh status<br><br>#start ssh service<br>sudo service ssh start<br><br>#stop ssh service<br>sudo service ssh stop<br><br>#restart ssh service<br>sudo service ssh restart<br></code></pre>4.調整ssh service設定檔內容。設定完成後要記的restart ssh service
+<pre class="prettyprint">#ssh service status<br>service ssh status<br><br>#start ssh service<br>sudo service ssh start<br><br>#stop ssh service<br>sudo service ssh stop<br><br>#restart ssh service<br>sudo service ssh restart<br></pre>4.調整ssh service設定檔內容。設定完成後要記的restart ssh service
 <br>用vi修改設定檔
 <br>
-<pre class="prettyprint"><code>sudo vim /etc/ssh/sshd_config<br></code></pre>設定檔裡面比較重要的儿項參數說明如下 
+<pre class="prettyprint">sudo vim /etc/ssh/sshd_config<br></pre>設定檔裡面比較重要的儿項參數說明如下 
 <br>
-<pre class="prettyprint"><code># ssh的port number<br>Port 22<br><br>#是否許可root帳號登入，如果不想許可的話把yes改成no<br>PermitRootLogin yes<br><br>#是否許可使用輸入密碼方式進行登入驗証，如果不想許可的話把yes改成no<br>#這項目預設是不啟用，而是使用公私鑰方式進行驗証，因為這樣比較安全<br>PasswordAuthentication yes<br></code></pre>5.官方安裝說明文件在
+<pre class="prettyprint"># ssh的port number<br>Port 22<br><br>#是否許可root帳號登入，如果不想許可的話把yes改成no<br>PermitRootLogin yes<br><br>#是否許可使用輸入密碼方式進行登入驗証，如果不想許可的話把yes改成no<br>#這項目預設是不啟用，而是使用公私鑰方式進行驗証，因為這樣比較安全<br>PasswordAuthentication yes<br></pre>5.官方安裝說明文件在
 <a href="https://help.ubuntu.com/10.04/serverguide/openssh-server.html" target="_blank">這裡</a>，有興趣的可以參考看看 ===========================================================================
 <br>&lt;如何產生ssh公私鑰並依此進行ssh連線&gt; 
 <br>
@@ -247,7 +247,7 @@
 <a href="http://blog.faq-book.com/?p=1444" target="_blank">PuTTYgen產生金鑰</a>」文章的說明
 <br>3.ssh server認可的金鑰(公鑰部份)，固定放在下面這二者其中之一的位置
 <br>
-<pre class="prettyprint"><code>#以一般角色安裝ssh server的授權金鑰檔位置<br>/home/user_name/.ssh/authorized_keys<br><br>#以root角色安裝ssh server的授權金鑰檔位置<br>/root/.ssh/authorized_keys<br></code></pre>4.ssh用到的公私鑰細節，可以參考
+<pre class="prettyprint">#以一般角色安裝ssh server的授權金鑰檔位置<br>/home/user_name/.ssh/authorized_keys<br><br>#以root角色安裝ssh server的授權金鑰檔位置<br>/root/.ssh/authorized_keys<br></pre>4.ssh用到的公私鑰細節，可以參考
 <a href="http://josephjiang.com/article/understand-ssh-key/" target="_blank">這篇</a>文章，看完後就可以知道這整個過程是怎麼一回事
 </p>
 

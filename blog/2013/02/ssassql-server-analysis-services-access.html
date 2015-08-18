@@ -281,7 +281,7 @@
 <br>5.撰寫 tnsnames.ora 設定檔
 <br>手工建立「C:\oracle_32bit\11.2.0\client_1\network\admin」目錄與「C:\oracle_64bit\11.2.0\client_1\network\admin」目錄。在這二個目錄中都建立一個「相同」內容的「tnsnames.ora」檔案。該檔的內容長的像下列範例 
 <br>
-<pre class="prettyprint"><code>TEST_DB =<br>  (DESCRIPTION =<br>    (ADDRESS_LIST =<br>      (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.1.1)(PORT = 1521))<br>    )<br>    (CONNECT_DATA =<br>      (SID = testdb)<br>      (SERVER = DEDICATED)<br>    )<br>  )<br></code></pre>
+<pre class="prettyprint">TEST_DB =<br>  (DESCRIPTION =<br>    (ADDRESS_LIST =<br>      (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.1.1)(PORT = 1521))<br>    )<br>    (CONNECT_DATA =<br>      (SID = testdb)<br>      (SERVER = DEDICATED)<br>    )<br>  )<br></pre>
 <br>6.改環境變數的Path參數
 <br>作業系統裡環境變數的Path參數在裝完32bit與64bit的Oracle client後會長的類似下面這樣，把紅色刪除線部份的Path從設定中給移掉。
 <br>C:\oracle_64bit\11.2.0\client_1\bin;
@@ -302,7 +302,7 @@
 <br>9.撰寫 LaunchBIDS.bat (這步驟非必需，不過建議還是設定一下)
 <br>在桌面上寫個LaunchBIDS.bat，以後都用它來啟動BIDS。參考範例如下。
 <br>
-<pre class="prettyprint"><code>@echo on<br><br>set path=C:\oracle_32bit\11.2.0\client_1\bin;%path%<br>c:<br>cd\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE<br>start devenv.exe<br>exit<br></code></pre>
+<pre class="prettyprint">@echo on<br><br>set path=C:\oracle_32bit\11.2.0\client_1\bin;%path%<br>c:<br>cd\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE<br>start devenv.exe<br>exit<br></pre>
 <br>10.重新開機
 <br>
 <code>超重要，一定要重開</code>，免的有一些奇怪的靈異現象!

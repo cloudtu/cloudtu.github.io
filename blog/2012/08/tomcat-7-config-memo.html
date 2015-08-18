@@ -235,21 +235,21 @@
 <br>
 <ol>
  <li>在 Z:\apache-tomcat-7.0.29\bin 目錄裡，自行建立 setenv.bat 與 setenv.sh 。setenv.bat 是給 windows 使用，setenv.sh是給 linux 使用。</li>
- <li>setenv.bat 的設定可參考下例 <pre class="prettyprint"><code>set JAVA_HOME=C:\Java\jdk1.7.0_05<br>set JAVA_OPTS=-Xms64m -Xmx384m -XX:+UseParallelGC -Duser.timezone=Asia/Taipei<br></code></pre></li>
- <li>setenv.sh 的設定可參考下例 <pre class="prettyprint"><code>export JAVA_HOME="/usr/lib/jvm/java-7-sun-1.7.0_05"<br>export JAVA_OPTS="-Xms64m -Xmx384m -XX:+UseParallelGC -Duser.timezone=Asia/Taipei"<br></code></pre></li>
+ <li>setenv.bat 的設定可參考下例 <pre class="prettyprint">set JAVA_HOME=C:\Java\jdk1.7.0_05<br>set JAVA_OPTS=-Xms64m -Xmx384m -XX:+UseParallelGC -Duser.timezone=Asia/Taipei<br></pre></li>
+ <li>setenv.sh 的設定可參考下例 <pre class="prettyprint">export JAVA_HOME="/usr/lib/jvm/java-7-sun-1.7.0_05"<br>export JAVA_OPTS="-Xms64m -Xmx384m -XX:+UseParallelGC -Duser.timezone=Asia/Taipei"<br></pre></li>
 </ol>
 <br>設定 HTTP、HTTPS 連線相關參數
 <br>
 <ol>
  <li>開啟&nbsp; Z:\apache-tomcat-7.0.29\conf\server.xml</li>
- <li>參考下例修改成符合自己所需的設定 <pre class="prettyprint"><code>&lt;!--<br> port : The TCP port number on which this Connector will create a server socket and await incoming connections.<br> protocol : Sets the protocol to handle incoming traffic.<br> connectionTimeout : The number of milliseconds this Connector will wait.<br> compression : The Connector may use HTTP/1.1 GZIP compression in an attempt to save server bandwidth.<br> compressionMinSize : It is used to specify the minimum amount of data before the output is compressed.<br> compressableMimeType : The value is a comma separated list of MIME types for which HTTP compression may be used.<br>--&gt;<br>&lt;Connector port="8080" protocol="HTTP/1.1"<br>     connectionTimeout="20000"      <br>     redirectPort="8443" <br>     compression="on"<br>     compressionMinSize="2048" <br>     compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css" /&gt;<br>     <br>&lt;!--<br> port : The TCP port number on which this Connector will create a server socket and await incoming connections.<br> protocol : Sets the protocol to handle incoming traffic.<br> SSLEnabled : Use this attribute to enable SSL traffic on a connector.<br> keystoreFile : The pathname of the keystore file where you have stored the server certificate to be loaded.<br> keystorePass : The password used to access the specified keystore file.<br>--&gt;      <br>&lt;Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"<br>     maxThreads="150" scheme="https" secure="true"       <br>     clientAuth="false" sslProtocol="TLS" <br>     keystoreFile="${catalina.base}/conf/.keystore" keystorePass="keystore_password"/&gt;<br></code></pre></li>
+ <li>參考下例修改成符合自己所需的設定 <pre class="prettyprint">&lt;!--<br> port : The TCP port number on which this Connector will create a server socket and await incoming connections.<br> protocol : Sets the protocol to handle incoming traffic.<br> connectionTimeout : The number of milliseconds this Connector will wait.<br> compression : The Connector may use HTTP/1.1 GZIP compression in an attempt to save server bandwidth.<br> compressionMinSize : It is used to specify the minimum amount of data before the output is compressed.<br> compressableMimeType : The value is a comma separated list of MIME types for which HTTP compression may be used.<br>--&gt;<br>&lt;Connector port="8080" protocol="HTTP/1.1"<br>     connectionTimeout="20000"      <br>     redirectPort="8443" <br>     compression="on"<br>     compressionMinSize="2048" <br>     compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css" /&gt;<br>     <br>&lt;!--<br> port : The TCP port number on which this Connector will create a server socket and await incoming connections.<br> protocol : Sets the protocol to handle incoming traffic.<br> SSLEnabled : Use this attribute to enable SSL traffic on a connector.<br> keystoreFile : The pathname of the keystore file where you have stored the server certificate to be loaded.<br> keystorePass : The password used to access the specified keystore file.<br>--&gt;      <br>&lt;Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"<br>     maxThreads="150" scheme="https" secure="true"       <br>     clientAuth="false" sslProtocol="TLS" <br>     keystoreFile="${catalina.base}/conf/.keystore" keystorePass="keystore_password"/&gt;<br></pre></li>
  <li>可參考<a href="http://tomcat.apache.org/tomcat-7.0-doc/config/http.html" target="_blank">官方文件</a>，進行更仔細的設定</li>
 </ol>
 <br>設定 MIME Type Mappings 相關參數
 <br>
 <ol>
  <li>開啟&nbsp; Z:\apache-tomcat-7.0.29\conf\web.xml</li>
- <li>參考下例增加或修改所需的 MIME Type Mappings <pre class="prettyprint"><code>&lt;mime-mapping&gt;<br> &lt;extension&gt;pdf&lt;/extension&gt;<br> &lt;mime-type&gt;application/pdf&lt;/mime-type&gt;<br>&lt;/mime-mapping&gt;<br></code></pre></li>
+ <li>參考下例增加或修改所需的 MIME Type Mappings <pre class="prettyprint">&lt;mime-mapping&gt;<br> &lt;extension&gt;pdf&lt;/extension&gt;<br> &lt;mime-type&gt;application/pdf&lt;/mime-type&gt;<br>&lt;/mime-mapping&gt;<br></pre></li>
 </ol>
 <br>設定 Tomcat 系統 Log 要記錄到哪個 level
 <br>

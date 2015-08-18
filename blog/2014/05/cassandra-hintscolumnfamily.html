@@ -219,20 +219,20 @@
       <p>
 這陣子在 Cassandra 的使用上遇到個很麻煩的怪事，那就是 ring 上某個 node 發生HintsColumnFamily 異常巨大的情況。執行下述指令後
 <br>
-<pre class="prettyprint"><code>ls -lh {cassandra_data_folder}/system/HintsColumnFamily*<br></code></pre>我發現 HintsColumnFamily 吃掉了 10儿G 的 HD，出問題的 node 跑起來跟快掛掉沒兩樣，實在是災難一場。
+<pre class="prettyprint">ls -lh {cassandra_data_folder}/system/HintsColumnFamily*<br></pre>我發現 HintsColumnFamily 吃掉了 10儿G 的 HD，出問題的 node 跑起來跟快掛掉沒兩樣，實在是災難一場。
 <br>
 <br>要如何解決這場災難，可以參考下列資料
 <br>
 <ol>
  <li>coordinator node 負擔是否過重?資料寫入動作不要集中單一 coordinator node ，要分散到多個 node </li>
- <li>coordinator node 在跟 ring 裡其它 node 進行通訊(cassandra gossiping)時，是否通訊不良?在 coordinator node 執行下述指令，看看發生 'Timed out replaying hint' 訊息的是哪儿個 node，想辦法改善這些 node 的網路品質<br><pre class="prettyprint"><code>cat {cassandra_root_folder}/system.log | grep 'Timed out replaying hint' | less<br></code></pre></li>
+ <li>coordinator node 在跟 ring 裡其它 node 進行通訊(cassandra gossiping)時，是否通訊不良?在 coordinator node 執行下述指令，看看發生 'Timed out replaying hint' 訊息的是哪儿個 node，想辦法改善這些 node 的網路品質<br><pre class="prettyprint">cat {cassandra_root_folder}/system.log | grep 'Timed out replaying hint' | less<br></pre></li>
  <li>因為 HintsColumnFamily 過於巨大，要等裡面的資料慢慢被消化完是無意義的。最有效率的解決辦法是直接刪除 HintsColumnFamily 檔案，把 hinted handoff 資料全部放生，然後再到各個發生 'Timed out replaying hint' 的 node 執行 repair 動作。處理步驟如下<br>
   <ol>
    <li>連線到 coordinator node </li>
-   <li>shutdown cassandra <pre class="prettyprint"><code>nodetool -h coordinator_node disablegossip<br>nodetool -h coordinator_node disablethrift<br>nodetool -h coordinator_node drain<br>kill -9 {cassandra_service_pid}<br></code></pre></li>
-   <li><pre class="prettyprint"><code>rm -rf {cassandra_data_folder}/system/HintsColumnFamily*<br></code></pre></li>
+   <li>shutdown cassandra <pre class="prettyprint">nodetool -h coordinator_node disablegossip<br>nodetool -h coordinator_node disablethrift<br>nodetool -h coordinator_node drain<br>kill -9 {cassandra_service_pid}<br></pre></li>
+   <li><pre class="prettyprint">rm -rf {cassandra_data_folder}/system/HintsColumnFamily*<br></pre></li>
    <li>start cassandra</li>
-   <li>連線到發生 'Timed out replaying hint' 的那儿個node，各別都執行下述指令，修復資料不一致的儿個 columnfamily<br><pre class="prettyprint"><code>nodetool -h hint_fail_node repair {repaired_keyspace} {repaired_columnfamily} -pr<br></code></pre></li>
+   <li>連線到發生 'Timed out replaying hint' 的那儿個node，各別都執行下述指令，修復資料不一致的儿個 columnfamily<br><pre class="prettyprint">nodetool -h hint_fail_node repair {repaired_keyspace} {repaired_columnfamily} -pr<br></pre></li>
    <li>如果不想讓 HintsColumnFamily 的資料保留時間過久，可以修改 coordinator node 的 cassandra.yaml 設定檔，將 max_hint_window_in_ms 設定值改小。這個設定值預設是 3600000，代表裡面的資料預設只保留 1 小時，時間超過時就會被系統自動清除</li>
   </ol></li>
 </ol>

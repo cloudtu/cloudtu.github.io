@@ -251,12 +251,12 @@
 <br>SimpleSnitch + SimpleStrategy設定方式
 <br>1.修改二個node的cassandra.yaml的設定
 <br>
-<pre class="prettyprint"><code>endpoint_snitch: org.apache.cassandra.locator.SimpleSnitch</code></pre>2.用nodetool進行測試，會發現結果中的dc被命名為datacenter1，rank則是rack1，這二個部份無法手動調整
+<pre class="prettyprint">endpoint_snitch: org.apache.cassandra.locator.SimpleSnitch</pre>2.用nodetool進行測試，會發現結果中的dc被命名為datacenter1，rank則是rack1，這二個部份無法手動調整
 <br>
-<pre class="prettyprint"><code>loudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    datacenter1 rack1       Up     Normal  123.46 KB       50.00%  0                                           <br>172.16.0.157    datacenter1 rack1       Up     Normal  111.73 KB       50.00%  85070591730234615865843651857942052864<br></code></pre>3.建立新的keyspace。配合SimpleSnitch，有其對應的SimpleStrategy語法。範列中{replication_factor:2}指的是
+<pre class="prettyprint">loudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    datacenter1 rack1       Up     Normal  123.46 KB       50.00%  0                                           <br>172.16.0.157    datacenter1 rack1       Up     Normal  111.73 KB       50.00%  85070591730234615865843651857942052864<br></pre>3.建立新的keyspace。配合SimpleSnitch，有其對應的SimpleStrategy語法。範列中{replication_factor:2}指的是
 <code>{replication_factor:number_of_replicas}</code>
 <br>
-<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{replication_factor:2}]<br>    and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';<br></code></pre>===========================================================================
+<pre class="prettyprint">create keyspace testks<br>    with strategy_options=[{replication_factor:2}]<br>    and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';<br></pre>===========================================================================
 <br>
 <br>如果多個node的IP是跨不同網段(e.g. "110.82.155.1"、"110.82.156.1")，這時可以用「RackInferringSnitch+NetworkTopologyStrategy」的組合。半官方的範例在
 <a href="http://www.datastax.com/docs/1.0/install/cluster_init#initializing-a-multi-node-or-multi-data-center-cluster" target="_blank">這裡</a>。雖然說一般是跨網段時才要這樣設定，但是在同個網段內也是可以這樣設定，只是node會被分配在同個datacenter或是rank。
@@ -265,13 +265,13 @@
 <br>RackInferringSnitch + NetworkTopologyStrategy設定方式
 <br>1.修改二個node的cassandra.yaml的設定
 <br>
-<pre class="prettyprint"><code>endpoint_snitch: org.apache.cassandra.locator.RackInferringSnitch</code></pre>2.用nodetool進行測試，會發現結果中的dc被命名為16，rank則是0，這二個部份無法手動調整。但是這個命名是有規則的，相關規則可參照
+<pre class="prettyprint">endpoint_snitch: org.apache.cassandra.locator.RackInferringSnitch</pre>2.用nodetool進行測試，會發現結果中的dc被命名為16，rank則是0，這二個部份無法手動調整。但是這個命名是有規則的，相關規則可參照
 <a href="http://www.datastax.com/docs/1.0/cluster_architecture/replication#rackinferringsnitch" target="_blank">這裡</a>的說明。
 <br>
-<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    16          0           Up     Normal  107.69 KB       50.00%  0                                           <br>172.16.0.157    16          0           Up     Normal  111.83 KB       50.00%  85070591730234615865843651857942052864 <br></code></pre>3.建立新的keyspace。配合RackInferringSnitch，有其對應的NetworkTopologyStrategy語法。範列中{16:2}指的是
+<pre class="prettyprint">cloudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    16          0           Up     Normal  107.69 KB       50.00%  0                                           <br>172.16.0.157    16          0           Up     Normal  111.83 KB       50.00%  85070591730234615865843651857942052864 <br></pre>3.建立新的keyspace。配合RackInferringSnitch，有其對應的NetworkTopologyStrategy語法。範列中{16:2}指的是
 <code>{datacenter_name:number_of_replicas}</code>
 <br>
-<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{16:2}]<br>    and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';<br></code></pre>===========================================================================
+<pre class="prettyprint">create keyspace testks<br>    with strategy_options=[{16:2}]<br>    and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';<br></pre>===========================================================================
 <br>
 <br>如果「RackInferringSnitch+NetworkTopologyStrategy」的組合還是無法滿足實務上的需求，想要更有彈性，則是可以考慮「PropertyFileSnitch + NetworkTopologyStrategy」的組合。半官方的範例在
 <a href="http://www.datastax.com/docs/1.0/cluster_architecture/cluster_planning#configuring-the-propertyfilesnitch" target="_blank">這裡</a>。在這種組合的設定裡，連dc、rank的名字都可以自己設定。
@@ -280,15 +280,15 @@
 <br>PropertyFileSnitch + NetworkTopologyStrategy設定方式
 <br>1.修改二個node的cassandra.yaml的設定 
 <br>
-<pre class="prettyprint"><code>endpoint_snitch: org.apache.cassandra.locator.PropertyFileSnitch</code></pre>2.因為設定成PropertyFileSnitch，所以接著必需到二個node的cassandra-topology.properties設定所有node的IP與其相對應的dc與rank。
+<pre class="prettyprint">endpoint_snitch: org.apache.cassandra.locator.PropertyFileSnitch</pre>2.因為設定成PropertyFileSnitch，所以接著必需到二個node的cassandra-topology.properties設定所有node的IP與其相對應的dc與rank。
 <br>
-<pre class="prettyprint"><code># Data Center One<br>172.16.0.157=DC1:RAC1<br><br># Data Center Two<br>172.16.0.220=DC2:RAC1<br><br># default for unknown nodes<br>default=DC1:RAC1<br></code></pre>
+<pre class="prettyprint"># Data Center One<br>172.16.0.157=DC1:RAC1<br><br># Data Center Two<br>172.16.0.220=DC2:RAC1<br><br># default for unknown nodes<br>default=DC1:RAC1<br></pre>
 <br>3.用nodetool進行測試，會發現結果中的dc與rank的名稱是來自於cassandra-topology.properties裡的設定。
 <br>
-<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    DC2         RAC1        Up     Normal  150.59 KB       50.00%  0                                           <br>172.16.0.157    DC1         RAC1        Up     Normal  155.01 KB       50.00%  85070591730234615865843651857942052864<br></code></pre>4.建立新的keyspace。配合PropertyFileSnitch，有其對應的NetworkTopologyStrategy語法。範列中{DC1:1,DC2:1}指的是
+<pre class="prettyprint">cloudtu@cloudtu-VirtualBox:~/cassandra-1.0.6-1/bin$ ./nodetool -h 127.0.0.1 ring<br>Address         DC          Rack        Status State   Load            Owns    Token                                       <br>                                                                               85070591730234615865843651857942052864      <br>172.16.0.220    DC2         RAC1        Up     Normal  150.59 KB       50.00%  0                                           <br>172.16.0.157    DC1         RAC1        Up     Normal  155.01 KB       50.00%  85070591730234615865843651857942052864<br></pre>4.建立新的keyspace。配合PropertyFileSnitch，有其對應的NetworkTopologyStrategy語法。範列中{DC1:1,DC2:1}指的是
 <code>{datacenter_name:number_of_replicas}</code>。本範例中有多個dc，所以設定值之間必需用「,」隔開。
 <br>
-<pre class="prettyprint"><code>create keyspace testks<br>    with strategy_options=[{DC1:1,DC2:1}]<br>    and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';<br></code></pre>===========================================================================
+<pre class="prettyprint">create keyspace testks<br>    with strategy_options=[{DC1:1,DC2:1}]<br>    and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';<br></pre>===========================================================================
 <br>
 <br>把這些範例看完後，想必對Snitch與Replication Strategy比較有感覺了。簡單來說，cassandra ring裡有多個node，但是多個node到底是分布在哪個dc、哪個rank，這部份在cassandra裡有可能無法自動判定(e.g. 不同網段的node可能會分布在多個dc、多個rank，也可能這些不同網段的node其實是在同個dc、同個rank)，所以才衍生了必需設定Snitch的議題。又因為你設定了Snitch等於是你自行幫這堆node進行了分群的動作，所以必需在keyspace建立時，自行指定資料之後要存到哪個dc、那個rank裡。而Replication Strategy就是在做這件事。
 <br>

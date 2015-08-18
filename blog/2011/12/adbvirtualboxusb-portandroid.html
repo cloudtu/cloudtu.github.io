@@ -242,7 +242,7 @@
 <div class="separator" style="clear: both; text-align: left;">
  3.在VM裡的Linux執行lsusb指令，確認抓的到Android裝置
 </div>
-<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~$ lsusb<br>Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br>Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub<br>Bus 001 Device 002: ID 0502:3202 Acer, Inc. Liquid<br>Bus 002 Device 002: ID 80ee:0021 VirtualBox USB Tablet<br></code></pre>
+<pre class="prettyprint">cloudtu@cloudtu-VirtualBox:~$ lsusb<br>Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br>Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub<br>Bus 001 Device 002: ID 0502:3202 Acer, Inc. Liquid<br>Bus 002 Device 002: ID 80ee:0021 VirtualBox USB Tablet<br></pre>
 <br>4.在VM裡的Linux安裝「Android SDK Platform-tools」
 <br>
 <div class="separator" style="clear: both; text-align: center;">
@@ -252,10 +252,10 @@
 <div class="separator" style="clear: both; text-align: left;">
  5.在VM裡的Linux執行adb指令(第一次執行這個指令時要有root的權限才可以正常執行，所以要下sudo)，確認抓的到Android裝置
 </div>
-<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~/android-sdk-linux/platform-tools$ sudo ./adb devices<br>[sudo] password for cloudtu: <br>* daemon not running. starting it now on port 5037 *<br>* daemon started successfully *<br>List of devices attached <br>0000947457723221 device<br></code></pre>
+<pre class="prettyprint">cloudtu@cloudtu-VirtualBox:~/android-sdk-linux/platform-tools$ sudo ./adb devices<br>[sudo] password for cloudtu: <br>* daemon not running. starting it now on port 5037 *<br>* daemon started successfully *<br>List of devices attached <br>0000947457723221 device<br></pre>
 <br>6.在VM裡的Linux執行logcat，如果看到android硬體裡的一堆訊息，就代表成功連上裝置了。
 <br>
-<pre class="prettyprint"><code>cloudtu@cloudtu-VirtualBox:~/android-sdk-linux/platform-tools$ ./adb logcat<br>I/BackupManagerService(  113):     + com.android.providers.settings<br>I/BackupManagerService(  113): Backup enabled =&gt; false<br>I/SystemServer(  113): AppWidget Service<br>D/TelephonyManager(  113): listen=android.telephony.PhoneStateListener$1@2fd2a4a0 event=1073742305<br>I/WindowManager(  113): SAFE MODE not enabled<br>D/SurfaceFlinger(  113): createConnection: cid=0x1<br>I/ActivityManager(  113): Config changed: { scale=1.0 imsi=0/0 loc=zh_TW touch=3 keys=1/1/2 nav=1/1 orien=1 layout=34}<br></code></pre>
+<pre class="prettyprint">cloudtu@cloudtu-VirtualBox:~/android-sdk-linux/platform-tools$ ./adb logcat<br>I/BackupManagerService(  113):     + com.android.providers.settings<br>I/BackupManagerService(  113): Backup enabled =&gt; false<br>I/SystemServer(  113): AppWidget Service<br>D/TelephonyManager(  113): listen=android.telephony.PhoneStateListener$1@2fd2a4a0 event=1073742305<br>I/WindowManager(  113): SAFE MODE not enabled<br>D/SurfaceFlinger(  113): createConnection: cid=0x1<br>I/ActivityManager(  113): Config changed: { scale=1.0 imsi=0/0 loc=zh_TW touch=3 keys=1/1/2 nav=1/1 orien=1 layout=34}<br></pre>
 <br>7.Reference document
 <br>
 <a href="http://forum.xda-developers.com/showthread.php?t=570452g" target="_blank">http://forum.xda-developers.com/showthread.php?t=570452g</a>

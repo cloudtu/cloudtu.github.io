@@ -238,25 +238,25 @@ Cassandra可以針對登入與授權進行設定，預設是不啟用此功能�
 <br>2.修改 
 <code>cassandra_folder/conf/cassandra-env.sh</code>，在最後一行加入下列設定
 <br>
-<pre class="prettyprint"><code>JVM_OPTS="$JVM_OPTS -Dpasswd.properties=/cassandra_folder/conf/passwd.properties -Daccess.properties=/cassandra_folder/conf/access.properties"<br> <br></code></pre>
+<pre class="prettyprint">JVM_OPTS="$JVM_OPTS -Dpasswd.properties=/cassandra_folder/conf/passwd.properties -Daccess.properties=/cassandra_folder/conf/access.properties"<br> <br></pre>
 <br>3.修改 
 <code>cassandra_folder/conf/cassandra.yaml</code> 設定
 <br>
-<pre class="prettyprint"><code># authentication backend, implementing IAuthenticator; used to identify users<br>authenticator: org.apache.cassandra.auth.SimpleAuthenticator<br><br># authorization backend, implementing IAuthority; used to limit access/provide permissions<br>#因為1.0版的SimpleAuthority功能異常，目前只能用AllowAllAuthority。所以只要能登入，就擁有所有權限<br>#authority: org.apache.cassandra.auth.SimpleAuthority<br>authority: org.apache.cassandra.auth.AllowAllAuthority</code></pre>
+<pre class="prettyprint"># authentication backend, implementing IAuthenticator; used to identify users<br>authenticator: org.apache.cassandra.auth.SimpleAuthenticator<br><br># authorization backend, implementing IAuthority; used to limit access/provide permissions<br>#因為1.0版的SimpleAuthority功能異常，目前只能用AllowAllAuthority。所以只要能登入，就擁有所有權限<br>#authority: org.apache.cassandra.auth.SimpleAuthority<br>authority: org.apache.cassandra.auth.AllowAllAuthority</pre>
 <br>4.自行建立 
 <code>cassandra_folder/conf/passwd.properties</code> 設定檔，加入下列設定
 <br>
-<pre class="prettyprint"><code><br># This is a sample password file for SimpleAuthenticator. The format of<br># this file is username=password. If -Dpasswd.mode=MD5 then the password<br># is represented as an md5 digest, otherwise it is cleartext (keep this<br># in mind when setting file mode and ownership).<br>admin=adminpwd<br>user1=user1pwd<br>user2=user2pwd<br></code></pre>
+<pre class="prettyprint"><br># This is a sample password file for SimpleAuthenticator. The format of<br># this file is username=password. If -Dpasswd.mode=MD5 then the password<br># is represented as an md5 digest, otherwise it is cleartext (keep this<br># in mind when setting file mode and ownership).<br>admin=adminpwd<br>user1=user1pwd<br>user2=user2pwd<br></pre>
 <br>5.自行建立 
 <code>cassandra_folder/conf/access.properties</code> 設定檔，加入下列設定(
 <code>註：因為1.0版的SimpleAuthority功能會異常，所以我設定成AllowAllAuthority，而非SimpleAuthority。因此這個設定檔其實是不會生效的</code>)
 <br>
-<pre class="prettyprint"><code><br># The magical '&lt;modify-keyspaces&gt;' property lists users who can modify the<br># list of keyspaces: all users will be able to view the list of keyspaces.<br>&lt;modify-keyspaces&gt;=admin<br><br># Access to Keyspace1 (add/remove column families, etc).<br>#system、testks是Keyspace的名稱，&lt;rw&gt;指read&amp;write，&lt;ro&gt;指read only<br>system.&lt;rw&gt;=admin<br>testks.&lt;rw&gt;=admin<br>testks.&lt;ro&gt;=user1,user2<br></code></pre>
+<pre class="prettyprint"><br># The magical '&lt;modify-keyspaces&gt;' property lists users who can modify the<br># list of keyspaces: all users will be able to view the list of keyspaces.<br>&lt;modify-keyspaces&gt;=admin<br><br># Access to Keyspace1 (add/remove column families, etc).<br>#system、testks是Keyspace的名稱，&lt;rw&gt;指read&amp;write，&lt;ro&gt;指read only<br>system.&lt;rw&gt;=admin<br>testks.&lt;rw&gt;=admin<br>testks.&lt;ro&gt;=user1,user2<br></pre>
 <br>6.啟動Cassandra，並利用Cassandra-CLI進行連線登入動作，如果出現類似下列的訊息，就代表設定成功了。 
 <br>
-<pre class="prettyprint"><code>[default@unknown] connect 127.0.0.1/9160 admin 'adminpwd';<br>Connected to: "Test Cluster" on 127.0.0.1/9160</code></pre>如果登入失敗則會出現類似下列的訊息 
+<pre class="prettyprint">[default@unknown] connect 127.0.0.1/9160 admin 'adminpwd';<br>Connected to: "Test Cluster" on 127.0.0.1/9160</pre>如果登入失敗則會出現類似下列的訊息 
 <br>
-<pre class="prettyprint"><code>[default@unknown] connect 127.0.0.1/9160 admin 'wrongpwd';<br>Exception during authentication to the cassandra node, Verify the keyspace exists, and that you are using the correct credentials.</code></pre>
+<pre class="prettyprint">[default@unknown] connect 127.0.0.1/9160 admin 'wrongpwd';<br>Exception during authentication to the cassandra node, Verify the keyspace exists, and that you are using the correct credentials.</pre>
 <br>=================================================================================
 <br>Windows平台的設定方式
 <br>
@@ -265,7 +265,7 @@ Cassandra可以針對登入與授權進行設定，預設是不啟用此功能�
 <br>=================================================================================
 <br>如果需要利用Hector API登入需要進行登入認証與授權的Cassandra系統，可參考下列的程式碼範例
 <br>
-<pre class="prettyprint"><code>CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator("127.0.0.1:9160");<br><br> //use authentication and authorization<br> Map&lt;String,String&gt; loginUser = new HashMap&lt;String, String&gt;();<br> loginUser.put("username", "admin");<br> loginUser.put("password", "adminpwd");<br> Cluster cluster = HFactory.createCluster("TestCluster",cassandraHostConfigurator,loginUser);<br> <br> //do something else...etc<br></code></pre>
+<pre class="prettyprint">CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator("127.0.0.1:9160");<br><br> //use authentication and authorization<br> Map&lt;String,String&gt; loginUser = new HashMap&lt;String, String&gt;();<br> loginUser.put("username", "admin");<br> loginUser.put("password", "adminpwd");<br> Cluster cluster = HFactory.createCluster("TestCluster",cassandraHostConfigurator,loginUser);<br> <br> //do something else...etc<br></pre>
 </p>
 
       <hr />

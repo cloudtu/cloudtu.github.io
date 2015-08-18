@@ -263,12 +263,12 @@
     <ul>
      <li>語法範列 
       <ul>
-       <li><pre class="prettyprint"><code>PRIMARY KEY(partition_key,clustering_column_1,clustering_column_2)</code></pre>partition_key 對應到 column family 的 row key，clustering_column_1、clustering_column_2 則是 composite column</li>
-       <li><pre class="prettyprint"><code>PRIMARY KEY((partition_key1,partition_key2),clustering_column_1,clustering_column_2,clustering_column_3)<br></code></pre>partition_key1 + partition_key2 組合了 column family 的 row key，clustering_column_1、clustering_column_2、clustering_column_3 則是 composite column </li>
+       <li><pre class="prettyprint">PRIMARY KEY(partition_key,clustering_column_1,clustering_column_2)</pre>partition_key 對應到 column family 的 row key，clustering_column_1、clustering_column_2 則是 composite column</li>
+       <li><pre class="prettyprint">PRIMARY KEY((partition_key1,partition_key2),clustering_column_1,clustering_column_2,clustering_column_3)<br></pre>partition_key1 + partition_key2 組合了 column family 的 row key，clustering_column_1、clustering_column_2、clustering_column_3 則是 composite column </li>
       </ul></li>
      <li>圖解
       <ol>
-       <li>先用 CQL3 執行下述指令產生 table 與資料 <pre class="prettyprint"><code>CREATE TABLE passbook (<br> user varchar,<br> date timestamp,<br> deposit int,<br> withdraw int, <br> PRIMARY KEY(user,date)<br>);<br>INSERT INTO passbook (user, date, deposit,withdraw) VALUES ('nekobean','2014-01-01',1000,10);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('nekobean','2014-01-02',20);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('nekobean','2014-01-03',30);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('duke','2014-02-01',300);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('duke','2014-02-02',200);<br>INSERT INTO passbook (user, date, deposit, withdraw) VALUES ('duke','2014-02-03',2000, 100);<br></code></pre></li>
+       <li>先用 CQL3 執行下述指令產生 table 與資料 <pre class="prettyprint">CREATE TABLE passbook (<br> user varchar,<br> date timestamp,<br> deposit int,<br> withdraw int, <br> PRIMARY KEY(user,date)<br>);<br>INSERT INTO passbook (user, date, deposit,withdraw) VALUES ('nekobean','2014-01-01',1000,10);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('nekobean','2014-01-02',20);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('nekobean','2014-01-03',30);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('duke','2014-02-01',300);<br>INSERT INTO passbook (user, date, withdraw) VALUES ('duke','2014-02-02',200);<br>INSERT INTO passbook (user, date, deposit, withdraw) VALUES ('duke','2014-02-03',2000, 100);<br></pre></li>
        <li>產生的資料利用 CQL3 與 CLI 查詢的對照如下圖<br><a href="/img/2014/02/201402151522_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/02/201402151522_1.png" height="115" width="400"></a></li>
        <li>也可以參考 datastax 寫的<a href="http://www.datastax.com/docs/1.1/ddl/column_family#composite-columns" target="_blank">這份文件</a>裡針對 composite columns 章節設計出來的 timeline table 圖例解說</li>
       </ol></li>
