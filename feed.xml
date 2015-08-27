@@ -5,15 +5,15 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Thu, 27 Aug 2015 13:39:20 +0800</pubDate>
-    <lastBuildDate>Thu, 27 Aug 2015 13:39:20 +0800</lastBuildDate>
+    <pubDate>Thu, 27 Aug 2015 13:53:11 +0800</pubDate>
+    <lastBuildDate>Thu, 27 Aug 2015 13:53:11 +0800</lastBuildDate>
 
     <item>
       <title>java 8 lambda resource</title>
       <link>http://cloudtu.github.io/blog/2015/08/java-8-lambda-resource.html</link>
       <pubDate>Thu, 27 Aug 2015 15:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/08/java-8-lambda-resource.html</guid>
-      <description>&lt;p&gt;java 8 lambda 功能已經出來一年多，相關討論與資源也很多。不過這玩意兒如果太久沒用的話，總是把學到的又還回去。為了想複習時可以找到相關資訊，還是把這些資訊筆記下來卡實在。以下是相關明細，有興趣的可以照條列順序依序閱讀。&lt;/p&gt;
+      <description>&lt;p&gt;java 8 lambda 功能已經出來一年多，相關討論與資源也很多。不過這玩意兒如果太久沒用的話，總是把學到的又還回去。為了想複習時可以快速找到相關資源，還是把這些資訊筆記下來卡實在。以下是相關明細，有興趣的可以照條列順序依序閱讀。&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;java 8 new api
   &lt;ul&gt;
