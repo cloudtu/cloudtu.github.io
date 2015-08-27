@@ -89,6 +89,9 @@
                   <a shape="rect" href="/tags/jquery.html">jquery</a>
                 </li>
                 <li>
+                  <a shape="rect" href="/tags/lambda.html">lambda</a>
+                </li>
+                <li>
                   <a shape="rect" href="/tags/linux.html">linux</a>
                 </li>
                 <li>
@@ -192,6 +195,48 @@
       <div class="index_page_banner">
         <h1 style="margin-top: 0px; margin-bottom: 0px;">老涂的咁仔店</h1>
         <p style="margin-top: 50px; margin-bottom: 0px;">記載生活點滴、敗家記事、程式撰寫...etc</p>
+      </div>
+
+      <div>
+        <a href="blog/2015/08/java-8-lambda-resource.html" shape="rect"><h1>java 8 lambda resource</h1></a>
+        <p>2015-08-27</p>
+
+        <p>
+          <em>Tags:
+            <span>
+              <a shape="rect" href="tags/程式語言.html">程式語言</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/java.html">java</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/lambda.html">lambda</a>
+              
+            </span>
+          </em>
+        </p>
+
+        <p><p>java 8 lambda 功能已經出來一年多，相關討論與資源也很多。不過這玩意兒如果太久沒用的話，總是把學到的又還回去。為了想複習時可以找到相關資訊，還是把這些資訊筆記下來卡實在。以下是相關明細，有興趣的可以照條列順序依序閱讀。</p>
+<ul>
+  <li>java 8 new api
+  <ul>
+    <li><a href="http://ingramchen.io/blog/2014/04/java-8-new-api-tips.html">Java 8 New API Tips</a></li>
+  </ul></li>
+  <li>java 8 lambda
+  <ul>
+    <li><a href="http://www.slideshare.net/JustinSDK/12-lambda">Java SE 8 技術手冊第 12 章 - Lambda</a></li>
+    <li><a href="http://www.codedata.com.tw/java/jdk8-functional-api/">【演講稿】解析 JDK8 Functional API</a></li>
+  </ul></li>
+  <li>monad design pattern
+  <ul>
+    <li><a href="http://www.codedata.com.tw/social-coding/java8-patterns/">【演講稿】Java 8 Patterns</a></li>
+    <li><a href="http://ingramchen.io/blog/2014/11/monad-design-pattern-in-java.html">Monad Design Pattern in Java</a></li>
+  </ul></li>
+</ul></p>
+
+        <hr />
       </div>
 
       <div>
@@ -488,59 +533,7 @@ my code...etc
         <hr />
       </div>
 
-      <div>
-        <a href="blog/2014/12/oauth2.html" shape="rect"><h1>OAuth2 心得筆記</h1></a>
-        <p>2014-12-07</p>
-
-        <p>
-          <em>Tags:
-            <span>
-              <a shape="rect" href="tags/oauth2.html">oauth2</a>
-              
-            </span>
-          </em>
-        </p>
-
-        <p>
-這陣子因為工作上需要，必需了解 OAuth2 原理。在網路上查了一陣子後發現下面這份解說詳盡的投影片，有興趣的人可以參考一下...:)
-<br>
-<br>簡單易懂的 OAuth 2.0 (
-<a href="https://speakerdeck.com/chitsaou/jian-dan-yi-dong-de-oauth-2-dot-0" target="_blank">投影片</a>) (
-<a href="https://www.youtube.com/watch?v=tMG-kl_uohY" target="_blank">錄影</a>) 
-<br>
-<br>我沒有實作 OAuth2 的需求，但是有使用 OAuth2 的需求，必需對它裡面的認証、授權機制有通盤了解。投影片裡跟 OAuth2 認証、授權相關的資料節錄如下，並做摘要說明。
-<br>
-<br>======================================================================
-<br>OAuth2 裡的 Role
-<br>
-<br>
-<a href="/img/2014/12/201412072007_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_1.png" height="218" width="400"></a>
-<br>
-<ul>
- <li>Authorization Server<br>
-  <ul>
-   <li>「Authorization Server」發出去的授權碼有二種，分別是「Grant Code」、「Token」</li>
-   <li>&nbsp;「Resource Owner」同意「Client」存取「Resource Owner」的資料時，「Authorization Server」發「Grant Code」給「Client」</li>
-   <li>「Client」可以拿「Grant Code」跟「Authorization Server」換「Token」 </li>
-  </ul></li>
- <li>Resource Server<br>
-  <ul>
-   <li>「Resource Server」的存取認証是認「Token」不是認「Grant Code」</li>
-   <li>用「Token」跟「Resource Server」進行認証，認証成功後可以存取「Resource Owner」的資料 </li>
-  </ul></li>
-</ul>======================================================================
-<br>OAuth2 授權流程
-<br>
-<ol>
- <li>Authorization Code Grant Flow<br><a href="/img/2014/12/201412072007_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_2.png" height="208" width="400"></a><br>先跟「Authorization Server」要「Grant Code」，接著再用「Grant Code」去跟「Authorization Server」換「Token」</li>
- <li>Implicit Grant Flow<br><a href="/img/2014/12/201412072007_3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_3.png" height="277" width="400"></a><br>直接跟「Authorization Server」要「Token」，沒有「Grant Code」換「Token」的步驟</li>
- <li>Resource Owner Password Credentials Grant Flow<br><a href="/img/2014/12/201412072007_4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_4.png" height="233" width="400"></a><br>拿「Resource Owner」的 username、password 去跟「Authorization Server」要「Token」</li>
- <li>Client Credentials Grant Flow <br><a href="/img/2014/12/201412072007_5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="/img/2014/12/201412072007_5.png" height="195" width="400"></a><br>「Authorization Server」不需經由認証就直接給「Token」</li>
-</ol>
-</p>
-
-        <hr />
-      </div>
+      
 
       
 

@@ -5,8 +5,32 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Tue, 18 Aug 2015 15:43:08 +0800</pubDate>
-    <lastBuildDate>Tue, 18 Aug 2015 15:43:08 +0800</lastBuildDate>
+    <pubDate>Thu, 27 Aug 2015 13:39:20 +0800</pubDate>
+    <lastBuildDate>Thu, 27 Aug 2015 13:39:20 +0800</lastBuildDate>
+
+    <item>
+      <title>java 8 lambda resource</title>
+      <link>http://cloudtu.github.io/blog/2015/08/java-8-lambda-resource.html</link>
+      <pubDate>Thu, 27 Aug 2015 15:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2015/08/java-8-lambda-resource.html</guid>
+      <description>&lt;p&gt;java 8 lambda 功能已經出來一年多，相關討論與資源也很多。不過這玩意兒如果太久沒用的話，總是把學到的又還回去。為了想複習時可以找到相關資訊，還是把這些資訊筆記下來卡實在。以下是相關明細，有興趣的可以照條列順序依序閱讀。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;java 8 new api
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://ingramchen.io/blog/2014/04/java-8-new-api-tips.html&quot;&gt;Java 8 New API Tips&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;java 8 lambda
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/JustinSDK/12-lambda&quot;&gt;Java SE 8 技術手冊第 12 章 - Lambda&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/jdk8-functional-api/&quot;&gt;【演講稿】解析 JDK8 Functional API&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;monad design pattern
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/social-coding/java8-patterns/&quot;&gt;【演講稿】Java 8 Patterns&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://ingramchen.io/blog/2014/11/monad-design-pattern-in-java.html&quot;&gt;Monad Design Pattern in Java&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
 
     <item>
       <title>利用 jbake 從 blogger 搬家到 github</title>
@@ -432,20 +456,7 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
 </description>
     </item>
 
-    <item>
-      <title>把 router 當 switch 用的設定步驟</title>
-      <link>http://cloudtu.github.io/blog/2014/02/router-switch.html</link>
-      <pubDate>Fri, 7 Feb 2014 11:26:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2014/02/router-switch.html</guid>
-      <description>
-在 office 偶爾會遇到要連到同網段機器來做一些事，可是平常我都把自己的終端設備掛在自己帶來的 router 之下，這時臨時要去生個 switch 來用實在有點麻煩。後來 google 了一下，發現只要照下面二個步驟就可以讓 router 變身成 switch，還蠻簡單的，有這需求的人可以參考一下 ... :) 
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;連進 router 的 web console，把 dhcp server 功能關掉&lt;/li&gt;
- &lt;li&gt;把原先接在 wan port 的網路線改接到 lan port&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
+    
 
     
 

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
       <meta charset="utf-8" />
-      <title>老涂的咁仔店</title>
+      <title>java 8 lambda resource</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="" />
       <meta name="author" content="cloudtu" />
@@ -16,6 +16,21 @@
       <link rel="stylesheet" href="/css/prettify.css" />
   </head>
   <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
   <div id="wrap">
     <div>
 
@@ -191,19 +206,71 @@
 
   </div>
     <div class="container">
+
       <div class="page-header">
-        <h1>Tag : jersey</h1>
+        <h1>java 8 lambda resource</h1>
       </div>
 
-      
-        <h4>2013-09</h4>
-        <div style="margin-left: 20px;">
-          01 - <a href="/blog/2013/09/jersey.html" shape="rect">Jersey 心得筆記</a>
-        </div>
-      
+      <p><em>2015-08-27</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/lambda.html">lambda</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p><p>java 8 lambda 功能已經出來一年多，相關討論與資源也很多。不過這玩意兒如果太久沒用的話，總是把學到的又還回去。為了想複習時可以找到相關資訊，還是把這些資訊筆記下來卡實在。以下是相關明細，有興趣的可以照條列順序依序閱讀。</p>
+<ul>
+  <li>java 8 new api
+  <ul>
+    <li><a href="http://ingramchen.io/blog/2014/04/java-8-new-api-tips.html">Java 8 New API Tips</a></li>
+  </ul></li>
+  <li>java 8 lambda
+  <ul>
+    <li><a href="http://www.slideshare.net/JustinSDK/12-lambda">Java SE 8 技術手冊第 12 章 - Lambda</a></li>
+    <li><a href="http://www.codedata.com.tw/java/jdk8-functional-api/">【演講稿】解析 JDK8 Functional API</a></li>
+  </ul></li>
+  <li>monad design pattern
+  <ul>
+    <li><a href="http://www.codedata.com.tw/social-coding/java8-patterns/">【演講稿】Java 8 Patterns</a></li>
+    <li><a href="http://ingramchen.io/blog/2014/11/monad-design-pattern-in-java.html">Monad Design Pattern in Java</a></li>
+  </ul></li>
+</ul></p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2015/08/java-8-lambda-resource.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2015/08/java-8-lambda-resource.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
     </div>
   </div>
-
   <div>
       <div id="push"></div>
 
