@@ -5,15 +5,15 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Thu, 3 Sep 2015 23:24:46 +0800</pubDate>
-    <lastBuildDate>Thu, 3 Sep 2015 23:24:46 +0800</lastBuildDate>
+    <pubDate>Thu, 3 Sep 2015 23:44:13 +0800</pubDate>
+    <lastBuildDate>Thu, 3 Sep 2015 23:44:13 +0800</lastBuildDate>
 
     <item>
-      <title>gradle resource</title>
-      <link>http://cloudtu.github.io/blog/2015/09/gradle-resource.html</link>
+      <title>gradle learning path</title>
+      <link>http://cloudtu.github.io/blog/2015/09/gradle-learning-path.html</link>
       <pubDate>Thu, 3 Sep 2015 22:00:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2015/09/gradle-resource.html</guid>
-      <description>&lt;p&gt;我用 gradle 當 build tool 已經好一陣子，通常照著網路上的 gradle 範例去修改就可以讓它滿足我的需求，真是超方便。可是對於 gradle script 為啥長這個樣子? 它的運作原理為何? 我一直搞不懂所以然。這次花了些時間終於了解它的基礎原理到底是怎麼回事。下述是我學習 gralde 基礎原理的 learning path，請照條列順序依序閱讀，看完後就可以對 gradle 知其然又知其所以然!&lt;/p&gt;
+      <guid isPermaLink="false">blog/2015/09/gradle-learning-path.html</guid>
+      <description>&lt;p&gt;我用 gradle 當 build tool 已經好一陣子，通常照著網路上的 gradle 範例去修改就可以讓它滿足我的需求，真是超方便。可是對於 gradle script 為啥長這個樣子? 它的運作原理為何? 我一直搞不懂所以然。這次花了些時間終於了解它的基礎原理到底是怎麼回事。下述是我學習 gradle 基礎原理的 learning path，請照條列順序依序閱讀，看完後就可以對 gradle 知其然又知其所以然!&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;想要 gradle 快速上手? 看 popcorn 的 &quot;Gradle起步走(&lt;a href=&quot;http://www.slideshare.net/popcornylu/gradle-cli-application&quot;&gt;投影片&lt;/a&gt;、&lt;a href=&quot;https://www.youtube.com/watch?v=rWXspaS-pHI&quot;&gt;影片&lt;/a&gt;)&quot; 就對啦&lt;/li&gt;
   &lt;li&gt;對 gradle 有點 fu 之後就可以把 &lt;a href=&quot;https://www.manning.com/books/gradle-in-action&quot;&gt;grdle in action&lt;/a&gt; 這本書拿來看了。整本書分成三個 part，只要看 part1, part2 就夠了，part3 是比較進階的應用，未來有需要的話再來看&lt;/li&gt;
