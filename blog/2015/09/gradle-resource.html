@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
       <meta charset="utf-8" />
-      <title>老涂的咁仔店</title>
+      <title>gradle resource</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="" />
       <meta name="author" content="cloudtu" />
@@ -16,6 +16,21 @@
       <link rel="stylesheet" href="/css/prettify.css" />
   </head>
   <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
   <div id="wrap">
     <div>
 
@@ -197,40 +212,81 @@
 
   </div>
     <div class="container">
+
       <div class="page-header">
-        <h1>Tag : eclipse</h1>
+        <h1>gradle resource</h1>
       </div>
 
-      
-        <h4>2013-08</h4>
-        <div style="margin-left: 20px;">
-          07 - <a href="/blog/2013/08/eclipsecode-completioncontent-assist.html" shape="rect">eclipse 4.3 發生「code completion」、「content assist」功能失效時的解法</a>
-        </div>
-      
+      <p><em>2015-09-03</em></p>
 
-      
-        <h4>2013-03</h4>
-        <div style="margin-left: 20px;">
-          01 - <a href="/blog/2013/03/memory-analyzer-tool-mat.html" shape="rect">Memory Analyzer Tool (MAT) 心得筆記</a>
-        </div>
-      
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/groovy.html">groovy</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/gradle.html">gradle</a>
+            
+          </span>
+        </em>
+      </p>
 
-      
-        <h4>2012-07</h4>
-        <div style="margin-left: 20px;">
-          28 - <a href="/blog/2012/07/eclipse-42.html" shape="rect">eclipse 4.2 安裝歷程筆記</a>
-        </div>
-      
+      <p><p>我用 gradle 當 build tool 已經好一陣子，通常照著網路上的 gradle 範例去修改就可以讓它滿足我的需求，真是超方便。可是對於 gradle script 為啥長這個樣子? 它的運作原理為何? 我一直搞不懂所以然。這次花了些時間終於了解它的基礎原理到底是怎麼回事。下述是我學習 gralde 基礎原理的 learning path，請照條列順序依序閱讀，看完後就可以對 gradle 知其然又知其所以然!</p>
+<ol>
+  <li>想要 gradle 快速上手? 看 popcorn 的 "Gradle起步走(<a href="http://www.slideshare.net/popcornylu/gradle-cli-application">投影片</a>、<a href="https://www.youtube.com/watch?v=rWXspaS-pHI">影片</a>)" 就對啦</li>
+  <li>對 gradle 有點 fu 之後就可以把 <a href="https://www.manning.com/books/gradle-in-action">grdle in action</a> 這本書拿來看了。整本書分成三個 part，只要看 part1, part2 就夠了，part3 是比較進階的應用，未來有需要的話再來看</li>
+  <li>grdle in action 看完後可能會覺的對 gradle script 的 groovy 語法理解太少，這時必需看一些 groovy 語法說明，所以下面這些資料都看一看吧。
+  <ul>
+    <li><a href="https://www.manning.com/books/gradle-in-action">grdle in action</a> 的 Appendix B 章節</li>
+    <li><a href="http://www.vogella.com/tutorials/Groovy/article.html">Groovy with Eclipse - Tutorial</a> 的項次 1 ~ 14 內容</li>
+    <li><a href="http://www.slideshare.net/JustinSDK/groovy-gradle?ref=http://www.codedata.com.tw/java/groovy-gradle-abc/">淺談 Groovy 與 Gradle</a>。這份 slide 看完後對 groovy 的 closure 會有很清楚的理解，也終於知道 gradle script 語法用了大量的 closure</li>
+  </ul></li>
+  <li>前面的都看完後就可以開始看下列講 gradle 運作原理的文章，看完後就會知道 gradle script 語法其實是 groovy closure 與 delegate pattern 的組合
+  <ul>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-1-ant/">【認識 Gradle】（1）講古的時間 Apache Ant</a></li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-2-maven/">【認識 Gradle】（2）講古的時間 Apache Maven</a></li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-3-getting-started/">【認識 Gradle】（3）Gradle 起手式</a></li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-4-gradle-script/">【認識 Gradle】（4）看懂 Gradle Script</a>。這份文件解釋了 gradle script 語法跟 groovy closure 、delegate pattern 的關聯性</li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-3-gradle-task-abc/">【認識 Gradle】（5）Gradle Task 觀念導讀</a>。這份文件解釋了 gradle task 裡的 action closure、configure closure 是怎麼一回事。</li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-4-java-project-build-script-customization/">【認識 Gradle】（6）Java 專案與 Build Script 客製化</a></li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-7-java-project-dependencies/">認識 Gradle】（7）Java 專案相依管理</a></li>
+    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-8-reuse-logic/">【認識 Gradle】（8）邏輯重用</a></li>
+  </ul></li>
+  <li>前述資料都看完後對於 gradle 官網的 <a href="https://docs.gradle.org/current/userguide/userguide.html">user guide </a>、<a href="https://docs.gradle.org/current/dsl/">DSL Reference</a>、<a href="https://docs.gradle.org/current/javadoc/">javadoc</a> 應該就都看的懂，而不會在查閱時有摸不著頭緒的感覺了</li>
+</ol></p>
 
-      
-        <h4>2008-07</h4>
-        <div style="margin-left: 20px;">
-          27 - <a href="/blog/2008/07/eclipseno-default-proposals.html" shape="rect">Eclipse出現No Default Proposals異常的解決辦法</a>
-        </div>
-      
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2015/09/gradle-resource.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2015/09/gradle-resource.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
     </div>
   </div>
-
   <div>
       <div id="push"></div>
 

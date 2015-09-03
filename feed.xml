@@ -5,8 +5,38 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Thu, 27 Aug 2015 13:53:11 +0800</pubDate>
-    <lastBuildDate>Thu, 27 Aug 2015 13:53:11 +0800</lastBuildDate>
+    <pubDate>Thu, 3 Sep 2015 23:24:46 +0800</pubDate>
+    <lastBuildDate>Thu, 3 Sep 2015 23:24:46 +0800</lastBuildDate>
+
+    <item>
+      <title>gradle resource</title>
+      <link>http://cloudtu.github.io/blog/2015/09/gradle-resource.html</link>
+      <pubDate>Thu, 3 Sep 2015 22:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2015/09/gradle-resource.html</guid>
+      <description>&lt;p&gt;我用 gradle 當 build tool 已經好一陣子，通常照著網路上的 gradle 範例去修改就可以讓它滿足我的需求，真是超方便。可是對於 gradle script 為啥長這個樣子? 它的運作原理為何? 我一直搞不懂所以然。這次花了些時間終於了解它的基礎原理到底是怎麼回事。下述是我學習 gralde 基礎原理的 learning path，請照條列順序依序閱讀，看完後就可以對 gradle 知其然又知其所以然!&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;想要 gradle 快速上手? 看 popcorn 的 &quot;Gradle起步走(&lt;a href=&quot;http://www.slideshare.net/popcornylu/gradle-cli-application&quot;&gt;投影片&lt;/a&gt;、&lt;a href=&quot;https://www.youtube.com/watch?v=rWXspaS-pHI&quot;&gt;影片&lt;/a&gt;)&quot; 就對啦&lt;/li&gt;
+  &lt;li&gt;對 gradle 有點 fu 之後就可以把 &lt;a href=&quot;https://www.manning.com/books/gradle-in-action&quot;&gt;grdle in action&lt;/a&gt; 這本書拿來看了。整本書分成三個 part，只要看 part1, part2 就夠了，part3 是比較進階的應用，未來有需要的話再來看&lt;/li&gt;
+  &lt;li&gt;grdle in action 看完後可能會覺的對 gradle script 的 groovy 語法理解太少，這時必需看一些 groovy 語法說明，所以下面這些資料都看一看吧。
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;https://www.manning.com/books/gradle-in-action&quot;&gt;grdle in action&lt;/a&gt; 的 Appendix B 章節&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.vogella.com/tutorials/Groovy/article.html&quot;&gt;Groovy with Eclipse - Tutorial&lt;/a&gt; 的項次 1 ~ 14 內容&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/JustinSDK/groovy-gradle?ref=http://www.codedata.com.tw/java/groovy-gradle-abc/&quot;&gt;淺談 Groovy 與 Gradle&lt;/a&gt;。這份 slide 看完後對 groovy 的 closure 會有很清楚的理解，也終於知道 gradle script 語法用了大量的 closure&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;前面的都看完後就可以開始看下列講 gradle 運作原理的文章，看完後就會知道 gradle script 語法其實是 groovy closure 與 delegate pattern 的組合
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-1-ant/&quot;&gt;【認識 Gradle】（1）講古的時間 Apache Ant&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-2-maven/&quot;&gt;【認識 Gradle】（2）講古的時間 Apache Maven&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-3-getting-started/&quot;&gt;【認識 Gradle】（3）Gradle 起手式&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-4-gradle-script/&quot;&gt;【認識 Gradle】（4）看懂 Gradle Script&lt;/a&gt;。這份文件解釋了 gradle script 語法跟 groovy closure 、delegate pattern 的關聯性&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-3-gradle-task-abc/&quot;&gt;【認識 Gradle】（5）Gradle Task 觀念導讀&lt;/a&gt;。這份文件解釋了 gradle task 裡的 action closure、configure closure 是怎麼一回事。&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-4-java-project-build-script-customization/&quot;&gt;【認識 Gradle】（6）Java 專案與 Build Script 客製化&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-7-java-project-dependencies/&quot;&gt;認識 Gradle】（7）Java 專案相依管理&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.codedata.com.tw/java/understanding-gradle-8-reuse-logic/&quot;&gt;【認識 Gradle】（8）邏輯重用&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;前述資料都看完後對於 gradle 官網的 &lt;a href=&quot;https://docs.gradle.org/current/userguide/userguide.html&quot;&gt;user guide &lt;/a&gt;、&lt;a href=&quot;https://docs.gradle.org/current/dsl/&quot;&gt;DSL Reference&lt;/a&gt;、&lt;a href=&quot;https://docs.gradle.org/current/javadoc/&quot;&gt;javadoc&lt;/a&gt; 應該就都看的懂，而不會在查閱時有摸不著頭緒的感覺了&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
 
     <item>
       <title>java 8 lambda resource</title>
@@ -387,74 +417,7 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
 </description>
     </item>
 
-    <item>
-      <title>Cassandra Data Modeling 心得筆記</title>
-      <link>http://cloudtu.github.io/blog/2014/02/cassandra-data-modeling.html</link>
-      <pubDate>Sat, 15 Feb 2014 15:22:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2014/02/cassandra-data-modeling.html</guid>
-      <description>
-使用 Cassandra 時要設計出合適的 Data Model 是件苦差事，這篇是基於 Cassandra 2.0 版本整理出的一些心得，有興趣的人可以參考一下。以下...正文開始! 
-&lt;br&gt;
-&lt;br&gt;目前找到比較好而且完整的文章是「Cassandra Data Modeling Best Practices」這份文章(
-&lt;a href=&quot;http://www.infoq.com/cn/articles/best-practice-of-cassandra-data-model-design&quot; target=&quot;_blank&quot;&gt;簡中版 part1&lt;/a&gt;,
-&lt;a href=&quot;http://www.infoq.com/cn/articles/best-practices-cassandra-data-model-design-part2&quot; target=&quot;_blank&quot;&gt;簡中版 part2&lt;/a&gt;)(
-&lt;a href=&quot;http://www.ebaytechblog.com/2012/07/16/cassandra-data-modeling-best-practices-part-1&quot; target=&quot;_blank&quot;&gt;原文版 part1&lt;/a&gt;,
-&lt;a href=&quot;http://www.ebaytechblog.com/2012/08/14/cassandra-data-modeling-best-practices-part-2&quot; target=&quot;_blank&quot;&gt;原文版 part2&lt;/a&gt;)，建議先把它整個讀過一遍。讀完後接著可以看看原作著以這份文章為基礎整理出來的下面這份投影片
-&lt;br&gt;
-&lt;iframe allowfullscreen frameborder=&quot;0&quot; height=&quot;356&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.slideshare.net/slideshow/embed_code/21134577&quot; style=&quot;border-width: 1px 1px 0; border: 1px solid #CCC; margin-bottom: 5px; max-width: 100%;&quot; width=&quot;427&quot;&gt; &lt;/iframe&gt; 
-&lt;br&gt;
-&lt;div style=&quot;margin-bottom: 5px;&quot;&gt;
- &lt;b&gt; &lt;a href=&quot;https://www.slideshare.net/jaykumarpatel/cassandra-data-modeling-best-practices&quot; target=&quot;_blank&quot; title=&quot;Cassandra Data Modeling Best Practices&quot;&gt;Cassandra Data Modeling Best Practices&lt;/a&gt; &lt;/b&gt; from 
- &lt;b&gt;&lt;a href=&quot;http://www.slideshare.net/jaykumarpatel&quot; target=&quot;_blank&quot;&gt;Jay Patel&lt;/a&gt;&lt;/b&gt; 
-&lt;/div&gt;
-&lt;br&gt;不過，既然都用了 Cassandra 2.0，我想多數人應該會盡量用 CQL3 來操作資料，讓自己不要用的那麼痛苦。利用 CQL3 進行 Modeling 可以參考下面這份投影片
-&lt;br&gt;
-&lt;iframe allowfullscreen frameborder=&quot;0&quot; height=&quot;356&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.slideshare.net/slideshow/embed_code/17917955&quot; style=&quot;border-width: 1px 1px 0; border: 1px solid #CCC; margin-bottom: 5px; max-width: 100%;&quot; width=&quot;427&quot;&gt; &lt;/iframe&gt; 
-&lt;br&gt;
-&lt;div style=&quot;margin-bottom: 5px;&quot;&gt;
- &lt;b&gt; &lt;a href=&quot;https://www.slideshare.net/jericevans/cassandra-by-example-data-modelling-with-cql3&quot; target=&quot;_blank&quot; title=&quot;Cassandra By Example: Data Modelling with CQL3&quot;&gt;Cassandra By Example: Data Modelling with CQL3&lt;/a&gt; &lt;/b&gt; from 
- &lt;b&gt;&lt;a href=&quot;http://www.slideshare.net/jericevans&quot; target=&quot;_blank&quot;&gt;Eric Evans&lt;/a&gt;&lt;/b&gt; 
-&lt;/div&gt;
-&lt;br&gt;依據上面儿份資料，整理出的 Modeling 重點如下
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;中心思想 
-  &lt;ul&gt;
-   &lt;li&gt;依據「系統如何查詢資料」來設計 Data Model&lt;/li&gt;
-   &lt;li&gt;不要以傳統 RDBMS 的 relational table 思維來設計 Data Model，要把 column family 想成是 HashMap&amp;lt;RowKey,&amp;nbsp; SortedMap&amp;lt;ColumnName, ColumnValue&amp;gt;&amp;gt;&lt;/li&gt;
-   &lt;li&gt;CQL 只是讓資料操作起來「長的像」RDBMS 的 relational table，Modeling 時請先忘掉 CQL&lt;/li&gt;
-   &lt;li&gt;設計之初就要考量是不是會用到 Secondary Index &lt;/li&gt;
-  &lt;/ul&gt;&lt;/li&gt;
- &lt;li&gt;效能考量 
-  &lt;ul&gt;
-   &lt;li&gt;使用 wide row，wide row 在 ordering, grouping, filtering 有效能優勢&lt;/li&gt;
-   &lt;li&gt;使用合適的 row key (挑合適的 row key 其實就是在做 sharding) 以避免資料過度集中在 ring 上特定 node，因而避免發生 hotspot 危機&lt;/li&gt;
-   &lt;li&gt;為了增加讀(select)寫(upsert)速度，Data Model 進行 De-normalize，部份 column family 許可發生 column duplicate。簡單來說就是用空間換取時間&lt;/li&gt;
-   &lt;li&gt;read-heavy data 跟 write-heavy data 放在不同 column family。如此一來 read-heavy data 可以常常進到 row cache，讀(select)資料時會快很多&lt;/li&gt;
-   &lt;li&gt;熱門資料與冷門資料放在不同 column family&lt;/li&gt;
-  &lt;/ul&gt;&lt;/li&gt;
- &lt;li&gt;其它 
-  &lt;ul&gt;
-   &lt;li&gt;CQL3 的 compound primary key 摘要 
-    &lt;ul&gt;
-     &lt;li&gt;語法範列 
-      &lt;ul&gt;
-       &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;PRIMARY KEY(partition_key,clustering_column_1,clustering_column_2)&lt;/pre&gt;partition_key 對應到 column family 的 row key，clustering_column_1、clustering_column_2 則是 composite column&lt;/li&gt;
-       &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;PRIMARY KEY((partition_key1,partition_key2),clustering_column_1,clustering_column_2,clustering_column_3)&lt;br&gt;&lt;/pre&gt;partition_key1 + partition_key2 組合了 column family 的 row key，clustering_column_1、clustering_column_2、clustering_column_3 則是 composite column &lt;/li&gt;
-      &lt;/ul&gt;&lt;/li&gt;
-     &lt;li&gt;圖解
-      &lt;ol&gt;
-       &lt;li&gt;先用 CQL3 執行下述指令產生 table 與資料 &lt;pre class=&quot;prettyprint&quot;&gt;CREATE TABLE passbook (&lt;br&gt; user varchar,&lt;br&gt; date timestamp,&lt;br&gt; deposit int,&lt;br&gt; withdraw int, &lt;br&gt; PRIMARY KEY(user,date)&lt;br&gt;);&lt;br&gt;INSERT INTO passbook (user, date, deposit,withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-01&#39;,1000,10);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-02&#39;,20);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;nekobean&#39;,&#39;2014-01-03&#39;,30);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-01&#39;,300);&lt;br&gt;INSERT INTO passbook (user, date, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-02&#39;,200);&lt;br&gt;INSERT INTO passbook (user, date, deposit, withdraw) VALUES (&#39;duke&#39;,&#39;2014-02-03&#39;,2000, 100);&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
-       &lt;li&gt;產生的資料利用 CQL3 與 CLI 查詢的對照如下圖&lt;br&gt;&lt;a href=&quot;/img/2014/02/201402151522_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/02/201402151522_1.png&quot; height=&quot;115&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-       &lt;li&gt;也可以參考 datastax 寫的&lt;a href=&quot;http://www.datastax.com/docs/1.1/ddl/column_family#composite-columns&quot; target=&quot;_blank&quot;&gt;這份文件&lt;/a&gt;裡針對 composite columns 章節設計出來的 timeline table 圖例解說&lt;/li&gt;
-      &lt;/ol&gt;&lt;/li&gt;
-    &lt;/ul&gt;&lt;/li&gt;
-   &lt;li&gt;CQL3 的 insert、update 語法在異動資料時都是做 upsert 動作。也就是說二者在異動資料的邏輯相同，資料不存在的話進行新增(insert)動作，資料若存在則進行更新(update)動作&lt;/li&gt;
-  &lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;br&gt;
-</description>
-    </item>
+    
 
     
 
