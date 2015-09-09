@@ -5,8 +5,279 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Thu, 3 Sep 2015 23:44:13 +0800</pubDate>
-    <lastBuildDate>Thu, 3 Sep 2015 23:44:13 +0800</lastBuildDate>
+    <pubDate>Wed, 9 Sep 2015 22:58:29 +0800</pubDate>
+    <lastBuildDate>Wed, 9 Sep 2015 22:58:29 +0800</lastBuildDate>
+
+    <item>
+      <title>spring boot 官方文件摘要</title>
+      <link>http://cloudtu.github.io/blog/2015/09/spring-boot-official-doc-memo.html</link>
+      <pubDate>Wed, 9 Sep 2015 20:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2015/09/spring-boot-official-doc-memo.html</guid>
+      <description>&lt;p&gt;這篇內容寫的是 &lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/&quot;&gt;spring boot 1.2.5 官方文件&lt;/a&gt; 重點摘要，不做 spring boot 基礎教學。要看懂這些內容有下列前題假設&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;會用 java 寫 spring boot 程式&lt;/li&gt;
+  &lt;li&gt;會用 gradle 寫 build script&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;如果你完全不懂 spring boot，建議看一下 Bootify your spring application (&lt;a href=&quot;http://www.slideshare.net/gn00023040/bootify-your-spring-application&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=PTIRJZUMf78&quot;&gt;錄影&lt;/a&gt;)，看完後會對 spring boot 有基本認知，有助於日後快速上手。&lt;/p&gt;&lt;h2&gt;spring-boot-teach 教學程式解說&lt;/h2&gt;&lt;p&gt;我針對官方文件寫了個 &lt;a href=&quot;https://github.com/cloudtu/spring-boot-teach&quot;&gt;spring-boot-teach 教學程式&lt;/a&gt; 放在 github 上，請把它抓回來看看程式怎麼寫、怎麼運作。此外，這節出現的範列在內容上有前後關係，所以這節內容不要跳著看，不然會發生看完後卻看不懂在講什麼的鳥事&lt;/p&gt;&lt;h3&gt;程式目錄結構&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/img/2015/09/spring-boot-teach-folder-structure.png&quot; alt=&quot;教學程式目錄結構&quot;&quot;/&gt;&lt;/p&gt;&lt;h3&gt;application-context.xml&lt;/h3&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;
+    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&amp;quot;&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;hello&amp;quot; class=&amp;quot;cloudtu.bean.Hello&amp;quot;/&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;這個 spring xml 設定檔會在 java config 時被匯入&lt;/p&gt;&lt;h3&gt;application.properties&lt;/h3&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code&gt;server.port=8080
+# enable Tomcat&amp;#39;s HTTP response compression
+server.tomcat.compression=on
+
+# set actuator HTTP port  
+management.port=8081
+# 只許可經由內網網址連入 actuator，可避免監控資料外流
+management.address=127.0.0.1
+
+welcome.first-message=java run anywhere
+welcome.secondMessage=spring boot is easy to use
+
+appVersion=1.0.0
+
+db.prd.name=prd123
+db.dev.name=dev456
+# 設定要啟用哪些 profile
+spring.profiles.active=dev
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;application.properties&lt;/code&gt; 是 spring boot 預設的外部設定檔。因為我針對 actuator 功能設定了 &lt;code&gt;management.port=8081&lt;/code&gt;、&lt;code&gt;management.address=127.0.0.1&lt;/code&gt;，所以只能用 &lt;code&gt;http://127.0.0.1:8081/${actuator_endpoint}&lt;/code&gt; 這類網址才可以取得 actuator 提供的資訊&lt;/p&gt;&lt;h3&gt;author.properties&lt;/h3&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code&gt;author.name=cloudtu
+author.department=RD team
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;除了 &lt;code&gt;application.properties&lt;/code&gt; 之外自訂的設定檔，之後會提供給 author bean 使用&lt;/p&gt;&lt;h3&gt;Application.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;package cloudtu;
+
+...etc
+import cloudtu.bean.Author;
+import cloudtu.bean.DbName;
+
+// @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+@SpringBootApplication
+// 匯入 XML 格式的 spring 設定檔
+@ImportResource(&amp;quot;classpath:application-context.xml&amp;quot;)
+// 設定 property file 設定檔的來源位置
+@PropertySource(&amp;quot;classpath:author.properties&amp;quot;)
+public class Application {
+    ...etc
+
+    // author.properties 裡的 author.* 設定會自動綁定到 authorName, authorDept 變數
+    @Value(&amp;quot;${author.name}&amp;quot;) private String authorName;
+    @Value(&amp;quot;${author.department}&amp;quot;) private String authorDept;
+
+    @Bean
+    public Author author(){
+        Author author = new Author();
+        // 手工指定 author bean 裡的各項 setter 設定
+        author.setName(authorName);
+        author.setDepartment(authorDept);
+        return author;
+    }
+
+    @Bean
+    // application.properties 裡的 db.prd.* 設定會自動綁定到 prdDbName bean
+    @ConfigurationProperties(prefix=&amp;quot;db.prd&amp;quot;)
+    @Profile(&amp;quot;prd&amp;quot;)
+    public DbName prdDbName(){
+        return new DbName();
+    }
+
+    @Bean
+    // application.properties 裡的 db.dev.* 設定會自動綁定到 devDbName bean
+    @ConfigurationProperties(prefix=&amp;quot;db.dev&amp;quot;)
+    @Profile(&amp;quot;dev&amp;quot;)
+    public DbName devDbName(){
+        return new DbName();
+    }
+
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(Application.class, args);
+        ...etc
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;程式碼關鍵處都加了註解，所以看完後你應該知道裡面各個 annotation 用法，不過有儿個地方再補充說明一下。&lt;br/&gt;1. &lt;code&gt;@ConfigurationProperties&lt;/code&gt; 可以把 *.property 設定檔的設定值經由各個 bean 的 setter 進行自動綁定動作&lt;br/&gt;2. 在 &lt;code&gt;application.properties&lt;/code&gt; 裡設定了 &lt;code&gt;spring.profiles.active=dev&lt;/code&gt;，所以程式裡有 &lt;code&gt;@Profile(&amp;quot;dev&amp;quot;)&lt;/code&gt; 宣告的 devDbName bean 在執行時會產生，但是有 &lt;code&gt;@Profile(&amp;quot;prd&amp;quot;)&lt;/code&gt; 宣告的 prdDbName bean 在執行時不會產生&lt;/p&gt;&lt;h3&gt;Welcome.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;package cloudtu.bean;
+
+...etc
+@Component
+// application.properties 裡的 welcome.* 設定會自動綁定到 welcome bean
+@ConfigurationProperties(prefix=&amp;quot;welcome&amp;quot;)
+public class Welcome {
+    private String firstMessage;
+    private String secondMessage;
+
+    // application.properties 裡的 welcome.first-message 設定綁定到 firstMessage instance variable
+    public void setFirstMessage(String firstMessage) {
+        this.firstMessage = firstMessage;
+    }
+    // application.properties 裡的 welcome.secondMessage 設定綁定到 secondMessage instance variable
+    public void setSecondMessage(String secondMessage) {
+        this.secondMessage = secondMessage;
+    }
+    ...etc
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;這個範例也是在介紹 &lt;code&gt;@ConfigurationProperties&lt;/code&gt; 用法，不過你會發現設定檔裡的名稱格式不一致， &lt;code&gt;welcome.first-message&lt;/code&gt; 用 &lt;code&gt;-&lt;/code&gt; 當變數名稱裡的分隔符號，另一個 &lt;code&gt;welcome.secondMessage&lt;/code&gt; 則是用 lower camel case 命名方式。這兩種設定方式 spirng boot 都可以接受&lt;/p&gt;&lt;h3&gt;AppVersion.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;package cloudtu.bean;
+
+...etc
+@Component
+public class AppVersion {
+    // application.properties 裡的 appVersion 設定會自動綁定到 appVersion 變數
+    @Value(&amp;quot;${appVersion}&amp;quot;) String appVersion;
+    ...etc
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;application.properties&lt;/code&gt; 裡的設定可以用 &lt;code&gt;@Value(&amp;quot;${appVersion}&amp;quot;)&lt;/code&gt; 這類的宣告方式直接綁定到 bean 裡面&lt;/p&gt;&lt;h3&gt;Filters.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;package cloudtu.web;
+
+...etc
+@Configuration
+public class Filters{
+    ...etc
+
+    // spring boot 預設的 url mapping 是  &amp;quot;/*&amp;quot;，所以任何 request 都會經過 firstFilter bean
+    @Component
+    private static class FirstFilter implements Filter{
+        ...etc
+    }
+
+    private static class SecondFilter implements Filter{
+        ...etc
+    }
+
+    @Bean
+    public FilterRegistrationBean secondFilter(){
+        FilterRegistrationBean registration = new FilterRegistrationBean(new SecondFilter());
+        // 改寫掉預設的 url mapping，只有 &amp;quot;/hello&amp;quot; 的 request 會經過 secondFilter bean
+        registration.addUrlPatterns(&amp;quot;/hello&amp;quot;);
+        return registration;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;Filter&lt;/code&gt; 可以直接加 &lt;code&gt;@Component&lt;/code&gt; 讓它變成 spring 裡的 bean，firstFilter bean 就是這樣宣告。但是這樣宣告 filter 會讓它的 url mapping 固定都是 &lt;code&gt;/*&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;如果想自定 url mapping，要用 &lt;code&gt;FilterRegistrationBean&lt;/code&gt; 把 &lt;code&gt;Filter&lt;/code&gt; 給包起來，secondFilter bean 就是在講自訂 url mapping 的寫法&lt;/li&gt;
+&lt;/ol&gt;&lt;h3&gt;官方文件裡與教學程式相關的章節&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;configuration
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#getting-started-first-application-auto-configuration&quot;&gt;11.3.2 The @EnableAutoConfiguration annotation&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-importing-configuration&quot;&gt;15.1 Importing additional configuration classes&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-importing-xml-configuration&quot;&gt;15.2 Importing XML configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-structuring-your-code&quot;&gt;18. Using the @SpringBootApplication annotation&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features&quot;&gt;23. Externalized Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-command-line-args&quot;&gt;23.2 Accessing command line properties&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-application-property-files&quot;&gt;23.3 Application property files&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-placeholders-in-properties&quot;&gt;23.5 Placeholders in properties&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-typesafe-configuration-properties&quot;&gt;23.7 Typesafe Configuration Properties&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-profiles&quot;&gt;24. Profiles&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-understanding-auto-configured-beans&quot;&gt;36.1 Understanding auto-configured beans&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#common-application-properties&quot;&gt;Appendix A. Common application properties&lt;/a&gt; : 有 &lt;code&gt;application.properties&lt;/code&gt; 常用參數名稱與用途說明&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;web developing
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#_servlet_containers&quot;&gt;9.1 Servlet containers&lt;/a&gt; : 有支援的 embedded servlet containers 明細列表&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications&quot;&gt;26. Developing web applications&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration&quot;&gt;26.1.1 Spring MVC auto-configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-static-content&quot;&gt;26.1.4 Static Content&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines&quot;&gt;26.1.5 Template engines&lt;/a&gt; : 有支援的 template engine 清單&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-embedded-container-servlets-and-filters&quot;&gt;26.3.1 Servlets and Filters&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-customizing-embedded-containers&quot;&gt;26.3.3 Customizing embedded servlet containers&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-jsp-limitations&quot;&gt;26.3.4 JSP limitations&lt;/a&gt; : 有寫 JSP 的人要注意一下 sprint boot 在 JSP 方面的限制&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;官方範列程式&lt;/h2&gt;&lt;p&gt;官方在 github 有放 &lt;a href=&quot;https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples&quot;&gt;spring boot 官方範列程式&lt;/a&gt;，搞不懂某些功能怎麼用時可以去那邊找找有沒有解答&lt;/p&gt;&lt;h2&gt;Testing&lt;/h2&gt;&lt;p&gt;官方文件裡較重要相關章節條列如下&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-testing-spring-boot-applications&quot;&gt;35.3 Testing Spring Boot applications&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-rest-templates-test-utility&quot;&gt;35.4.4 TestRestTemplate&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;監控管理&lt;/h2&gt;&lt;p&gt;官方文件裡較重要相關章節條列如下&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-endpoints&quot;&gt;40. Actuator endpoints&lt;/a&gt; : 有 actuator endpoints 明細列表&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-sensitive-endpoints&quot;&gt;41.1 Securing sensitive endpoints&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-customizing-management-server-port&quot;&gt;41.3 Customizing the management server port&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-metrics&quot;&gt;44. Metrics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-system-metrics&quot;&gt;44.1 System metrics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-datasource-metrics&quot;&gt;44.2 DataSource metrics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-session-metrics&quot;&gt;44.3 Tomcat session metrics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-tracing&quot;&gt;46. Tracing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;Build by gradle&lt;/h2&gt;&lt;h3&gt;spring-boot-teach 教學程式裡的 build.gradle&lt;/h3&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code&gt;buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(&amp;quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE&amp;quot;)
+    }
+}
+
+// 引用 spring boot plugin
+apply plugin: &amp;quot;spring-boot&amp;quot;
+...etc
+
+configurations {
+    providedRuntime
+
+    // spring boot 預設使用 logback 但是我要用 log4j，所以必需把 spring-boot-starter-logging 排除掉
+    compile.exclude module: &amp;quot;spring-boot-starter-logging&amp;quot;
+}
+
+dependencies {
+    compile(&amp;quot;org.springframework.boot:spring-boot-starter-web&amp;quot;)
+    // spring-boot-starter-actuator 提供 &amp;quot;監控 app 運作狀況&amp;quot; 功能
+    compile(&amp;quot;org.springframework.boot:spring-boot-starter-actuator&amp;quot;)
+    // 改用 log4j 不用預設的 logback
+    compile(&amp;quot;org.springframework.boot:spring-boot-starter-log4j&amp;quot;)
+    ...etc
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;範例解說如下&lt;br/&gt;1. 引用了 spring boot plugin 之後就可以利用它提供的各項專屬 task (e.g. bootRun, bootRepackage) 進行開發&lt;br/&gt;2. spring boot 預設的 log 是 logback，我把它換成了 log4j。因為所有 spring-boot-starter-* 的 pom 都相依於 spring-boot-starter-logging，spring-boot-starter-logging 又相依於 logback，所以要加上 &lt;code&gt;compile.exclude module: &amp;quot;spring-boot-starter-logging&amp;quot;&lt;/code&gt; 把所有 pom 裡的 spring-boot-starter-logging 相依都排除掉，不然程式裡的 log 會出現部份相依 logback 部份相依 log4j 的問題&lt;/p&gt;&lt;h3&gt;常用的 gradle 指令&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;gradle bootRun&lt;/code&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Run the project with support for auto-detecting main class and reloading static resources&lt;/li&gt;
+    &lt;li&gt;直接執行 compile 好的 class，不會打包成 war 或 jar&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;gradle bootRepackage&lt;/code&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Repackage existing JAR and WAR archives so that they can be executed from the command line using &#39;java -jar&#39;&lt;/li&gt;
+    &lt;li&gt;先把程式打包成 executable jar (or war)，然後再執行 jar (or war)&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h3&gt;官方文件裡較重要相關章節&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#getting-started-gradle-installation&quot;&gt;10.1.2 Gradle installation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-starter-poms&quot;&gt;13.4 Starter POMs&lt;/a&gt; : 有所有 starter pom 明細列表&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-running-with-the-gradle-plugin&quot;&gt;19.4 Using the Gradle plugin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-including-the-gradle-plugin&quot;&gt;59.1 Including the plugin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-gradle-dependencies-without-versions&quot;&gt;59.2 Declaring dependencies without versions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-gradle-packaging&quot;&gt;59.4 Packaging executable jar and war files&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-gradle-running-applications&quot;&gt;59.5 Running a project in-place&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;‘How-to’ guides&lt;/h2&gt;&lt;p&gt;官方文件有列出常見問題與解答，下列儿項是我目前比較會遇到的項目&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-use-yaml-for-external-properties&quot;&gt;63.4 Use YAML for external properties&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-add-a-servlet-filter-or-servletcontextlistener&quot;&gt;64.1 Add a Servlet, Filter or ServletContextListener to an application&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-configure-ssl&quot;&gt;64.6 Configure SSL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-enable-multiple-connectors-in-tomcat&quot;&gt;64.8 Enable Multiple Connectors with Tomcat&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-use-tomcat-behind-a-proxy-server&quot;&gt;64.9 Use Tomcat behind a front-end proxy server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-use-jetty-instead-of-tomcat&quot;&gt;64.10 Use Jetty instead of Tomcat&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#how-to-enable-http-response-compression-tomcat&quot;&gt;64.18.1 Enable Tomcat’s HTTP response compression&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-write-an-xml-rest-service&quot;&gt;65.2 Write an XML REST service&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-configure-log4j-for-logging&quot;&gt;66.2 Configure Log4j for logging&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-two-datasources&quot;&gt;67.2 Configure Two DataSources&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-customize-the-whitelabel-error-page&quot;&gt;70.2 Customize the ‘whitelabel’ error page&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-enable-https&quot;&gt;71.3 Enable HTTPS when running behind a proxy server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-reload-thymeleaf-content&quot;&gt;72.2 Reload Thymeleaf templates without restarting the container&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-create-a-deployable-war-file&quot;&gt;74.1 Create a deployable war file&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
 
     <item>
       <title>gradle learning path</title>
@@ -389,33 +660,7 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
 </description>
     </item>
 
-    <item>
-      <title>Cassandra 出現 HintsColumnFamily 異常巨大的解決辦法</title>
-      <link>http://cloudtu.github.io/blog/2014/05/cassandra-hintscolumnfamily.html</link>
-      <pubDate>Wed, 14 May 2014 15:47:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2014/05/cassandra-hintscolumnfamily.html</guid>
-      <description>
-這陣子在 Cassandra 的使用上遇到個很麻煩的怪事，那就是 ring 上某個 node 發生HintsColumnFamily 異常巨大的情況。執行下述指令後
-&lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;ls -lh {cassandra_data_folder}/system/HintsColumnFamily*&lt;br&gt;&lt;/pre&gt;我發現 HintsColumnFamily 吃掉了 10儿G 的 HD，出問題的 node 跑起來跟快掛掉沒兩樣，實在是災難一場。
-&lt;br&gt;
-&lt;br&gt;要如何解決這場災難，可以參考下列資料
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;coordinator node 負擔是否過重?資料寫入動作不要集中單一 coordinator node ，要分散到多個 node &lt;/li&gt;
- &lt;li&gt;coordinator node 在跟 ring 裡其它 node 進行通訊(cassandra gossiping)時，是否通訊不良?在 coordinator node 執行下述指令，看看發生 &#39;Timed out replaying hint&#39; 訊息的是哪儿個 node，想辦法改善這些 node 的網路品質&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;cat {cassandra_root_folder}/system.log | grep &#39;Timed out replaying hint&#39; | less&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
- &lt;li&gt;因為 HintsColumnFamily 過於巨大，要等裡面的資料慢慢被消化完是無意義的。最有效率的解決辦法是直接刪除 HintsColumnFamily 檔案，把 hinted handoff 資料全部放生，然後再到各個發生 &#39;Timed out replaying hint&#39; 的 node 執行 repair 動作。處理步驟如下&lt;br&gt;
-  &lt;ol&gt;
-   &lt;li&gt;連線到 coordinator node &lt;/li&gt;
-   &lt;li&gt;shutdown cassandra &lt;pre class=&quot;prettyprint&quot;&gt;nodetool -h coordinator_node disablegossip&lt;br&gt;nodetool -h coordinator_node disablethrift&lt;br&gt;nodetool -h coordinator_node drain&lt;br&gt;kill -9 {cassandra_service_pid}&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
-   &lt;li&gt;&lt;pre class=&quot;prettyprint&quot;&gt;rm -rf {cassandra_data_folder}/system/HintsColumnFamily*&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
-   &lt;li&gt;start cassandra&lt;/li&gt;
-   &lt;li&gt;連線到發生 &#39;Timed out replaying hint&#39; 的那儿個node，各別都執行下述指令，修復資料不一致的儿個 columnfamily&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;nodetool -h hint_fail_node repair {repaired_keyspace} {repaired_columnfamily} -pr&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
-   &lt;li&gt;如果不想讓 HintsColumnFamily 的資料保留時間過久，可以修改 coordinator node 的 cassandra.yaml 設定檔，將 max_hint_window_in_ms 設定值改小。這個設定值預設是 3600000，代表裡面的資料預設只保留 1 小時，時間超過時就會被系統自動清除&lt;/li&gt;
-  &lt;/ol&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
+    
 
     
 
