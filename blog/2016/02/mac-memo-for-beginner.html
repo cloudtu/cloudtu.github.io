@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
       <meta charset="utf-8" />
-      <title>老涂的咁仔店</title>
+      <title>MAC 新手入門筆記</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="" />
       <meta name="author" content="cloudtu" />
@@ -16,6 +16,21 @@
       <link rel="stylesheet" href="/css/prettify.css" />
   </head>
   <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
   <div id="wrap">
     <div>
 
@@ -203,19 +218,132 @@
 
   </div>
     <div class="container">
+
       <div class="page-header">
-        <h1>Tag : olap</h1>
+        <h1>MAC 新手入門筆記</h1>
       </div>
 
-      
-        <h4>2013-02</h4>
-        <div style="margin-left: 20px;">
-          08 - <a href="/blog/2013/02/ssassql-server-analysis-services-access.html" shape="rect">SSAS(SQL Server Analysis Services) access Oracle DB is Shit Solution [安裝篇]</a>
-        </div>
-      
+      <p><em>2016-03-04</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/mac.html">mac</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p><p>儿個月前因為工作需要摸了一陣子 MAC 筆電，有一些簡單心得，所以做個筆記以備未來不時之需 :)</p><h2>MAC OS 入門影片</h2>
+<ol>
+  <li>英文
+  <ul>
+    <li><a href="https://www.youtube.com/watch?v=wSPisJXyjso">Learn the MAC In Under 90 Minutes 2015 Yosemite Edition</a></li>
+    <li><a href="https://www.youtube.com/watch?v=kgS6E-6vStA">El Capitan OS X Tutorial</a></li>
+  </ul></li>
+  <li>中文
+  <ul>
+    <li><a href="https://www.youtube.com/playlist?list=PLtDm33ESx3munKRdCXwvw4Bge2k2b-RZh">Mac OS X 基礎教學</a></li>
+    <li><a href="https://www.youtube.com/playlist?list=PL7A481B6116A5B721">Mac 相關教學</a></li>
+  </ul></li>
+</ol><h2>MAC OS 入門文件</h2>
+<ul>
+  <li><a href="http://appleuser.com/mac-os-x-teach-all/">Mac 新手教學區</a></li>
+  <li><a href="http://mac-osx-for-newbie-book.kejyun.com/">Mac OSX 新手入門</a></li>
+  <li><a href="http://www.playpcesor.com/2014/01/mac-macbook-air.html">[Mac 新手日記] 讓 Macbook Air 靈活百倍的觸控板手勢教學</a></li>
+  <li><a href="http://www.playpcesor.com/2015/04/mac-10-finder.html">Mac 用戶一定要知道這10個 Finder 獨特檔案整理技巧</a></li>
+  <li><a href="http://www.playpcesor.com/2014/01/mac-apple-mac-os-x.html">[Mac 新手日記] Apple Mac OS X 截圖文書必備快捷鍵教學</a></li>
+  <li><a href="http://www.playpcesor.com/2015/05/Mac-preview-photo-pdf-editor.html">Mac 用戶不可不用預覽程式：13招取代修圖 PDF 軟體</a></li>
+  <li><a href="http://www.playpcesor.com/2015/04/mac-photos-app-14.html">Mac 全新內建 Photos 照片 App 你一定要會的14件事</a></li>
+  <li><a href="http://www.playpcesor.com/2014/03/mac-quicktime-player.html">[Mac 新手日記] QuickTime Player 螢幕錄影與影片剪輯教學</a></li>
+</ul><h2>SSH 相關 console command</h2>
+<ol>
+  <li><p>產生 SSH 公私鑰</p>
+  <!--?prettify?-->
+  <pre><code>ssh-keygen -t rsa
+</code></pre></li>
+  <li><p>Storing Passphrases in the Keychain, 免除每次 ssh 連線都要指定 private key 所在位置</p>
+  <!--?prettify?-->
+  <pre><code>ssh-add -K /path/to/private/key/file
+</code></pre></li>
+  <li><p>相關參考文件</p>
+  <ul>
+    <li><a href="http://blog.longwin.com.tw/2005/12/ssh_keygen_no_passwd/">http://blog.longwin.com.tw/2005/12/ssh_keygen_no_passwd/</a></li>
+    <li><a href="https://ekkescorner.wordpress.com/blog-series/git-mercurial/step-by-step-ssh-on-osx-ubuntu-and-windows/">https://ekkescorner.wordpress.com/blog-series/git-mercurial/step-by-step-ssh-on-osx-ubuntu-and-windows/</a></li>
+    <li><a href="http://stackoverflow.com/a/11673152">http://stackoverflow.com/a/11673152</a></li>
+  </ul></li>
+</ol><h2>利用 homebrew 指令安裝軟體</h2><p>homebrew 可以幫你用 <code>console command</code> 的方式安裝與管理各種軟體，可以讓你在這方面省掉很多時間，強烈推薦要用這個好物。下面列的是我常會利用 homebrew 安裝的軟體。</p>
+<!--?prettify?-->
+<pre><code># install xcode command tool
+xcode-select --install
+# check xcode command tool
+xcode-select -p
+
+# install homebrew
+ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+# check homebrew install success or not
+brew doctor
+brew update
+
+# install homebrew-cask
+brew tap caskroom/cask
+brew install brew-cask
+
+# i install these soft below by brew &amp; brew-cask
+
+brew install wget
+brew install curl
+brew install git
+brew install htop-osx
+
+# install java7
+brew cask install caskroom/versions/java7
+# install java8
+brew cask install java
+
+brew cask install intellij-idea-ce
+brew cask install eclipse-jee
+
+brew install maven
+brew install gradle
+
+brew cask install sourcetree
+brew cask install cyberduck
+brew cask install dbeaver-enterprise
+
+brew cask install google-chrome
+brew cask install firefox
+brew cask install flash
+
+brew cask install bettertouchtool
+</code></pre><h2>其它實用的教學文件</h2>
+<ul>
+  <li><a href="http://aimijia.net/2014/05/each-mac-os-x-command-line-users-should-be-aware-of-the-eight-terminal-tool/">【譯】每個Mac OS X 命令行用戶應當知道的八個終端工具</a></li>
+</ul></p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2016/02/mac-memo-for-beginner.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2016/02/mac-memo-for-beginner.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
     </div>
   </div>
-
   <div>
       <div id="push"></div>
 

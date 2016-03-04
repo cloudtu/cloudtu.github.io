@@ -5,8 +5,101 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Wed, 9 Sep 2015 22:58:29 +0800</pubDate>
-    <lastBuildDate>Wed, 9 Sep 2015 22:58:29 +0800</lastBuildDate>
+    <pubDate>Fri, 4 Mar 2016 18:05:06 +0800</pubDate>
+    <lastBuildDate>Fri, 4 Mar 2016 18:05:06 +0800</lastBuildDate>
+
+    <item>
+      <title>MAC 新手入門筆記</title>
+      <link>http://cloudtu.github.io/blog/2016/02/mac-memo-for-beginner.html</link>
+      <pubDate>Fri, 4 Mar 2016 18:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2016/02/mac-memo-for-beginner.html</guid>
+      <description>&lt;p&gt;儿個月前因為工作需要摸了一陣子 MAC 筆電，有一些簡單心得，所以做個筆記以備未來不時之需 :)&lt;/p&gt;&lt;h2&gt;MAC OS 入門影片&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;英文
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=wSPisJXyjso&quot;&gt;Learn the MAC In Under 90 Minutes 2015 Yosemite Edition&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=kgS6E-6vStA&quot;&gt;El Capitan OS X Tutorial&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;中文
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PLtDm33ESx3munKRdCXwvw4Bge2k2b-RZh&quot;&gt;Mac OS X 基礎教學&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PL7A481B6116A5B721&quot;&gt;Mac 相關教學&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;MAC OS 入門文件&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://appleuser.com/mac-os-x-teach-all/&quot;&gt;Mac 新手教學區&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mac-osx-for-newbie-book.kejyun.com/&quot;&gt;Mac OSX 新手入門&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.playpcesor.com/2014/01/mac-macbook-air.html&quot;&gt;[Mac 新手日記] 讓 Macbook Air 靈活百倍的觸控板手勢教學&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.playpcesor.com/2015/04/mac-10-finder.html&quot;&gt;Mac 用戶一定要知道這10個 Finder 獨特檔案整理技巧&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.playpcesor.com/2014/01/mac-apple-mac-os-x.html&quot;&gt;[Mac 新手日記] Apple Mac OS X 截圖文書必備快捷鍵教學&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.playpcesor.com/2015/05/Mac-preview-photo-pdf-editor.html&quot;&gt;Mac 用戶不可不用預覽程式：13招取代修圖 PDF 軟體&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.playpcesor.com/2015/04/mac-photos-app-14.html&quot;&gt;Mac 全新內建 Photos 照片 App 你一定要會的14件事&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.playpcesor.com/2014/03/mac-quicktime-player.html&quot;&gt;[Mac 新手日記] QuickTime Player 螢幕錄影與影片剪輯教學&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;SSH 相關 console command&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;p&gt;產生 SSH 公私鑰&lt;/p&gt;
+  &lt;!--?prettify?--&gt;
+  &lt;pre&gt;&lt;code&gt;ssh-keygen -t rsa
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;Storing Passphrases in the Keychain, 免除每次 ssh 連線都要指定 private key 所在位置&lt;/p&gt;
+  &lt;!--?prettify?--&gt;
+  &lt;pre&gt;&lt;code&gt;ssh-add -K /path/to/private/key/file
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;相關參考文件&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://blog.longwin.com.tw/2005/12/ssh_keygen_no_passwd/&quot;&gt;http://blog.longwin.com.tw/2005/12/ssh_keygen_no_passwd/&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://ekkescorner.wordpress.com/blog-series/git-mercurial/step-by-step-ssh-on-osx-ubuntu-and-windows/&quot;&gt;https://ekkescorner.wordpress.com/blog-series/git-mercurial/step-by-step-ssh-on-osx-ubuntu-and-windows/&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/a/11673152&quot;&gt;http://stackoverflow.com/a/11673152&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;利用 homebrew 指令安裝軟體&lt;/h2&gt;&lt;p&gt;homebrew 可以幫你用 &lt;code&gt;console command&lt;/code&gt; 的方式安裝與管理各種軟體，可以讓你在這方面省掉很多時間，強烈推薦要用這個好物。下面列的是我常會利用 homebrew 安裝的軟體。&lt;/p&gt;
+&lt;!--?prettify?--&gt;
+&lt;pre&gt;&lt;code&gt;# install xcode command tool
+xcode-select --install
+# check xcode command tool
+xcode-select -p
+
+# install homebrew
+ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+# check homebrew install success or not
+brew doctor
+brew update
+
+# install homebrew-cask
+brew tap caskroom/cask
+brew install brew-cask
+
+# i install these soft below by brew &amp;amp; brew-cask
+
+brew install wget
+brew install curl
+brew install git
+brew install htop-osx
+
+# install java7
+brew cask install caskroom/versions/java7
+# install java8
+brew cask install java
+
+brew cask install intellij-idea-ce
+brew cask install eclipse-jee
+
+brew install maven
+brew install gradle
+
+brew cask install sourcetree
+brew cask install cyberduck
+brew cask install dbeaver-enterprise
+
+brew cask install google-chrome
+brew cask install firefox
+brew cask install flash
+
+brew cask install bettertouchtool
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;其它實用的教學文件&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://aimijia.net/2014/05/each-mac-os-x-command-line-users-should-be-aware-of-the-eight-terminal-tool/&quot;&gt;【譯】每個Mac OS X 命令行用戶應當知道的八個終端工具&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
 
     <item>
       <title>spring boot 官方文件摘要</title>
@@ -634,31 +727,7 @@ Datastax 把前陣子辦的 Cassandra Summit 2014
 </description>
     </item>
 
-    <item>
-      <title>雲端 IaaS 主機建立 cassandra node 的注意事項</title>
-      <link>http://cloudtu.github.io/blog/2014/09/iaas-cassandra-node.html</link>
-      <pubDate>Tue, 23 Sep 2014 16:38:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2014/09/iaas-cassandra-node.html</guid>
-      <description>
-要在雲端 IaaS 主機建立 cassandra node，cassandra 設定檔裡跟 ip 有關的參數設定要特別留心，不然在 node 建完後會啟動失敗。這篇設定在&amp;nbsp; cassandra 1.x、2.x 都適用，有需要的可以參考一下...:)
-&lt;br&gt;
-&lt;br&gt;假設我在 AWS 建了一台 EC2，並且將它綁定 EIP(Elastic IP)，EC2 的 ip 資訊如下
-&lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;private ip : 172.30.45.70&lt;br&gt;public ip : 50.190.20.220&lt;br&gt;&lt;/pre&gt;目前的 cassandra ring(cluster) 分佈在多個 AWS region，seed node 的 public ip 是 60.190.20.210。我要將該台 EC2 加入其中，相關注意事項如下 
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;cassandra.yaml&lt;br&gt;設定值要長像這樣，相關原因在官方文件有&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchEC2MultiRegion_c.html?scroll=concept_ds_gck_hrf_fk__other-settings&quot; target=&quot;_blank&quot;&gt;說明&lt;/a&gt;&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;endpoint_snitch: EC2MultiRegionSnitch&lt;br&gt;listen_address : ec2_private_ip&lt;br&gt;rpc_address : ec2_private_ip&lt;br&gt;broadcast_address : ec2_public_ip&lt;br&gt;seeds : seed_public_ip&lt;br&gt;&lt;/pre&gt;以目前的例子來說則是設成 &lt;pre class=&quot;prettyprint&quot;&gt;endpoint_snitch: EC2MultiRegionSnitch&lt;br&gt;listen_address : 172.30.45.70&lt;br&gt;rpc_address : 172.30.45.70&lt;br&gt;broadcast_address : 50.190.20.220&lt;br&gt;seeds : 60.190.20.210&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
- &lt;li&gt;cassandra-env.sh&lt;br&gt;增加下面這行跟 JMX 有關的設定。為何要加這行? 這是為了防止&amp;nbsp; nodetool 指令執行時出現 &quot;Connection has timed out&quot; 異常。這問題在 &lt;a href=&quot;http://stackoverflow.com/questions/15299302/cassandra-nodetool-connection-timed-out&quot; target=&quot;_blank&quot;&gt;stackoverflow &lt;/a&gt;有被討論跟解釋過。&lt;br&gt;&lt;pre class=&quot;prettyprint&quot;&gt;JVM_OPTS=&quot;$JVM_OPTS -Djava.rmi.server.hostname=127.0.0.1&quot;&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
- &lt;li&gt;EC2 的 firewall 把該開的 port 都打開(從 EC2 &amp;gt; Security Group &amp;gt; Inbound 設定裡改)，一般來說是開啟下面儿個 &lt;pre class=&quot;prettyprint&quot;&gt;storage_port : 7000&lt;br&gt;jmx_port : 7199&lt;br&gt;native_transport_port : 9042&lt;br&gt;rpc_port : 9160&lt;br&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;雖然這裡是用 EC2 當例子，不過只要是 IaaS 設定上應該都與此相似。比較大的差異在 cassandra.yaml 裡的 
-&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchesAbout_c.html&quot; target=&quot;_blank&quot;&gt;endpoint_snitch&lt;/a&gt; 設定，EC2 用 
-&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchEC2MultiRegion_c.html&quot; target=&quot;_blank&quot;&gt;EC2MultiRegionSnitch&lt;/a&gt;，GCE(GoogleComputerEngine) 用 
-&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchGoogle.html&quot; target=&quot;_blank&quot;&gt;GoogleCloudSnitch&lt;/a&gt;，混用 IaaS 跟一般傳統實體主機可以用 
-&lt;a href=&quot;http://www.datastax.com/documentation/cassandra/2.1/cassandra/architecture/architectureSnitchGossipPF_c.html&quot; target=&quot;_blank&quot;&gt;GossipingPropertyFileSnitch&lt;/a&gt;。
-&lt;br&gt;
-&lt;br&gt;至於 ip 設定部份，其實只有一個重點&quot;機器內部內網溝通走 private ip，但是走到外網進行 broadcast 時要走 public ip&quot;。會這樣做的理由也很直覺，因為 public ip 是經由雲端服務綁定(e.g. AWS EIP)，VM 本身根本不知道自己有 public ip 這回事。
-</description>
-    </item>
+    
 
     
 
