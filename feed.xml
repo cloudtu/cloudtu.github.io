@@ -5,13 +5,232 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>Fri, 4 Mar 2016 18:05:06 +0800</pubDate>
-    <lastBuildDate>Fri, 4 Mar 2016 18:05:06 +0800</lastBuildDate>
+    <pubDate>星期五, 29 十二月 2017 16:51:41 +0800</pubDate>
+    <lastBuildDate>星期五, 29 十二月 2017 16:51:41 +0800</lastBuildDate>
+
+    <item>
+      <title>如何在 spring 實作的 restful api 裡使用 validation annotation</title>
+      <link>http://cloudtu.github.io/blog/2017/12/spring-restful-api-input-param-validate-memo.html</link>
+      <pubDate>星期五, 29 十二月 2017 20:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/12/spring-restful-api-input-param-validate-memo.html</guid>
+      <description>&lt;h2&gt;如何實作&lt;/h2&gt;&lt;p&gt;spring 實作的 restful api，要針對輸入參數進行內容格式驗証，可分成下列儿類&lt;/p&gt;&lt;h3&gt;針對 @RequestBody 進行 validation&lt;/h3&gt;&lt;p&gt;實作程式碼重點如下&lt;/p&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@RestController
+@RequestMapping(&amp;quot;/validateAnnotationDemo&amp;quot;)
+public class ValidateAnnotationDemoController {
+    @RequestMapping(value = &amp;quot;/validateRequestBody&amp;quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User validateRequestBody(@Valid @RequestBody User user){
+        ...etc;
+    }
+
+    private static class User{
+        @NotBlank
+        private String name;
+        ...etc;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity handleMethodArgumentNotValidException(HttpServletRequest req, MethodArgumentNotValidException e) {
+        ...etc;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+  &lt;li&gt;@RequestBody 前面要加上 @Valid&lt;/li&gt;
+  &lt;li&gt;pojo (在此例指 User class) 要加上 validation annotation (e.g. @NotBlank, @NotNull ...etc)&lt;/li&gt;
+  &lt;li&gt;validate fail 會丟出 MethodArgumentNotValidException，要自己寫 handler 決定哪些異常明細回傳給前端&lt;/li&gt;
+&lt;/ol&gt;&lt;h3&gt;針對 @RequestParam 進行 validation&lt;/h3&gt;&lt;p&gt;實作程式碼重點如下&lt;/p&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@Configuration
+@ComponentScan
+public class WebConfig {
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@Validated
+@RestController
+@RequestMapping(&amp;quot;/validateAnnotationDemo&amp;quot;)
+public class ValidateAnnotationDemoController {
+    @RequestMapping(value = &amp;quot;/validateRequestParam&amp;quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map&amp;lt;String,Object&amp;gt; validateRequestParam(@NotBlank(message = &amp;quot;message must not be blank&amp;quot;) @RequestParam String message){
+        ...etc;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException e){
+        ...etc;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+  &lt;li&gt;要注冊 MethodValidationPostProcessor bean，不然無法對 @RequestParam 進行 validation&lt;/li&gt;
+  &lt;li&gt;在 @RestController 前面加上 @Validated&lt;/li&gt;
+  &lt;li&gt;在 @RequestParam 前面加上 validation annotation (e.g. @NotBlank, @NotNull ...etc)&lt;/li&gt;
+  &lt;li&gt;validate fail 會丟出 ConstraintViolationException，要自己寫 handler 決定哪些異常明細回傳給前端&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;完整範例&lt;/h2&gt;&lt;h3&gt;WebConfig.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@Configuration
+@ComponentScan
+public class WebConfig {
+
+    /**
+     * 注冊 MethodValidationPostProcessor bean 之後，Controller class 開頭加的 @Validated 與 method 裡針
+     * 對 @RequestParam annotation 加的 validate annotation (e.g. @NotBlank, @NotNull ...etc)才會生效，
+     * 沒注冊時就算程式碼裡有加這些 annotation 還是不會有作用
+     *
+     * @return
+     */
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;ValidateAnnotationDemoController.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;@Validated
+@RestController
+@RequestMapping(&amp;quot;/validateAnnotationDemo&amp;quot;)
+public class ValidateAnnotationDemoController {
+
+    //在 class 開頭加了 @Validated 之後，針對 @RequestParam 加的 validation annotation (e.g. @NotBlank, @NotNull...etc) 才會生效
+    @RequestMapping(value = &amp;quot;/validateRequestParam&amp;quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map&amp;lt;String,Object&amp;gt; validateRequestParam(
+            @NotBlank(message = &amp;quot;message must not be blank&amp;quot;) @RequestParam String message){
+        Map&amp;lt;String,Object&amp;gt; result = new HashMap&amp;lt;&amp;gt;();
+        result.put(&amp;quot;message&amp;quot;, message);
+        return result;
+    }
+
+    // 加對 @Valid 之後，會驗証 pojo (此例中指 User instance) 內容格式是否正確
+    @RequestMapping(value = &amp;quot;/validateRequestBody&amp;quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User validateRequestBody(@Valid @RequestBody User user){
+        return user;
+    }
+
+    private static class User{
+        @NotBlank
+        private String name;
+
+        // 針對 list of pojo 的資料格式進行驗証，要加上 @NotEmpty, @Valid 二個 annotation
+        @NotEmpty
+        @Valid
+        private List&amp;lt;ContactInfo&amp;gt; contactInfoList;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public List&amp;lt;ContactInfo&amp;gt; getContactInfoList() {
+            return contactInfoList;
+        }
+
+        public void setContactInfoList(List&amp;lt;ContactInfo&amp;gt; contactInfoList) {
+            this.contactInfoList = contactInfoList;
+        }
+    }
+
+    private static class ContactInfo{
+        @NotBlank
+        private String address;
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;GlobalExceptionHandler.java&lt;/h3&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;/**
+ * Controller 發生 uncatch exception 情況時，會統一在這個 class 被處理。
+ */
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity handleException(HttpServletRequest req, Exception e){
+        logger.error(e.getMessage(), e);
+        String errorMsg = (e.getMessage() == null) ? e.getClass().getSimpleName() : e.getMessage();
+        Map&amp;lt;String,Object&amp;gt; error = Collections.singletonMap(&amp;quot;error&amp;quot;, errorMsg);
+        return ResponseEntity.status(500).body(error);
+    }
+
+    /**
+     * Controller 裡標注 @RequestParam 的變數在 validate fail 時會丟出 ConstraintViolationException。這個 method
+     * 專門處理此類 exception
+     *
+     * @param req
+     * @param e
+     *
+     * @return
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException e){
+        logger.error(e.getMessage(), e);
+        // &amp;quot;@NotBlank @RequestParam String myArg&amp;quot; 這樣的 validate 寫法在 validate fail 時無法得知 &amp;quot;哪個輸入參數名稱&amp;quot; 驗証失敗，這是 java reflection 本身的限制。
+        // 用這類語法時要改寫成 &amp;quot;@NotBlank(myArg must not be blank) @RequestParam String myArg&amp;quot;，程式裡的 validate annotation 要寫出 &amp;quot;完整出錯明細&amp;quot;，
+        // 不然在處理 ConstraintViolationException 時只會知道驗証失敗的原因，卻不知道是哪個輸入參數名稱驗証失敗。
+        List&amp;lt;String&amp;gt; errorMessages = e.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
+        Map&amp;lt;String,Object&amp;gt; error = Collections.singletonMap(&amp;quot;error&amp;quot;, errorMessages);
+        return ResponseEntity.status(400).body(error);
+    }
+
+    /**
+     * Controller 裡標注 @RequestBody 的變數在 validate fail 時會丟出 MethodArgumentNotValidException。這個 method
+     * 專門處理此類 exception
+     *
+     * @param req
+     * @param e
+     *
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity handleMethodArgumentNotValidException(HttpServletRequest req, MethodArgumentNotValidException e) {
+        logger.error(e.getMessage(), e);
+        List&amp;lt;String&amp;gt; errorMessages = e.getBindingResult().getFieldErrors()
+                .stream()
+                .map(fieldError -&amp;gt; fieldError.getField() + &amp;quot; &amp;quot; + fieldError.getDefaultMessage()) // 記錄 &amp;quot;fieldName + validateFailMessage&amp;quot;
+                .collect(Collectors.toList());
+        Map&amp;lt;String,Object&amp;gt; error = Collections.singletonMap(&amp;quot;error&amp;quot;, errorMessages);
+        return ResponseEntity.status(400).body(error);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;reference document&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/51e8d2702ca1&quot;&gt;在Spring MVC中使用註解的方式校驗RequestParams&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://sdqali.in/blog/2015/12/04/validating-requestparams-and-pathvariables-in-spring-mvc/&quot;&gt;Validating RequestParams and PathVariables in Spring MVC&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/a/38615327/8646444&quot;&gt;Spring Boot REST @RequestParam not being Validated&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/a/35588953/8646444&quot;&gt;Spring MVC - @Valid on list of beans in REST service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
 
     <item>
       <title>MAC 新手入門筆記</title>
       <link>http://cloudtu.github.io/blog/2016/02/mac-memo-for-beginner.html</link>
-      <pubDate>Fri, 4 Mar 2016 18:00:00 +0800</pubDate>
+      <pubDate>星期五, 4 三月 2016 18:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2016/02/mac-memo-for-beginner.html</guid>
       <description>&lt;p&gt;儿個月前因為工作需要摸了一陣子 MAC 筆電，有一些簡單心得，所以做個筆記以備未來不時之需 :)&lt;/p&gt;&lt;h2&gt;MAC OS 入門影片&lt;/h2&gt;
 &lt;ol&gt;
@@ -104,7 +323,7 @@ brew cask install bettertouchtool
     <item>
       <title>spring boot 官方文件摘要</title>
       <link>http://cloudtu.github.io/blog/2015/09/spring-boot-official-doc-memo.html</link>
-      <pubDate>Wed, 9 Sep 2015 20:00:00 +0800</pubDate>
+      <pubDate>星期三, 9 九月 2015 20:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/09/spring-boot-official-doc-memo.html</guid>
       <description>&lt;p&gt;這篇內容寫的是 &lt;a href=&quot;http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/&quot;&gt;spring boot 1.2.5 官方文件&lt;/a&gt; 重點摘要，不做 spring boot 基礎教學。要看懂這些內容有下列前題假設&lt;/p&gt;
 &lt;ol&gt;
@@ -375,7 +594,7 @@ dependencies {
     <item>
       <title>gradle learning path</title>
       <link>http://cloudtu.github.io/blog/2015/09/gradle-learning-path.html</link>
-      <pubDate>Thu, 3 Sep 2015 22:00:00 +0800</pubDate>
+      <pubDate>星期四, 3 九月 2015 22:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/09/gradle-learning-path.html</guid>
       <description>&lt;p&gt;我用 gradle 當 build tool 已經好一陣子，通常照著網路上的 gradle 範例去修改就可以讓它滿足我的需求，真是超方便。可是對於 gradle script 為啥長這個樣子? 它的運作原理為何? 我一直搞不懂所以然。這次花了些時間終於了解它的基礎原理到底是怎麼回事。下述是我學習 gradle 基礎原理的 learning path，請照條列順序依序閱讀，看完後就可以對 gradle 知其然又知其所以然!&lt;/p&gt;
 &lt;ol&gt;
@@ -405,7 +624,7 @@ dependencies {
     <item>
       <title>java 8 lambda resource</title>
       <link>http://cloudtu.github.io/blog/2015/08/java-8-lambda-resource.html</link>
-      <pubDate>Thu, 27 Aug 2015 15:00:00 +0800</pubDate>
+      <pubDate>星期四, 27 八月 2015 15:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/08/java-8-lambda-resource.html</guid>
       <description>&lt;p&gt;java 8 lambda 功能已經出來一年多，相關討論與資源也很多。不過這玩意兒如果太久沒用的話，總是把學到的又還回去。為了想複習時可以快速找到相關資源，還是把這些資訊筆記下來卡實在。以下是相關明細，有興趣的可以照條列順序依序閱讀。&lt;/p&gt;
 &lt;ul&gt;
@@ -429,7 +648,7 @@ dependencies {
     <item>
       <title>利用 jbake 從 blogger 搬家到 github</title>
       <link>http://cloudtu.github.io/blog/2015/08/migrate-from-blogger-to-jbake.html</link>
-      <pubDate>Tue, 18 Aug 2015 18:00:00 +0800</pubDate>
+      <pubDate>星期二, 18 八月 2015 18:00:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/08/migrate-from-blogger-to-jbake.html</guid>
       <description>&lt;p&gt;打算搬離 &lt;a href=&quot;http://blogger.com&quot;&gt;blogger&lt;/a&gt; 的念頭很早就有了，只是一直沒有行動。主要原因還是打包整個站台的文章、圖片太麻煩，所以就一直沒動手。二週前開始有了段長時間的空檔，所以下定決心告別 blogger，自己蓋個新 blog 站台。&lt;/p&gt;&lt;h2&gt;為何搬離 blogger&lt;/h2&gt;&lt;p&gt;沒事 blogger 用的好好的為何會想搬家呢? 原因大略是下述儿點&lt;/p&gt;
 &lt;ol&gt;
@@ -552,7 +771,7 @@ my code...etc
     <item>
       <title>java library for github api 心得筆記</title>
       <link>http://cloudtu.github.io/blog/2015/07/java-library-for-github-api.html</link>
-      <pubDate>Fri, 3 Jul 2015 13:34:00 +0800</pubDate>
+      <pubDate>星期五, 3 七月 2015 13:34:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/07/java-library-for-github-api.html</guid>
       <description>
 這陣子用 java 去呼叫 github restful api 之後有些心得，將它做個簡單記錄
@@ -596,7 +815,7 @@ my code...etc
     <item>
       <title>用 https 連線到 github 進行 push(或 pull) 時，略過每次都要打帳密的動作</title>
       <link>http://cloudtu.github.io/blog/2015/02/https-github-push-pull.html</link>
-      <pubDate>Thu, 26 Feb 2015 16:57:00 +0800</pubDate>
+      <pubDate>星期四, 26 二月 2015 16:57:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/02/https-github-push-pull.html</guid>
       <description>
 當 local repository 用 https 連線至 github 進行 push(或 pull) 時，總是都要打一次帳號與密碼。頻繁進行 push(或 pull) 時，打帳密的動作就變的很惱人。雖然說用 ssh 連線就可免掉這問題，不過在使用 https 的前題下，這問題也是有解法。
@@ -622,7 +841,7 @@ my code...etc
     <item>
       <title>如何備份 github 各別 project 所有 branch 到本地端，並將該專案搬移至 bitbucket</title>
       <link>http://cloudtu.github.io/blog/2015/02/github-project-branch-bitbucket.html</link>
-      <pubDate>Thu, 26 Feb 2015 14:34:00 +0800</pubDate>
+      <pubDate>星期四, 26 二月 2015 14:34:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2015/02/github-project-branch-bitbucket.html</guid>
       <description>
 執行 &quot;git clone&quot; 無法將 github 各別 project 的所有 remote branch 都在 local repository 產生一份，只會在 local 產生 master branch。這時如果要將 local repository push 到(或說是搬到) new remote repository 會發生很大的問題。當你在 local repository 執行完 &quot;git push --all&quot; 後會發現 remote repository 只存在 master branch，其它 branch 不會出現在裡面。
@@ -655,7 +874,7 @@ my code...etc
     <item>
       <title>OAuth2 心得筆記</title>
       <link>http://cloudtu.github.io/blog/2014/12/oauth2.html</link>
-      <pubDate>Sun, 7 Dec 2014 20:07:00 +0800</pubDate>
+      <pubDate>星期日, 7 十二月 2014 20:07:00 +0800</pubDate>
       <guid isPermaLink="false">blog/2014/12/oauth2.html</guid>
       <description>
 這陣子因為工作上需要，必需了解 OAuth2 原理。在網路上查了一陣子後發現下面這份解說詳盡的投影片，有興趣的人可以參考一下...:)
@@ -696,36 +915,7 @@ my code...etc
 </description>
     </item>
 
-    <item>
-      <title>Cassandra Summit 2014 心得筆記</title>
-      <link>http://cloudtu.github.io/blog/2014/10/cassandra-summit-2014.html</link>
-      <pubDate>Wed, 1 Oct 2014 20:43:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2014/10/cassandra-summit-2014.html</guid>
-      <description>
-Datastax 把前陣子辦的 Cassandra Summit 2014 
-&lt;a href=&quot;http://www.slideshare.net/planetcassandra/tag/cassandra-summit-2014&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;、
-&lt;a href=&quot;http://www.youtube.com/playlist?list=PLqcm6qE9lgKJkxYZUOIykswDndrOItnn2&quot; target=&quot;_blank&quot;&gt;視訊影片&lt;/a&gt;公開出來了，把這堆資料大略看完後針對比較重要的儿份摘要如下 ... :) 
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;C* 2.1 新功能簡介&lt;br&gt; Real Data Models of Silicon Valley(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-real-data-models-of-silicon-valley&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=XGrJLZcRhAw&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)&lt;br&gt; &lt;/li&gt;
- &lt;li&gt;C* 2.1 的設定檔多了哪些重要參數&lt;br&gt; Lesser Known Features of Cassandra 2.1(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-lesser-known-features-of-cassandra-21&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=ppZfB2tCrEs&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)&lt;br&gt; &lt;/li&gt;
- &lt;li&gt;CQL3 在 C* 2.1 &amp;amp; 2.0 的語法為何? CQL3 查詢顯示結果跟實際的 ColumFamily 是怎麼對照?&lt;br&gt; CQL Under the Hood(&lt;a href=&quot;http://www.slideshare.net/rastrick/cql-under-the-hood-39023557&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?list=PLqcm6qE9lgKJkxYZUOIykswDndrOItnn2&amp;amp;v=CY5-bWpqAVA&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)&lt;br&gt; Understanding CQL3 Inside and Out(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-understanding-cql3-inside-and-out&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=XoUqfq54xuA&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)&lt;br&gt; &lt;/li&gt;
- &lt;li&gt;扮演 admin 角色負責管理維運&lt;br&gt; Monitor Everything!(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-monitor-everything&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=RhUoQPHNA1Y&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)，裡面有提到 nodetool 監控指令參數(page 27~69)，JVM GC log 參數設定(page 74~78)&lt;br&gt; &lt;/li&gt;
- &lt;li&gt;校能調教&lt;br&gt; Performance Tuning Cassandra in AWS(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-39501315&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=Qfzg7gcSK-g&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)&lt;br&gt; &lt;/li&gt;
- &lt;li&gt;Spark 與 C* 整合應用現況&lt;br&gt; Apache Spark - The SDK for All Big Data Platforms(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-apache-spark-the-sdk-for-all-big-data-platforms&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=Ot-nrOaJHLE&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)&lt;br&gt; &lt;/li&gt;
- &lt;li&gt;一些大公司在使用 C* 後分享的經驗談
-  &lt;strike&gt;
-   (血淚控訴)
-  &lt;/strike&gt;&lt;br&gt; Apache Cassandra Best Practices at Ebay(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-39677149&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=gn4MDRmrfKo&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)，從 page 7 開始是經驗談&lt;br&gt; Launching PlayStation 4 with Apache Cassandra(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-launching-playstation-4-with-apache-cassandra&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=FwMWvhyEgmg&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)，從 page 36 開始是經驗談&lt;br&gt; Cassandra at Instagram 2014(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-cassandra-at-instagram-2014&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=_gc94ITUitY&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)，從 page 55 開始是經驗談 &lt;br&gt; Interactive OLAP Queries using Apache Cassandra and Spark(&lt;a href=&quot;http://www.slideshare.net/planetcassandra/cassandra-summit-2014-interactive-olap-queries-using-apache-cassandra-and-spark&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;)(&lt;a href=&quot;https://www.youtube.com/watch?v=zke8mp-kMMo&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;)，講 Cassandra 與 Spark 整合使用的經驗&lt;br&gt; &lt;/li&gt;
-&lt;/ol&gt;針對 C* 2.1 在 CQL 語法上提供的新功能，我個人不建議使用，因為有下述問題存在。這部份也提供給大家參考一下 
-&lt;br&gt;
-&lt;ul&gt;
- &lt;li&gt;UDT(User Defined Types) 功能還不成熟，未來的版本可能變動很大?&lt;/li&gt;
- &lt;li&gt;雖然改善了 counter 效能，不過我猜想它可能又無法向下相容舊版? 還是不要用counter 型別為妙&lt;/li&gt;
- &lt;li&gt;在 C* 2.1 有些語法宣告要加 frozen 這關鍵字，可是未來 C* 3.x 會把這關鍵字拿掉，未來版本八成無法向下相容這個宣告。為了個人身心健康，有這類宣告的功能就別用了吧&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
+    
 
     
 
