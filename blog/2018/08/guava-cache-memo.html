@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
       <meta charset="utf-8" />
-      <title>老涂的咁仔店</title>
+      <title>Guava Cache 使用說明</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="" />
       <meta name="author" content="cloudtu" />
@@ -16,6 +16,21 @@
       <link rel="stylesheet" href="/css/prettify.css" />
   </head>
   <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
   <div id="wrap">
     <div>
 
@@ -203,19 +218,105 @@
 
   </div>
     <div class="container">
+
       <div class="page-header">
-        <h1>Tag : olap</h1>
+        <h1>Guava Cache 使用說明</h1>
       </div>
 
-      
-        <h4>2013-02</h4>
-        <div style="margin-left: 20px;">
-          08 - <a href="/blog/2013/02/ssassql-server-analysis-services-access.html" shape="rect">SSAS(SQL Server Analysis Services) access Oracle DB is Shit Solution [安裝篇]</a>
-        </div>
-      
+      <p><em>2018-08-29</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/guava.html">guava</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p><h2>基本用法</h2><p>請參考下列文章</p>
+<ul>
+  <li><a href="https://segmentfault.com/a/1190000011105644">Guava Cache 用法介紹</a></li>
+</ul><h2>CacheBuilder class 裡的 expireAfterWrite, expireAfterAccess, refreshAfterWrite method 區別</h2>
+<ul>
+  <li><p>expireAfterAccess</p>
+  <ul>
+    <li>一定時間內沒有讀寫，會移除該cache key，下次取的時候從 raw data (e.g. database) 裡取</li>
+    <li>在更新 cache key 對應內容時，會 <code>block</code> 所有存取該 cache key 的 thread</li>
+    <li>expireAfterAccess 行為分析請參考下列文章
+    <ul>
+      <li><a href="https://blog.csdn.net/aitangyong/article/details/53491867">Guava Cache特性：對於同一個key，只讓一個請求回源load數據，其他線程阻塞等待結果</a></li>
+    </ul></li>
+  </ul></li>
+  <li><p>expireAfterWrite</p>
+  <ul>
+    <li>一定時間內沒有創建或覆寫時，會移除該 cache key，下次取的時候從 raw data (e.g. database) 裡取</li>
+    <li>在更新 cache key 對應內容時，會 <code>block</code> 所有存取該 cache key 的所有 thread</li>
+    <li>expireAfterWrite 是時間到了就 expire。expireAfterAccess 則是以 <code>上次取存的時間點</code> 為基準來記算何時會 expire，也就是說只要一直被存取就不會 expire</li>
+  </ul></li>
+  <li><p>refreshAfterWrite</p>
+  <ul>
+    <li>指定時間內沒有被創建或覆寫，在指定時間過後再次訪問時，會去更新 cache key 對應之值，在新值沒有到來之前，始終返回舊值。<code>注意!是再次訪問，也就是未訪問前可能都不會更新。</code></li>
+    <li>在更新 cache key 對應內容時，<code>不會 block</code> 所有存取該 cache key 的 thread</li>
+    <li>CacheBuilder 要產生 LoadingCache 時才可以叫用這個 method，不然會產生 <code>refreshAfterWrite requires a LoadingCache</code> exception</li>
+    <li>跟 expireAfterAccess(或 expireAfterWrite) 區別
+    <ul>
+      <li>指定時間過後，expireAfterAccess(或 expireAfterWrite) 是 remove cache key，下次訪問是 <code>同步(sync)</code> 去獲取返回新值。新值未取回前，所有要取新值 的 thread 都會被 block。</li>
+      <li>refresh 是指定時間後，不會 remove cache key，<code>直到下次訪問</code> 才以 <code>非同步(async)</code> 方式 refresh cache。在 refresh cache 動作完成前，大多數針對該 cache key 的請求 thread 會立刻返回舊值，不會被 block</li>
+    </ul></li>
+    <li>refreshAfterWrite 行為分析請參考下列文章
+    <ul>
+      <li><a href="https://blog.csdn.net/aitangyong/article/details/53504253">Guava Cache特性：refreshAfterWrite只阻塞回源線程，其他線程返回舊值</a></li>
+    </ul></li>
+  </ul></li>
+</ul><h2>CacheBuilder class 裡的 expireAfterWrite, refreshAfterWrite method 可以一起使用</h2><p>二者一起使用時的行為請參考下列文章</p>
+<ul>
+  <li><p><a href="https://blog.csdn.net/abc86319253/article/details/53020432">深入Guava Cache的refresh和expire刷新機制</a></p><p>重點是這一段</p>
+  <blockquote><p>可以看出refreshAfterWrite和expireAfterWrite兩種方式各有優缺點，各有使用場景。那麼能否在refreshAfterWrite和expireAfterWrite找到一個折中？比如說控制緩存每1s進行refresh，如果超過2s沒有訪問，那麼則讓緩存失效，下次訪問時不會得到舊值，而是必須得待新值加載。由於guava官方文檔沒有給出一個詳細的解釋，查閱一些網上資料也沒有得到答案，因此只能對源碼進行分析，尋找答案。經過分析，當同時使用兩者的時候，可以達到預想的效果，這真是一個好消息吶！</p>
+  </blockquote></li>
+  <li><p><a href="https://github.com/google/guava/wiki/CachesExplained#refresh">官方文件說明</a></p><p>重點是這一段，不過我沒有很懂它表達的意思</p>
+  <blockquote><p>In contrast to expireAfterWrite, refreshAfterWrite will make a key eligible for refresh after the specified duration, but a refresh will only be actually initiated when the entry is queried. (If CacheLoader.reload is implemented to be asynchronous, then the query will not be slowed down by the refresh.) So, for example, you can specify both refreshAfterWrite and expireAfterWrite on the same cache, so that the expiration timer on an entry isn't blindly reset whenever an entry becomes eligible for a refresh, so if an entry isn't queried after it comes eligible for refreshing, it is allowed to expire.</p>
+  </blockquote></li>
+</ul><h2>reference document</h2>
+<ul>
+  <li><a href="https://segmentfault.com/a/1190000011105644">Guava Cache 用法介紹</a></li>
+  <li><a href="https://blog.csdn.net/aitangyong/article/details/53491867">Guava Cache特性：對於同一個key，只讓一個請求回源load數據，其他線程阻塞等待結果</a></li>
+  <li><a href="https://blog.csdn.net/aitangyong/article/details/53504253">Guava Cache特性：refreshAfterWrite只阻塞回源線程，其他線程返回舊值</a></li>
+  <li><a href="https://my.oschina.net/scipio/blog/551475">guava緩存的expireAfterWrite與refreshAfterWrite的區別</a></li>
+  <li><a href="https://blog.csdn.net/abc86319253/article/details/53020432">深入Guava Cache的refresh和expire刷新機制</a></li>
+</ul></p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2018/08/guava-cache-memo.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2018/08/guava-cache-memo.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
     </div>
   </div>
-
   <div>
       <div id="push"></div>
 

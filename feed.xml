@@ -5,8 +5,66 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>星期五, 29 十二月 2017 16:51:41 +0800</pubDate>
-    <lastBuildDate>星期五, 29 十二月 2017 16:51:41 +0800</lastBuildDate>
+    <pubDate>星期三, 29 八月 2018 18:39:16 +0800</pubDate>
+    <lastBuildDate>星期三, 29 八月 2018 18:39:16 +0800</lastBuildDate>
+
+    <item>
+      <title>Guava Cache 使用說明</title>
+      <link>http://cloudtu.github.io/blog/2018/08/guava-cache-memo.html</link>
+      <pubDate>星期三, 29 八月 2018 20:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2018/08/guava-cache-memo.html</guid>
+      <description>&lt;h2&gt;基本用法&lt;/h2&gt;&lt;p&gt;請參考下列文章&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000011105644&quot;&gt;Guava Cache 用法介紹&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;CacheBuilder class 裡的 expireAfterWrite, expireAfterAccess, refreshAfterWrite method 區別&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;expireAfterAccess&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;一定時間內沒有讀寫，會移除該cache key，下次取的時候從 raw data (e.g. database) 裡取&lt;/li&gt;
+    &lt;li&gt;在更新 cache key 對應內容時，會 &lt;code&gt;block&lt;/code&gt; 所有存取該 cache key 的 thread&lt;/li&gt;
+    &lt;li&gt;expireAfterAccess 行為分析請參考下列文章
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/aitangyong/article/details/53491867&quot;&gt;Guava Cache特性：對於同一個key，只讓一個請求回源load數據，其他線程阻塞等待結果&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;expireAfterWrite&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;一定時間內沒有創建或覆寫時，會移除該 cache key，下次取的時候從 raw data (e.g. database) 裡取&lt;/li&gt;
+    &lt;li&gt;在更新 cache key 對應內容時，會 &lt;code&gt;block&lt;/code&gt; 所有存取該 cache key 的所有 thread&lt;/li&gt;
+    &lt;li&gt;expireAfterWrite 是時間到了就 expire。expireAfterAccess 則是以 &lt;code&gt;上次取存的時間點&lt;/code&gt; 為基準來記算何時會 expire，也就是說只要一直被存取就不會 expire&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;refreshAfterWrite&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;指定時間內沒有被創建或覆寫，在指定時間過後再次訪問時，會去更新 cache key 對應之值，在新值沒有到來之前，始終返回舊值。&lt;code&gt;注意!是再次訪問，也就是未訪問前可能都不會更新。&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;在更新 cache key 對應內容時，&lt;code&gt;不會 block&lt;/code&gt; 所有存取該 cache key 的 thread&lt;/li&gt;
+    &lt;li&gt;CacheBuilder 要產生 LoadingCache 時才可以叫用這個 method，不然會產生 &lt;code&gt;refreshAfterWrite requires a LoadingCache&lt;/code&gt; exception&lt;/li&gt;
+    &lt;li&gt;跟 expireAfterAccess(或 expireAfterWrite) 區別
+    &lt;ul&gt;
+      &lt;li&gt;指定時間過後，expireAfterAccess(或 expireAfterWrite) 是 remove cache key，下次訪問是 &lt;code&gt;同步(sync)&lt;/code&gt; 去獲取返回新值。新值未取回前，所有要取新值 的 thread 都會被 block。&lt;/li&gt;
+      &lt;li&gt;refresh 是指定時間後，不會 remove cache key，&lt;code&gt;直到下次訪問&lt;/code&gt; 才以 &lt;code&gt;非同步(async)&lt;/code&gt; 方式 refresh cache。在 refresh cache 動作完成前，大多數針對該 cache key 的請求 thread 會立刻返回舊值，不會被 block&lt;/li&gt;
+    &lt;/ul&gt;&lt;/li&gt;
+    &lt;li&gt;refreshAfterWrite 行為分析請參考下列文章
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/aitangyong/article/details/53504253&quot;&gt;Guava Cache特性：refreshAfterWrite只阻塞回源線程，其他線程返回舊值&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;CacheBuilder class 裡的 expireAfterWrite, refreshAfterWrite method 可以一起使用&lt;/h2&gt;&lt;p&gt;二者一起使用時的行為請參考下列文章&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/abc86319253/article/details/53020432&quot;&gt;深入Guava Cache的refresh和expire刷新機制&lt;/a&gt;&lt;/p&gt;&lt;p&gt;重點是這一段&lt;/p&gt;
+  &lt;blockquote&gt;&lt;p&gt;可以看出refreshAfterWrite和expireAfterWrite兩種方式各有優缺點，各有使用場景。那麼能否在refreshAfterWrite和expireAfterWrite找到一個折中？比如說控制緩存每1s進行refresh，如果超過2s沒有訪問，那麼則讓緩存失效，下次訪問時不會得到舊值，而是必須得待新值加載。由於guava官方文檔沒有給出一個詳細的解釋，查閱一些網上資料也沒有得到答案，因此只能對源碼進行分析，尋找答案。經過分析，當同時使用兩者的時候，可以達到預想的效果，這真是一個好消息吶！&lt;/p&gt;
+  &lt;/blockquote&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/google/guava/wiki/CachesExplained#refresh&quot;&gt;官方文件說明&lt;/a&gt;&lt;/p&gt;&lt;p&gt;重點是這一段，不過我沒有很懂它表達的意思&lt;/p&gt;
+  &lt;blockquote&gt;&lt;p&gt;In contrast to expireAfterWrite, refreshAfterWrite will make a key eligible for refresh after the specified duration, but a refresh will only be actually initiated when the entry is queried. (If CacheLoader.reload is implemented to be asynchronous, then the query will not be slowed down by the refresh.) So, for example, you can specify both refreshAfterWrite and expireAfterWrite on the same cache, so that the expiration timer on an entry isn&#39;t blindly reset whenever an entry becomes eligible for a refresh, so if an entry isn&#39;t queried after it comes eligible for refreshing, it is allowed to expire.&lt;/p&gt;
+  &lt;/blockquote&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;reference document&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000011105644&quot;&gt;Guava Cache 用法介紹&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/aitangyong/article/details/53491867&quot;&gt;Guava Cache特性：對於同一個key，只讓一個請求回源load數據，其他線程阻塞等待結果&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/aitangyong/article/details/53504253&quot;&gt;Guava Cache特性：refreshAfterWrite只阻塞回源線程，其他線程返回舊值&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://my.oschina.net/scipio/blog/551475&quot;&gt;guava緩存的expireAfterWrite與refreshAfterWrite的區別&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/abc86319253/article/details/53020432&quot;&gt;深入Guava Cache的refresh和expire刷新機制&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
 
     <item>
       <title>如何在 spring 實作的 restful api 裡使用 validation annotation</title>
@@ -871,49 +929,7 @@ my code...etc
 </description>
     </item>
 
-    <item>
-      <title>OAuth2 心得筆記</title>
-      <link>http://cloudtu.github.io/blog/2014/12/oauth2.html</link>
-      <pubDate>星期日, 7 十二月 2014 20:07:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2014/12/oauth2.html</guid>
-      <description>
-這陣子因為工作上需要，必需了解 OAuth2 原理。在網路上查了一陣子後發現下面這份解說詳盡的投影片，有興趣的人可以參考一下...:)
-&lt;br&gt;
-&lt;br&gt;簡單易懂的 OAuth 2.0 (
-&lt;a href=&quot;https://speakerdeck.com/chitsaou/jian-dan-yi-dong-de-oauth-2-dot-0&quot; target=&quot;_blank&quot;&gt;投影片&lt;/a&gt;) (
-&lt;a href=&quot;https://www.youtube.com/watch?v=tMG-kl_uohY&quot; target=&quot;_blank&quot;&gt;錄影&lt;/a&gt;) 
-&lt;br&gt;
-&lt;br&gt;我沒有實作 OAuth2 的需求，但是有使用 OAuth2 的需求，必需對它裡面的認証、授權機制有通盤了解。投影片裡跟 OAuth2 認証、授權相關的資料節錄如下，並做摘要說明。
-&lt;br&gt;
-&lt;br&gt;======================================================================
-&lt;br&gt;OAuth2 裡的 Role
-&lt;br&gt;
-&lt;br&gt;
-&lt;a href=&quot;/img/2014/12/201412072007_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/12/201412072007_1.png&quot; height=&quot;218&quot; width=&quot;400&quot;&gt;&lt;/a&gt;
-&lt;br&gt;
-&lt;ul&gt;
- &lt;li&gt;Authorization Server&lt;br&gt;
-  &lt;ul&gt;
-   &lt;li&gt;「Authorization Server」發出去的授權碼有二種，分別是「Grant Code」、「Token」&lt;/li&gt;
-   &lt;li&gt;&amp;nbsp;「Resource Owner」同意「Client」存取「Resource Owner」的資料時，「Authorization Server」發「Grant Code」給「Client」&lt;/li&gt;
-   &lt;li&gt;「Client」可以拿「Grant Code」跟「Authorization Server」換「Token」 &lt;/li&gt;
-  &lt;/ul&gt;&lt;/li&gt;
- &lt;li&gt;Resource Server&lt;br&gt;
-  &lt;ul&gt;
-   &lt;li&gt;「Resource Server」的存取認証是認「Token」不是認「Grant Code」&lt;/li&gt;
-   &lt;li&gt;用「Token」跟「Resource Server」進行認証，認証成功後可以存取「Resource Owner」的資料 &lt;/li&gt;
-  &lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;======================================================================
-&lt;br&gt;OAuth2 授權流程
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;Authorization Code Grant Flow&lt;br&gt;&lt;a href=&quot;/img/2014/12/201412072007_2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/12/201412072007_2.png&quot; height=&quot;208&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;br&gt;先跟「Authorization Server」要「Grant Code」，接著再用「Grant Code」去跟「Authorization Server」換「Token」&lt;/li&gt;
- &lt;li&gt;Implicit Grant Flow&lt;br&gt;&lt;a href=&quot;/img/2014/12/201412072007_3.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/12/201412072007_3.png&quot; height=&quot;277&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;br&gt;直接跟「Authorization Server」要「Token」，沒有「Grant Code」換「Token」的步驟&lt;/li&gt;
- &lt;li&gt;Resource Owner Password Credentials Grant Flow&lt;br&gt;&lt;a href=&quot;/img/2014/12/201412072007_4.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/12/201412072007_4.png&quot; height=&quot;233&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;br&gt;拿「Resource Owner」的 username、password 去跟「Authorization Server」要「Token」&lt;/li&gt;
- &lt;li&gt;Client Credentials Grant Flow &lt;br&gt;&lt;a href=&quot;/img/2014/12/201412072007_5.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2014/12/201412072007_5.png&quot; height=&quot;195&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;br&gt;「Authorization Server」不需經由認証就直接給「Token」&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
+    
 
     
 
