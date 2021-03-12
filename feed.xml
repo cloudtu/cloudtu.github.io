@@ -5,8 +5,171 @@
     <atom:link href="http://cloudtu.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <description>老涂的咁仔店</description>
     <language>zh-TW</language>
-    <pubDate>星期三, 29 八月 2018 18:39:16 +0800</pubDate>
-    <lastBuildDate>星期三, 29 八月 2018 18:39:16 +0800</lastBuildDate>
+    <pubDate>星期五, 12 三月 2021 20:22:19 +0800</pubDate>
+    <lastBuildDate>星期五, 12 三月 2021 20:22:19 +0800</lastBuildDate>
+
+    <item>
+      <title>spring boot + spring security + jwt(json web token) 實作登入認証(authentication)與授權(authorization)</title>
+      <link>http://cloudtu.github.io/blog/2021/03/spring-security-jwt-auth-teach.html</link>
+      <pubDate>星期五, 12 三月 2021 18:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2021/03/spring-security-jwt-auth-teach.html</guid>
+      <description>&lt;h2&gt;在開始之前&lt;/h2&gt;&lt;p&gt;建議先搞懂 spring security 裡的認証(authentication)與援權(authorization)功能的程式碼如何運作，不懂的可以看一下我之前寫的 &lt;a href=&quot;/blog/2021/03/spring-security-auth-memo.html&quot;&gt;spring security 裡的認証&amp;amp;援權原理說明&lt;/a&gt; ，把細節搞懂。不然看完實作範例後很可能不知道程式為何這樣寫就可以弄出 token base auth 功能，知其然不知其所以然。&lt;/p&gt;&lt;h2&gt;實作教學&lt;/h2&gt;&lt;p&gt;別人的教學文已經超詳細，直接看下列這些別人的文章吧 :)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;重拾後端之Spring Boot（四）：使用JWT和Spring Security保護REST API&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;文章在&lt;a href=&quot;https://www.jianshu.com/p/6307c89fe3fa&quot;&gt;這裡&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;sample code 在 &lt;a href=&quot;https://github.com/wpcfan/spring-boot-tut/tree/chap04&quot;&gt;git project&lt;/a&gt; 裡的 &lt;code&gt;chap04&lt;/code&gt; branch&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;Spring Boot Token based Authentication with Spring Security &amp;amp; JWT&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;文章在&lt;a href=&quot;https://bezkoder.com/spring-boot-jwt-authentication/&quot;&gt;這裡&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;sample code 在&lt;a href=&quot;https://github.com/bezkoder/spring-boot-spring-security-jwt-authentication&quot;&gt;這裡&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/&quot;&gt;Spring Boot 2 JWT Authentication with Spring Security&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;Vincent Zheng blog 裡跟 Spring Security 相關系列文章&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;https://medium.com/chikuwa-tech-study/spring-boot-%E7%AC%AC17%E8%AA%B2-spring-security%E7%9A%84%E9%A9%97%E8%AD%89%E8%88%87%E6%8E%88%E6%AC%8A-263afe44ac20&quot;&gt;Spring Boot-第17課-Spring Security的驗證與授權&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://medium.com/chikuwa-tech-study/spring-boot-%E7%AC%AC18%E8%AA%B2-%E5%B8%B3%E5%AF%86%E9%A9%97%E8%AD%89%E8%88%87%E7%94%A2%E7%94%9Ftoken-79d9ccc2b6fd&quot;&gt;Spring Boot-第18課-帳密驗證與產生Token&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://medium.com/chikuwa-tech-study/spring-boot-%E7%AC%AC19%E8%AA%B2-%E5%BE%9Etoken%E9%A9%97%E8%AD%89%E4%BD%BF%E7%94%A8%E8%80%85%E8%BA%AB%E4%BB%BD-8818cca1361d&quot;&gt;Spring Boot-第19課-從Token驗證使用者身份&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;我改寫出來的教學範例程式&lt;/h2&gt;&lt;p&gt;不過，別人寫的教學範例程式提到的細節太多了，常會用到 NoSQL DB 或是 RMDB 來存放用戶個人資料，導致範例程式複雜化。所以我改寫出了一個簡化版的教學範例，放在&lt;a href=&quot;https://github.com/cloudtu/spring-security-jwt-auth-teach&quot;&gt;我的 github&lt;/a&gt;。程式裡關鍵處都有加上註解說明，有興趣的人可以看看。&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>spring security 裡的認証(authentication) &amp; 援權(authorization) 原理說明</title>
+      <link>http://cloudtu.github.io/blog/2021/03/spring-security-auth-memo.html</link>
+      <pubDate>星期五, 12 三月 2021 08:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2021/03/spring-security-auth-memo.html</guid>
+      <description>&lt;h2&gt;前言&lt;/h2&gt;&lt;p&gt;要實作 spring security 裡面認証(authentication) &amp;amp; 援權(authorization) 功能時，大多數文件只會說要實作 UserDetailsService、UserDetails、WebSecurityConfigurerAdapter 這儿個 class 或 inteface 就可以搞定一切。但這儿個 class 間到底怎麼交互作用通常都不提，讓人覺得實作參考的範例程式碼很簡單易懂、但背後原理卻不知怎麼回事。程式這樣改一改就可以跑讓人覺得很像黑魔法，哪天要微調時很可能因為不知背後原理就改不動了。&lt;/p&gt;&lt;p&gt;因此我決定把背後原理搞清楚並整理出重點摘要。既然是摘要只會挑關鍵重點，建議搭配 spring security 裡的 source code 一起看，比較好理解內容。&lt;/p&gt;&lt;h2&gt;認証與援權功能的程式碼如何運作&lt;/h2&gt;&lt;p&gt;程式碼依照下列順序進行認証動作&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;用戶使用帳號和密碼進行登錄。&lt;/li&gt;
+  &lt;li&gt;在 Filter 裡將獲取到的用戶名和密碼封裝成一個實現了 Authentication interface 的 UsernamePasswordAuthenticationToken。&lt;/li&gt;
+  &lt;li&gt;將上述產生的 token 傳遞給 AuthenticationManager 進行登錄認證。&lt;/li&gt;
+  &lt;li&gt;AuthenticationManager 認證成功後將會返回一個 &lt;code&gt;封裝了用戶權限等資料&lt;/code&gt; 的 Authentication 實例。而且這個實例內容裡 &lt;code&gt;不帶用戶憑証或密碼&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;通過呼叫 SecurityContextHolder.getContext().setAuthentication(...) method 將 AuthenticationManager 在認證成功後產生的 Authentication 實例賦予給當前的 SecurityContext。&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;上述流程項次 1,2,3,5 實作程式碼可參考 &lt;code&gt;BasicAuthenticationFilter.doFilterInternal(...)&lt;/code&gt; method，source code 與關鍵說明如下&lt;/p&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;    @Override
+    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain chain)
+                    throws IOException, ServletException {
+        ...略
+
+        try {
+            String[] tokens = extractAndDecodeHeader(header, request);
+
+            String username = tokens[0];
+
+            if (authenticationIsRequired(username)) {
+                // step1. 將用戶輸入的帳號密碼轉換成 UsernamePasswordAuthenticationToken DTO
+                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, tokens[1]);
+                authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
+                
+                // step2. 利用 AuthenticationManager.authenticate(...) method 進行用戶認証
+                //        認証失敗時丟出 Exception，認証成功時將用戶資料(指 UserDetails)、權限存
+                //        成一個新的 Authentication DTO
+                //
+                //        AuthenticationManager.authenticate(...) method 裡的 &amp;quot;尋找用戶資料&amp;quot; 程式片段
+                //        通常是呼叫 UserDetailsService.loadUserByUsername(...) method
+                Authentication authResult = this.authenticationManager.authenticate(authRequest);
+
+                // step3. SecurityContextHolder 存放授權成功的 Authentication DTO
+                SecurityContextHolder.getContext().setAuthentication(authResult);
+            }
+
+        }
+        catch (AuthenticationException failed) {
+            // 授權失敗時，要把 SecurityContextHolder 裡的 Authentication DTO 清除
+            SecurityContextHolder.clearContext();
+        }
+
+        ...略
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述流程項次 4 實作程式碼可參考 &lt;code&gt;AbstractUserDetailsAuthenticationProvider.authenticate(...)&lt;/code&gt; method，source code 與關鍵說明如下&lt;/p&gt;
+&lt;!--?prettify linenums=true?--&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;    public Authentication authenticate(Authentication authentication)throws AuthenticationException {
+        ...略
+
+        // Determine username
+        String username = (authentication.getPrincipal() == null) ? &amp;quot;NONE_PROVIDED&amp;quot;: authentication.getName();
+
+        boolean cacheWasUsed = true;
+        UserDetails user = this.userCache.getUserFromCache(username);
+
+        if (user == null) {
+            cacheWasUsed = false;
+
+            try {
+                // step1. retrieveUser(...) method 呼叫 UserDetailsService.loadUserByUsername(...) method 
+                //        查出用戶資料(指 UserDetails)
+                user = retrieveUser(username,(UsernamePasswordAuthenticationToken) authentication);
+            }
+            catch (UsernameNotFoundException notFound) {
+                ...略
+
+                throw notFound;
+            }
+
+        }
+
+        try {
+            ...略
+
+            // step2. 用戶資料(指 UserDetails) 跟 UsernamePasswordAuthenticationToken 內容比對
+            //        進行用戶認証，認証失敗時丟出 Exception。
+            additionalAuthenticationChecks(user,(UsernamePasswordAuthenticationToken) authentication);
+        }
+        catch (AuthenticationException exception) {
+            ...略
+
+            throw exception;
+        }
+
+        ...略
+
+        // step3. 認証成功時將用戶資料(指 UserDetails)、權限存成一個新的 Authentication DTO
+        return createSuccessAuthentication(principalToReturn, authentication, user);
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;認証與援權功能對應的關鍵 class 與 interface&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;Authentication&lt;/p&gt;&lt;p&gt;Authentication interface 用來存放用戶認證資料，在用戶登錄認證之前相關資料會封裝為一個 Authentication instance，在登錄認證成功之後又會生成一個資料更全面，包含用戶權限等資料的 Authentication instance，然後把它保存在 SecurityContextHolder 所持有的 SecurityContext 中，供後續的程序進行呼叫，如訪問權限的鑑定等。&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;Authentication.getPrincipal() : 認証成功前存放 &amp;quot;用戶登入id&amp;quot;，認証成功後存放 &amp;quot;用戶對應的 UserDetails&amp;quot;
+Authentication.getCredentials() : 認証成功前存放 &amp;quot;用戶登入密碼&amp;quot;，認証成功後通常不帶任何資料
+Authentication.getAuthorities() : 認証成功前不帶任何資料，認証成功後存放 &amp;quot;用戶權限&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;AuthenticationManager 和 AuthenticationProvider&lt;/p&gt;&lt;p&gt;AuthenticationManager 是一個用來處理認證（Authentication）請求的 interface，裡面只定義了 authenticate() 方法，該方法只接收一個代表認證請求的 Authentication 實例作為參數，如果認證成功，則會返回一個封裝了當前用戶權限等資料的 Authentication 實例進行返回。&lt;/p&gt;&lt;p&gt;AuthenticationManager 的預設實現是 ProviderManager。認證是由 AuthenticationManager 來管理的，但是真正進行認證的是 AuthenticationManager 中定義的 AuthenticationProvider。AuthenticationManager 中可以定義有多個 AuthenticationProvider。如果沒有指定對應關聯的 AuthenticationProvider 實例，Spring Security 預設會使用 DaoAuthenticationProvider。DaoAuthenticationProvider 在進行認證的時候需要一個 UserDetailsService 來獲取用戶的資料 UserDetails。&lt;/p&gt;&lt;p&gt;檢核認證請求最常用的方法是根據請求的用戶名產生對應的 UserDetails，然後比對 UserDetails 的密碼與認證請求的密碼是否一致，一致則表示認證通過。Spring Security 內部的 DaoAuthenticationProvider 就是使用的這種方式。其內部使用 UserDetailsService 來負責產生 UserDetails。在認證成功以後會產生包含用戶權限等資料的的 UserDetails 實例，並將它封裝在返回的認證成功 Authentication 實例。認證成功返回的 Authentication 實例將會保存在當前的 SecurityContext 中。預設情況下，在認證成功後 ProviderManager 將清除返回的 Authentication 中的憑證資料，如密碼。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;UserDetailsService&lt;/p&gt;&lt;p&gt;通過 Authentication.getPrincipal() 的返回類型是 Object，但很多情況下其返回的其實是一個 UserDetails 實例。UserDetails interface 定義了一些可以獲取用戶名、密碼、權限等與認證相關的資料的方法。登錄認證的時候 Spring Security 會通過 UserDetailsService 的 loadUserByUsername() 方法獲取對應的 UserDetails 進行認證，認證通過後會將該 UserDetails 放到認證通過的 Authentication 的 principal，然後再把該 Authentication 存入到 SecurityContext 中。之後如果需要使用用戶資料的時候就是通過 SecurityContextHolder 獲取存放在 SecurityContext 中的 Authentication 的 principal。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;GrantedAuthority&lt;/p&gt;&lt;p&gt;Authentication 的 getAuthorities() 可以返回當前 Authentication 實例擁有的權限，即當前用戶擁有的權限。其返回型別是 Collection&amp;lt;? extends GrantedAuthority&amp;gt;，每一個 GrantedAuthority 實例代表賦予給當前用戶的一種權限。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;SecurityContextHolder&lt;/p&gt;&lt;p&gt;SecurityContextHolder 是用來保存 SecurityContext，SecurityContext 中含有當前正在訪問系統的用戶的詳細資料。預設情況下，SecurityContextHolder 將使用 ThreadLocal 來保存 SecurityContext，這也就意味著在處於同一線程中的方法中我們可以從 ThreadLocal 中獲取到當前的 SecurityContext。&lt;/p&gt;&lt;p&gt;通過 &lt;code&gt;SecurityContextHolder.getContext().getAuthentication().getPrincipal()&lt;/code&gt; 可以獲取到代表當前已通過認証與授權的用戶資料，這個實例通常是 UserDetails 實例。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;所有 Filter 簡述&lt;/h2&gt;&lt;p&gt;Spring Security 底層是通過一系列的 Filter 來管理，每個 Filter 都有其自身的功能，而且各個 Filter 在功能上還有關聯關係，所以它們的順序也是非常重要的。Spring Security 對 FilterChain 中 Filter 順序有嚴格的規定的，Spring Security 對那些預設的 Filter 指定了它們的位置。&lt;/p&gt;&lt;p&gt;Spring Security 已經定義了一些 Filter，不管實際應用中你用到了哪些，它們應當保持如下順序。&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;p&gt;ChannelProcessingFilter&lt;/p&gt;&lt;p&gt;如果你訪問的 channel 錯了，那首先就會在 channel 之間進行跳轉，如 http 變為 https。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;SecurityContextPersistenceFilter&lt;/p&gt;&lt;p&gt;開始進行 request 的時候就可以在 SecurityContextHolder 中建立一個 SecurityContext，然後在請求結束的時候，任何對 SecurityContext 的改變都可以被 copy 到 HttpSession。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;ConcurrentSessionFilter&lt;/p&gt;&lt;p&gt;它使用 SecurityContextHolder 的功能，而且更新對應 session 的最後更新時間，以及通過 SessionRegistry 獲取當前的 SessionInformation 以檢查當前的 session 是否已經過期，過期則會呼叫 LogoutHandler。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;認證處理機制&lt;/p&gt;&lt;p&gt;如 UsernamePasswordAuthenticationFilter，CasAuthenticationFilter，BasicAuthenticationFilter 等，以至於 SecurityContextHolder 可以被更新為包含一個有效的 Authentication 請求。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;SecurityContextHolderAwareRequestFilter&lt;/p&gt;&lt;p&gt;它將會把 HttpServletRequest 封裝成一個繼承自 HttpServletRequestWrapper 的 SecurityContextHolderAwareRequestWrapper，同時使用 SecurityContext 實現了 HttpServletRequest 中與安全相關的方法。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;JaasApiIntegrationFilter&lt;/p&gt;&lt;p&gt;如果 SecurityContextHolder 中擁有的 Authentication 是一個 JaasAuthenticationToken，那麼該 Filter 將使用包含在 JaasAuthenticationToken 中的 Subject 繼續執行 FilterChain。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;RememberMeAuthenticationFilter&lt;/p&gt;&lt;p&gt;如果之前的認證處理機制沒有更新 SecurityContextHolder，並且用戶請求包含了一個 Remember-Me 對應的 cookie，那麼一個對應的 Authentication 將會設給 SecurityContextHolder。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;AnonymousAuthenticationFilter&lt;/p&gt;&lt;p&gt;如果之前的認證機制都沒有更新 SecurityContextHolder 擁有的 Authentication，那麼一個 AnonymousAuthenticationToken 將會設給 SecurityContextHolder。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;ExceptionTransactionFilter&lt;/p&gt;&lt;p&gt;用於處理在 FilterChain 範圍內拋出的 AccessDeniedException 和 AuthenticationException，並把它們轉換為對應的 Http 錯誤碼返回或者對應的頁面。&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;FilterSecurityInterceptor，保護 Web URI，並且在訪問被拒絕時拋出異常。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;reference document&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/spring-security/&quot;&gt;初識 Spring Security&lt;/a&gt;&lt;/p&gt;&lt;p&gt;認証與援權功能在下述這儿個章節&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;核心類簡介&lt;/li&gt;
+    &lt;li&gt;認證簡介&lt;/li&gt;
+    &lt;li&gt;AuthenticationProvider&lt;/li&gt;
+    &lt;li&gt;Filter&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5a4f213af265da3e3c6bf47d&quot;&gt;Spring Security源碼分析二：Spring Security授權過程&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://www.baeldung.com/get-user-in-spring-security&quot;&gt;retrieve the user details in Spring Security&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5a1980825188252abc5e0fd1&quot;&gt;聊聊 spring security 的 permitAll 以及 ignore&lt;/a&gt;&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;permitAll() 情況下，每個 reqeust 還是會走過所有 filter&lt;/li&gt;
+    &lt;li&gt;ignoring() 清況下，每個 reqeust 不會走過任何 filter，相當於不走 spring security&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
 
     <item>
       <title>Guava Cache 使用說明</title>
@@ -870,64 +1033,9 @@ my code...etc
 </description>
     </item>
 
-    <item>
-      <title>用 https 連線到 github 進行 push(或 pull) 時，略過每次都要打帳密的動作</title>
-      <link>http://cloudtu.github.io/blog/2015/02/https-github-push-pull.html</link>
-      <pubDate>星期四, 26 二月 2015 16:57:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2015/02/https-github-push-pull.html</guid>
-      <description>
-當 local repository 用 https 連線至 github 進行 push(或 pull) 時，總是都要打一次帳號與密碼。頻繁進行 push(或 pull) 時，打帳密的動作就變的很惱人。雖然說用 ssh 連線就可免掉這問題，不過在使用 https 的前題下，這問題也是有解法。
-&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; 
-&lt;br&gt;首先，先確定 git 版本大於等於 1.7.9。如果是 windows 使用者，請先安裝 TortoiseGit(版本必需大於等於 1.8.1.2)。
-&lt;br&gt;
-&lt;br&gt;以下範例用 TortoiseGit 進行操作
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;確認 &quot;Credential helper&quot; 選到 &quot;wincred - this repository only&quot;。&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261657_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261657_1.png&quot; height=&quot;183&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;進行修改後的第一次 push(或 pull)，這時會出現輸入帳密的指示，照著指示輸入完成。以後進行 push(或 pull) 時不會再問你帳密了。&lt;/li&gt;
- &lt;li&gt;開啟 &quot;我的電腦&quot;，輸入 &quot;控制台\使用者帳戶和家庭安全\認證管理員&quot;，這時會發現多一組 github 專用的憑証。以後你若改過 github 上的密碼，記的要來這裡修改憑証內的資料，不然在你執行 push(或 pull) 時會發生無法登入 github 的狀況。&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261657_2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261657_2.png&quot; height=&quot;332&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;網路上面相關參考資料如下，linux、mac 使用者可參考這些資料來處理上述文章所提的問題。 
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/a/5343146/779564&quot; target=&quot;_blank&quot;&gt;Is there a way to skip password typing when using https:// github&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/a/15351702/779564&quot; target=&quot;_blank&quot;&gt;TortoiseGit save user authentication / credentials&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/a/15382950/779564&quot; target=&quot;_blank&quot;&gt;remove credentials from git&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
+    
 
-    <item>
-      <title>如何備份 github 各別 project 所有 branch 到本地端，並將該專案搬移至 bitbucket</title>
-      <link>http://cloudtu.github.io/blog/2015/02/github-project-branch-bitbucket.html</link>
-      <pubDate>星期四, 26 二月 2015 14:34:00 +0800</pubDate>
-      <guid isPermaLink="false">blog/2015/02/github-project-branch-bitbucket.html</guid>
-      <description>
-執行 &quot;git clone&quot; 無法將 github 各別 project 的所有 remote branch 都在 local repository 產生一份，只會在 local 產生 master branch。這時如果要將 local repository push 到(或說是搬到) new remote repository 會發生很大的問題。當你在 local repository 執行完 &quot;git push --all&quot; 後會發現 remote repository 只存在 master branch，其它 branch 不會出現在裡面。
-&lt;br&gt;
-&lt;br&gt;當然!你可以在執行完 &quot;git clone&quot; 後，接著執行 &quot;git checkout&quot; 將 remote branch 在 local repository 裡手動一個個建出來。不過這種傻事還是少幹的好，如果 remote branch 有好儿十個，手工建立對應的 local branch 可能會讓你哭爹喴娘。這時當然要用有效率的招式才行!!!
-&lt;br&gt;
-&lt;br&gt;先寫出備份 github project 專用的備份 script。我把它命名為 github_project_backup.sh
-&lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;#github_project_backup.sh&lt;br&gt;#!/bin/sh&lt;br&gt;&lt;br&gt;#執行前要先修改這裡，設定你的 github id&lt;br&gt;github_user_id=my_github_id&lt;br&gt;&lt;br&gt;#執行前要先修改這裡，設定你的 github password&lt;br&gt;github_user_pwd=my_github_pwd&lt;br&gt;&lt;br&gt;#執行這個 bash 時，在 console 要輸入的 github project name&lt;br&gt;read -p &quot;input the name of github project : &quot; github_project_name&lt;br&gt;&lt;br&gt;#在 local 端產生 bare repository，並將 remote 端的每個 branch 都在 local 端產生一份&lt;br&gt;#&lt;br&gt;# --mirror 參數的官方說明如下&lt;br&gt;# Set up a mirror of the source repository. This implies --bare. Compared to --bare, --mirror not only &lt;br&gt;# maps local branches of the source to local branches of the target, it maps all refs (including &lt;br&gt;# remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs &lt;br&gt;# are overwritten by a git remote update in the target repository.&lt;br&gt;#&lt;br&gt;git clone --mirror https://${github_user_id}:${github_user_pwd}@github.com/${github_user_id}/${github_project_name}.git&lt;br&gt;&lt;br&gt;cd ${github_project_name}.git&lt;br&gt;&lt;br&gt;#因為 remote repository 在你備份到 local 端之後可能會刪除，所以先把 remote 來源刪掉&lt;br&gt;git remote rm origin&lt;br&gt;&lt;br&gt;cd ..&lt;br&gt;&lt;/pre&gt;進行備份，流程像下述這樣
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;remote repository 有二個 branch、二個 tag&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_1.png&quot; height=&quot;218&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;輸入 github 裡的 project name&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_2.png&quot; height=&quot;157&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;github_project_backup.bash 執行完畢後，產生 local bare repository，而且裡面有二個 local branch、二個 local tag&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_3.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_3.png&quot; height=&quot;400&quot; width=&quot;377&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;如果只打算把 github 的 project 在刪除前先備份到本地端後再刪除，到這步驟就算完成了。之後可以視需求再把備分下來的 local bare repository 進行 zip 或是 tgz 後丟到雲端(e.g. AWS S3,dropbox...etc)進行封存。
-&lt;br&gt;
-&lt;br&gt;如果是打算把 local repository push 到(或說是搬到) new remote repository，接下來要執行下列指令。
-&lt;br&gt;
-&lt;pre class=&quot;prettyprint&quot;&gt;cd /path/to/my_local_repository&lt;br&gt;git remote add origin https://my_new_remote_repository&lt;br&gt;git push -u origin --all #pushes up the repo and its refs for the first time &lt;br&gt;git push -u origin --tags #pushes up any tags&lt;br&gt;&lt;/pre&gt;接續的搬移流程像下述這樣
-&lt;br&gt;
-&lt;ol&gt;
- &lt;li&gt;new remote repository 指到 bitbucket&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_4.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_4.png&quot; height=&quot;246&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;搬完後 bitbucket 裡的 remote repository 有二個 branch、二個 tag，跟當初放在 github 裡的一樣&lt;br&gt;&lt;a href=&quot;/img/2015/02/201502261434_5.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;/img/2015/02/201502261434_5.png&quot; height=&quot;153&quot; width=&quot;400&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;至此就完成了從 github 搬到 bitbucket 的動作。
-&lt;br&gt;
-&lt;br&gt;你說何時有機會用到這篇文章的招式?如果你在 github 上面開了太多 private repository，超過單一付費帳號許可的最大上限(目前 github 最多只能開 50 個 private repository)，這招就用的上了...XDDD
-</description>
-    </item>
+    
 
     
 

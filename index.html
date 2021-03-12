@@ -210,6 +210,205 @@
       </div>
 
       <div>
+        <a href="blog/2021/03/spring-security-jwt-auth-teach.html" shape="rect"><h1>spring boot + spring security + jwt(json web token) 實作登入認証(authentication)與授權(authorization)</h1></a>
+        <p>2021-03-12</p>
+
+        <p>
+          <em>Tags:
+            <span>
+              <a shape="rect" href="tags/程式語言.html">程式語言</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/java.html">java</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/spring.html">spring</a>
+              
+            </span>
+          </em>
+        </p>
+
+        <p><h2>在開始之前</h2><p>建議先搞懂 spring security 裡的認証(authentication)與援權(authorization)功能的程式碼如何運作，不懂的可以看一下我之前寫的 <a href="/blog/2021/03/spring-security-auth-memo.html">spring security 裡的認証&amp;援權原理說明</a> ，把細節搞懂。不然看完實作範例後很可能不知道程式為何這樣寫就可以弄出 token base auth 功能，知其然不知其所以然。</p><h2>實作教學</h2><p>別人的教學文已經超詳細，直接看下列這些別人的文章吧 :)</p>
+<ul>
+  <li><p>重拾後端之Spring Boot（四）：使用JWT和Spring Security保護REST API</p>
+  <ul>
+    <li>文章在<a href="https://www.jianshu.com/p/6307c89fe3fa">這裡</a></li>
+    <li>sample code 在 <a href="https://github.com/wpcfan/spring-boot-tut/tree/chap04">git project</a> 裡的 <code>chap04</code> branch</li>
+  </ul></li>
+  <li><p>Spring Boot Token based Authentication with Spring Security &amp; JWT</p>
+  <ul>
+    <li>文章在<a href="https://bezkoder.com/spring-boot-jwt-authentication/">這裡</a></li>
+    <li>sample code 在<a href="https://github.com/bezkoder/spring-boot-spring-security-jwt-authentication">這裡</a></li>
+  </ul></li>
+  <li><p><a href="https://bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/">Spring Boot 2 JWT Authentication with Spring Security</a></p></li>
+  <li><p>Vincent Zheng blog 裡跟 Spring Security 相關系列文章</p>
+  <ul>
+    <li><a href="https://medium.com/chikuwa-tech-study/spring-boot-%E7%AC%AC17%E8%AA%B2-spring-security%E7%9A%84%E9%A9%97%E8%AD%89%E8%88%87%E6%8E%88%E6%AC%8A-263afe44ac20">Spring Boot-第17課-Spring Security的驗證與授權</a></li>
+    <li><a href="https://medium.com/chikuwa-tech-study/spring-boot-%E7%AC%AC18%E8%AA%B2-%E5%B8%B3%E5%AF%86%E9%A9%97%E8%AD%89%E8%88%87%E7%94%A2%E7%94%9Ftoken-79d9ccc2b6fd">Spring Boot-第18課-帳密驗證與產生Token</a></li>
+    <li><a href="https://medium.com/chikuwa-tech-study/spring-boot-%E7%AC%AC19%E8%AA%B2-%E5%BE%9Etoken%E9%A9%97%E8%AD%89%E4%BD%BF%E7%94%A8%E8%80%85%E8%BA%AB%E4%BB%BD-8818cca1361d">Spring Boot-第19課-從Token驗證使用者身份</a></li>
+  </ul></li>
+</ul><h2>我改寫出來的教學範例程式</h2><p>不過，別人寫的教學範例程式提到的細節太多了，常會用到 NoSQL DB 或是 RMDB 來存放用戶個人資料，導致範例程式複雜化。所以我改寫出了一個簡化版的教學範例，放在<a href="https://github.com/cloudtu/spring-security-jwt-auth-teach">我的 github</a>。程式裡關鍵處都有加上註解說明，有興趣的人可以看看。</p></p>
+
+        <hr />
+      </div>
+
+      <div>
+        <a href="blog/2021/03/spring-security-auth-memo.html" shape="rect"><h1>spring security 裡的認証(authentication) &amp; 援權(authorization) 原理說明</h1></a>
+        <p>2021-03-12</p>
+
+        <p>
+          <em>Tags:
+            <span>
+              <a shape="rect" href="tags/程式語言.html">程式語言</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/java.html">java</a>
+              <span>,</span>
+            </span>
+            <span>
+              <a shape="rect" href="tags/spring.html">spring</a>
+              
+            </span>
+          </em>
+        </p>
+
+        <p><h2>前言</h2><p>要實作 spring security 裡面認証(authentication) &amp; 援權(authorization) 功能時，大多數文件只會說要實作 UserDetailsService、UserDetails、WebSecurityConfigurerAdapter 這儿個 class 或 inteface 就可以搞定一切。但這儿個 class 間到底怎麼交互作用通常都不提，讓人覺得實作參考的範例程式碼很簡單易懂、但背後原理卻不知怎麼回事。程式這樣改一改就可以跑讓人覺得很像黑魔法，哪天要微調時很可能因為不知背後原理就改不動了。</p><p>因此我決定把背後原理搞清楚並整理出重點摘要。既然是摘要只會挑關鍵重點，建議搭配 spring security 裡的 source code 一起看，比較好理解內容。</p><h2>認証與援權功能的程式碼如何運作</h2><p>程式碼依照下列順序進行認証動作</p>
+<ol>
+  <li>用戶使用帳號和密碼進行登錄。</li>
+  <li>在 Filter 裡將獲取到的用戶名和密碼封裝成一個實現了 Authentication interface 的 UsernamePasswordAuthenticationToken。</li>
+  <li>將上述產生的 token 傳遞給 AuthenticationManager 進行登錄認證。</li>
+  <li>AuthenticationManager 認證成功後將會返回一個 <code>封裝了用戶權限等資料</code> 的 Authentication 實例。而且這個實例內容裡 <code>不帶用戶憑証或密碼</code>。</li>
+  <li>通過呼叫 SecurityContextHolder.getContext().setAuthentication(...) method 將 AuthenticationManager 在認證成功後產生的 Authentication 實例賦予給當前的 SecurityContext。</li>
+</ol><p>上述流程項次 1,2,3,5 實作程式碼可參考 <code>BasicAuthenticationFilter.doFilterInternal(...)</code> method，source code 與關鍵說明如下</p>
+<!--?prettify linenums=true?-->
+<pre><code class="java">    @Override
+    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain chain)
+                    throws IOException, ServletException {
+        ...略
+
+        try {
+            String[] tokens = extractAndDecodeHeader(header, request);
+
+            String username = tokens[0];
+
+            if (authenticationIsRequired(username)) {
+                // step1. 將用戶輸入的帳號密碼轉換成 UsernamePasswordAuthenticationToken DTO
+                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, tokens[1]);
+                authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
+                
+                // step2. 利用 AuthenticationManager.authenticate(...) method 進行用戶認証
+                //        認証失敗時丟出 Exception，認証成功時將用戶資料(指 UserDetails)、權限存
+                //        成一個新的 Authentication DTO
+                //
+                //        AuthenticationManager.authenticate(...) method 裡的 &quot;尋找用戶資料&quot; 程式片段
+                //        通常是呼叫 UserDetailsService.loadUserByUsername(...) method
+                Authentication authResult = this.authenticationManager.authenticate(authRequest);
+
+                // step3. SecurityContextHolder 存放授權成功的 Authentication DTO
+                SecurityContextHolder.getContext().setAuthentication(authResult);
+            }
+
+        }
+        catch (AuthenticationException failed) {
+            // 授權失敗時，要把 SecurityContextHolder 裡的 Authentication DTO 清除
+            SecurityContextHolder.clearContext();
+        }
+
+        ...略
+    }
+</code></pre><p>上述流程項次 4 實作程式碼可參考 <code>AbstractUserDetailsAuthenticationProvider.authenticate(...)</code> method，source code 與關鍵說明如下</p>
+<!--?prettify linenums=true?-->
+<pre><code class="java">    public Authentication authenticate(Authentication authentication)throws AuthenticationException {
+        ...略
+
+        // Determine username
+        String username = (authentication.getPrincipal() == null) ? &quot;NONE_PROVIDED&quot;: authentication.getName();
+
+        boolean cacheWasUsed = true;
+        UserDetails user = this.userCache.getUserFromCache(username);
+
+        if (user == null) {
+            cacheWasUsed = false;
+
+            try {
+                // step1. retrieveUser(...) method 呼叫 UserDetailsService.loadUserByUsername(...) method 
+                //        查出用戶資料(指 UserDetails)
+                user = retrieveUser(username,(UsernamePasswordAuthenticationToken) authentication);
+            }
+            catch (UsernameNotFoundException notFound) {
+                ...略
+
+                throw notFound;
+            }
+
+        }
+
+        try {
+            ...略
+
+            // step2. 用戶資料(指 UserDetails) 跟 UsernamePasswordAuthenticationToken 內容比對
+            //        進行用戶認証，認証失敗時丟出 Exception。
+            additionalAuthenticationChecks(user,(UsernamePasswordAuthenticationToken) authentication);
+        }
+        catch (AuthenticationException exception) {
+            ...略
+
+            throw exception;
+        }
+
+        ...略
+
+        // step3. 認証成功時將用戶資料(指 UserDetails)、權限存成一個新的 Authentication DTO
+        return createSuccessAuthentication(principalToReturn, authentication, user);
+    }
+</code></pre><h2>認証與援權功能對應的關鍵 class 與 interface</h2>
+<ul>
+  <li><p>Authentication</p><p>Authentication interface 用來存放用戶認證資料，在用戶登錄認證之前相關資料會封裝為一個 Authentication instance，在登錄認證成功之後又會生成一個資料更全面，包含用戶權限等資料的 Authentication instance，然後把它保存在 SecurityContextHolder 所持有的 SecurityContext 中，供後續的程序進行呼叫，如訪問權限的鑑定等。</p>
+  <pre><code>Authentication.getPrincipal() : 認証成功前存放 &quot;用戶登入id&quot;，認証成功後存放 &quot;用戶對應的 UserDetails&quot;
+Authentication.getCredentials() : 認証成功前存放 &quot;用戶登入密碼&quot;，認証成功後通常不帶任何資料
+Authentication.getAuthorities() : 認証成功前不帶任何資料，認証成功後存放 &quot;用戶權限&quot;
+</code></pre></li>
+  <li><p>AuthenticationManager 和 AuthenticationProvider</p><p>AuthenticationManager 是一個用來處理認證（Authentication）請求的 interface，裡面只定義了 authenticate() 方法，該方法只接收一個代表認證請求的 Authentication 實例作為參數，如果認證成功，則會返回一個封裝了當前用戶權限等資料的 Authentication 實例進行返回。</p><p>AuthenticationManager 的預設實現是 ProviderManager。認證是由 AuthenticationManager 來管理的，但是真正進行認證的是 AuthenticationManager 中定義的 AuthenticationProvider。AuthenticationManager 中可以定義有多個 AuthenticationProvider。如果沒有指定對應關聯的 AuthenticationProvider 實例，Spring Security 預設會使用 DaoAuthenticationProvider。DaoAuthenticationProvider 在進行認證的時候需要一個 UserDetailsService 來獲取用戶的資料 UserDetails。</p><p>檢核認證請求最常用的方法是根據請求的用戶名產生對應的 UserDetails，然後比對 UserDetails 的密碼與認證請求的密碼是否一致，一致則表示認證通過。Spring Security 內部的 DaoAuthenticationProvider 就是使用的這種方式。其內部使用 UserDetailsService 來負責產生 UserDetails。在認證成功以後會產生包含用戶權限等資料的的 UserDetails 實例，並將它封裝在返回的認證成功 Authentication 實例。認證成功返回的 Authentication 實例將會保存在當前的 SecurityContext 中。預設情況下，在認證成功後 ProviderManager 將清除返回的 Authentication 中的憑證資料，如密碼。</p></li>
+  <li><p>UserDetailsService</p><p>通過 Authentication.getPrincipal() 的返回類型是 Object，但很多情況下其返回的其實是一個 UserDetails 實例。UserDetails interface 定義了一些可以獲取用戶名、密碼、權限等與認證相關的資料的方法。登錄認證的時候 Spring Security 會通過 UserDetailsService 的 loadUserByUsername() 方法獲取對應的 UserDetails 進行認證，認證通過後會將該 UserDetails 放到認證通過的 Authentication 的 principal，然後再把該 Authentication 存入到 SecurityContext 中。之後如果需要使用用戶資料的時候就是通過 SecurityContextHolder 獲取存放在 SecurityContext 中的 Authentication 的 principal。</p></li>
+  <li><p>GrantedAuthority</p><p>Authentication 的 getAuthorities() 可以返回當前 Authentication 實例擁有的權限，即當前用戶擁有的權限。其返回型別是 Collection&lt;? extends GrantedAuthority&gt;，每一個 GrantedAuthority 實例代表賦予給當前用戶的一種權限。</p></li>
+  <li><p>SecurityContextHolder</p><p>SecurityContextHolder 是用來保存 SecurityContext，SecurityContext 中含有當前正在訪問系統的用戶的詳細資料。預設情況下，SecurityContextHolder 將使用 ThreadLocal 來保存 SecurityContext，這也就意味著在處於同一線程中的方法中我們可以從 ThreadLocal 中獲取到當前的 SecurityContext。</p><p>通過 <code>SecurityContextHolder.getContext().getAuthentication().getPrincipal()</code> 可以獲取到代表當前已通過認証與授權的用戶資料，這個實例通常是 UserDetails 實例。</p></li>
+</ul><h2>所有 Filter 簡述</h2><p>Spring Security 底層是通過一系列的 Filter 來管理，每個 Filter 都有其自身的功能，而且各個 Filter 在功能上還有關聯關係，所以它們的順序也是非常重要的。Spring Security 對 FilterChain 中 Filter 順序有嚴格的規定的，Spring Security 對那些預設的 Filter 指定了它們的位置。</p><p>Spring Security 已經定義了一些 Filter，不管實際應用中你用到了哪些，它們應當保持如下順序。</p>
+<ol>
+  <li><p>ChannelProcessingFilter</p><p>如果你訪問的 channel 錯了，那首先就會在 channel 之間進行跳轉，如 http 變為 https。</p></li>
+  <li><p>SecurityContextPersistenceFilter</p><p>開始進行 request 的時候就可以在 SecurityContextHolder 中建立一個 SecurityContext，然後在請求結束的時候，任何對 SecurityContext 的改變都可以被 copy 到 HttpSession。</p></li>
+  <li><p>ConcurrentSessionFilter</p><p>它使用 SecurityContextHolder 的功能，而且更新對應 session 的最後更新時間，以及通過 SessionRegistry 獲取當前的 SessionInformation 以檢查當前的 session 是否已經過期，過期則會呼叫 LogoutHandler。</p></li>
+  <li><p>認證處理機制</p><p>如 UsernamePasswordAuthenticationFilter，CasAuthenticationFilter，BasicAuthenticationFilter 等，以至於 SecurityContextHolder 可以被更新為包含一個有效的 Authentication 請求。</p></li>
+  <li><p>SecurityContextHolderAwareRequestFilter</p><p>它將會把 HttpServletRequest 封裝成一個繼承自 HttpServletRequestWrapper 的 SecurityContextHolderAwareRequestWrapper，同時使用 SecurityContext 實現了 HttpServletRequest 中與安全相關的方法。</p></li>
+  <li><p>JaasApiIntegrationFilter</p><p>如果 SecurityContextHolder 中擁有的 Authentication 是一個 JaasAuthenticationToken，那麼該 Filter 將使用包含在 JaasAuthenticationToken 中的 Subject 繼續執行 FilterChain。</p></li>
+  <li><p>RememberMeAuthenticationFilter</p><p>如果之前的認證處理機制沒有更新 SecurityContextHolder，並且用戶請求包含了一個 Remember-Me 對應的 cookie，那麼一個對應的 Authentication 將會設給 SecurityContextHolder。</p></li>
+  <li><p>AnonymousAuthenticationFilter</p><p>如果之前的認證機制都沒有更新 SecurityContextHolder 擁有的 Authentication，那麼一個 AnonymousAuthenticationToken 將會設給 SecurityContextHolder。</p></li>
+  <li><p>ExceptionTransactionFilter</p><p>用於處理在 FilterChain 範圍內拋出的 AccessDeniedException 和 AuthenticationException，並把它們轉換為對應的 Http 錯誤碼返回或者對應的頁面。</p></li>
+  <li><p>FilterSecurityInterceptor，保護 Web URI，並且在訪問被拒絕時拋出異常。</p></li>
+</ol><h2>reference document</h2>
+<ul>
+  <li><p><a href="http://wiki.jikexueyuan.com/project/spring-security/">初識 Spring Security</a></p><p>認証與援權功能在下述這儿個章節</p>
+  <ul>
+    <li>核心類簡介</li>
+    <li>認證簡介</li>
+    <li>AuthenticationProvider</li>
+    <li>Filter</li>
+  </ul></li>
+  <li><p><a href="https://juejin.im/post/5a4f213af265da3e3c6bf47d">Spring Security源碼分析二：Spring Security授權過程</a></p></li>
+  <li><p><a href="https://www.baeldung.com/get-user-in-spring-security">retrieve the user details in Spring Security</a></p></li>
+  <li><p><a href="https://juejin.im/post/5a1980825188252abc5e0fd1">聊聊 spring security 的 permitAll 以及 ignore</a></p>
+  <ul>
+    <li>permitAll() 情況下，每個 reqeust 還是會走過所有 filter</li>
+    <li>ignoring() 清況下，每個 reqeust 不會走過任何 filter，相當於不走 spring security</li>
+  </ul></li>
+</ul></p>
+
+        <hr />
+      </div>
+
+      <div>
         <a href="blog/2018/08/guava-cache-memo.html" shape="rect"><h1>Guava Cache 使用說明</h1></a>
         <p>2018-08-29</p>
 
@@ -625,350 +824,9 @@ brew cask install bettertouchtool
         <hr />
       </div>
 
-      <div>
-        <a href="blog/2015/09/spring-boot-official-doc-memo.html" shape="rect"><h1>spring boot 官方文件摘要</h1></a>
-        <p>2015-09-09</p>
+      
 
-        <p>
-          <em>Tags:
-            <span>
-              <a shape="rect" href="tags/程式語言.html">程式語言</a>
-              <span>,</span>
-            </span>
-            <span>
-              <a shape="rect" href="tags/java.html">java</a>
-              <span>,</span>
-            </span>
-            <span>
-              <a shape="rect" href="tags/gradle.html">gradle</a>
-              <span>,</span>
-            </span>
-            <span>
-              <a shape="rect" href="tags/spring.html">spring</a>
-              
-            </span>
-          </em>
-        </p>
-
-        <p><p>這篇內容寫的是 <a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/">spring boot 1.2.5 官方文件</a> 重點摘要，不做 spring boot 基礎教學。要看懂這些內容有下列前題假設</p>
-<ol>
-  <li>會用 java 寫 spring boot 程式</li>
-  <li>會用 gradle 寫 build script</li>
-</ol><p>如果你完全不懂 spring boot，建議看一下 Bootify your spring application (<a href="http://www.slideshare.net/gn00023040/bootify-your-spring-application">投影片</a>)(<a href="https://www.youtube.com/watch?v=PTIRJZUMf78">錄影</a>)，看完後會對 spring boot 有基本認知，有助於日後快速上手。</p><h2>spring-boot-teach 教學程式解說</h2><p>我針對官方文件寫了個 <a href="https://github.com/cloudtu/spring-boot-teach">spring-boot-teach 教學程式</a> 放在 github 上，請把它抓回來看看程式怎麼寫、怎麼運作。此外，這節出現的範列在內容上有前後關係，所以這節內容不要跳著看，不然會發生看完後卻看不懂在講什麼的鳥事</p><h3>程式目錄結構</h3><p><img src="/img/2015/09/spring-boot-teach-folder-structure.png" alt="教學程式目錄結構""/></p><h3>application-context.xml</h3>
-<!--?prettify?-->
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
-    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
-
-    &lt;bean id=&quot;hello&quot; class=&quot;cloudtu.bean.Hello&quot;/&gt;
-&lt;/beans&gt;
-</code></pre><p>這個 spring xml 設定檔會在 java config 時被匯入</p><h3>application.properties</h3>
-<!--?prettify?-->
-<pre><code>server.port=8080
-# enable Tomcat&#39;s HTTP response compression
-server.tomcat.compression=on
-
-# set actuator HTTP port  
-management.port=8081
-# 只許可經由內網網址連入 actuator，可避免監控資料外流
-management.address=127.0.0.1
-
-welcome.first-message=java run anywhere
-welcome.secondMessage=spring boot is easy to use
-
-appVersion=1.0.0
-
-db.prd.name=prd123
-db.dev.name=dev456
-# 設定要啟用哪些 profile
-spring.profiles.active=dev
-</code></pre><p><code>application.properties</code> 是 spring boot 預設的外部設定檔。因為我針對 actuator 功能設定了 <code>management.port=8081</code>、<code>management.address=127.0.0.1</code>，所以只能用 <code>http://127.0.0.1:8081/${actuator_endpoint}</code> 這類網址才可以取得 actuator 提供的資訊</p><h3>author.properties</h3>
-<!--?prettify?-->
-<pre><code>author.name=cloudtu
-author.department=RD team
-</code></pre><p>除了 <code>application.properties</code> 之外自訂的設定檔，之後會提供給 author bean 使用</p><h3>Application.java</h3>
-<!--?prettify linenums=true?-->
-<pre><code class="java">package cloudtu;
-
-...etc
-import cloudtu.bean.Author;
-import cloudtu.bean.DbName;
-
-// @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
-@SpringBootApplication
-// 匯入 XML 格式的 spring 設定檔
-@ImportResource(&quot;classpath:application-context.xml&quot;)
-// 設定 property file 設定檔的來源位置
-@PropertySource(&quot;classpath:author.properties&quot;)
-public class Application {
-    ...etc
-
-    // author.properties 裡的 author.* 設定會自動綁定到 authorName, authorDept 變數
-    @Value(&quot;${author.name}&quot;) private String authorName;
-    @Value(&quot;${author.department}&quot;) private String authorDept;
-
-    @Bean
-    public Author author(){
-        Author author = new Author();
-        // 手工指定 author bean 裡的各項 setter 設定
-        author.setName(authorName);
-        author.setDepartment(authorDept);
-        return author;
-    }
-
-    @Bean
-    // application.properties 裡的 db.prd.* 設定會自動綁定到 prdDbName bean
-    @ConfigurationProperties(prefix=&quot;db.prd&quot;)
-    @Profile(&quot;prd&quot;)
-    public DbName prdDbName(){
-        return new DbName();
-    }
-
-    @Bean
-    // application.properties 裡的 db.dev.* 設定會自動綁定到 devDbName bean
-    @ConfigurationProperties(prefix=&quot;db.dev&quot;)
-    @Profile(&quot;dev&quot;)
-    public DbName devDbName(){
-        return new DbName();
-    }
-
-    public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(Application.class, args);
-        ...etc
-    }
-}
-</code></pre><p>程式碼關鍵處都加了註解，所以看完後你應該知道裡面各個 annotation 用法，不過有儿個地方再補充說明一下。<br/>1. <code>@ConfigurationProperties</code> 可以把 *.property 設定檔的設定值經由各個 bean 的 setter 進行自動綁定動作<br/>2. 在 <code>application.properties</code> 裡設定了 <code>spring.profiles.active=dev</code>，所以程式裡有 <code>@Profile(&quot;dev&quot;)</code> 宣告的 devDbName bean 在執行時會產生，但是有 <code>@Profile(&quot;prd&quot;)</code> 宣告的 prdDbName bean 在執行時不會產生</p><h3>Welcome.java</h3>
-<!--?prettify linenums=true?-->
-<pre><code class="java">package cloudtu.bean;
-
-...etc
-@Component
-// application.properties 裡的 welcome.* 設定會自動綁定到 welcome bean
-@ConfigurationProperties(prefix=&quot;welcome&quot;)
-public class Welcome {
-    private String firstMessage;
-    private String secondMessage;
-
-    // application.properties 裡的 welcome.first-message 設定綁定到 firstMessage instance variable
-    public void setFirstMessage(String firstMessage) {
-        this.firstMessage = firstMessage;
-    }
-    // application.properties 裡的 welcome.secondMessage 設定綁定到 secondMessage instance variable
-    public void setSecondMessage(String secondMessage) {
-        this.secondMessage = secondMessage;
-    }
-    ...etc
-}
-</code></pre><p>這個範例也是在介紹 <code>@ConfigurationProperties</code> 用法，不過你會發現設定檔裡的名稱格式不一致， <code>welcome.first-message</code> 用 <code>-</code> 當變數名稱裡的分隔符號，另一個 <code>welcome.secondMessage</code> 則是用 lower camel case 命名方式。這兩種設定方式 spirng boot 都可以接受</p><h3>AppVersion.java</h3>
-<!--?prettify linenums=true?-->
-<pre><code class="java">package cloudtu.bean;
-
-...etc
-@Component
-public class AppVersion {
-    // application.properties 裡的 appVersion 設定會自動綁定到 appVersion 變數
-    @Value(&quot;${appVersion}&quot;) String appVersion;
-    ...etc
-}
-</code></pre><p><code>application.properties</code> 裡的設定可以用 <code>@Value(&quot;${appVersion}&quot;)</code> 這類的宣告方式直接綁定到 bean 裡面</p><h3>Filters.java</h3>
-<!--?prettify linenums=true?-->
-<pre><code class="java">package cloudtu.web;
-
-...etc
-@Configuration
-public class Filters{
-    ...etc
-
-    // spring boot 預設的 url mapping 是  &quot;/*&quot;，所以任何 request 都會經過 firstFilter bean
-    @Component
-    private static class FirstFilter implements Filter{
-        ...etc
-    }
-
-    private static class SecondFilter implements Filter{
-        ...etc
-    }
-
-    @Bean
-    public FilterRegistrationBean secondFilter(){
-        FilterRegistrationBean registration = new FilterRegistrationBean(new SecondFilter());
-        // 改寫掉預設的 url mapping，只有 &quot;/hello&quot; 的 request 會經過 secondFilter bean
-        registration.addUrlPatterns(&quot;/hello&quot;);
-        return registration;
-    }
-}
-</code></pre>
-<ol>
-  <li><code>Filter</code> 可以直接加 <code>@Component</code> 讓它變成 spring 裡的 bean，firstFilter bean 就是這樣宣告。但是這樣宣告 filter 會讓它的 url mapping 固定都是 <code>/*</code></li>
-  <li>如果想自定 url mapping，要用 <code>FilterRegistrationBean</code> 把 <code>Filter</code> 給包起來，secondFilter bean 就是在講自訂 url mapping 的寫法</li>
-</ol><h3>官方文件裡與教學程式相關的章節</h3>
-<ul>
-  <li>configuration
-  <ul>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#getting-started-first-application-auto-configuration">11.3.2 The @EnableAutoConfiguration annotation</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-importing-configuration">15.1 Importing additional configuration classes</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-importing-xml-configuration">15.2 Importing XML configuration</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-structuring-your-code">18. Using the @SpringBootApplication annotation</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features">23. Externalized Configuration</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-command-line-args">23.2 Accessing command line properties</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-application-property-files">23.3 Application property files</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-placeholders-in-properties">23.5 Placeholders in properties</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-external-config-typesafe-configuration-properties">23.7 Typesafe Configuration Properties</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-profiles">24. Profiles</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-understanding-auto-configured-beans">36.1 Understanding auto-configured beans</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#common-application-properties">Appendix A. Common application properties</a> : 有 <code>application.properties</code> 常用參數名稱與用途說明</li>
-  </ul></li>
-  <li>web developing
-  <ul>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#_servlet_containers">9.1 Servlet containers</a> : 有支援的 embedded servlet containers 明細列表</li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications">26. Developing web applications</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration">26.1.1 Spring MVC auto-configuration</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-static-content">26.1.4 Static Content</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines">26.1.5 Template engines</a> : 有支援的 template engine 清單</li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-embedded-container-servlets-and-filters">26.3.1 Servlets and Filters</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-customizing-embedded-containers">26.3.3 Customizing embedded servlet containers</a></li>
-    <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-jsp-limitations">26.3.4 JSP limitations</a> : 有寫 JSP 的人要注意一下 sprint boot 在 JSP 方面的限制</li>
-  </ul></li>
-</ul><h2>官方範列程式</h2><p>官方在 github 有放 <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples">spring boot 官方範列程式</a>，搞不懂某些功能怎麼用時可以去那邊找找有沒有解答</p><h2>Testing</h2><p>官方文件裡較重要相關章節條列如下</p>
-<ul>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-testing-spring-boot-applications">35.3 Testing Spring Boot applications</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#boot-features-rest-templates-test-utility">35.4.4 TestRestTemplate</a></li>
-</ul><h2>監控管理</h2><p>官方文件裡較重要相關章節條列如下</p>
-<ul>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-endpoints">40. Actuator endpoints</a> : 有 actuator endpoints 明細列表</li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-sensitive-endpoints">41.1 Securing sensitive endpoints</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-customizing-management-server-port">41.3 Customizing the management server port</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-metrics">44. Metrics</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-system-metrics">44.1 System metrics</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-datasource-metrics">44.2 DataSource metrics</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-session-metrics">44.3 Tomcat session metrics</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#production-ready-tracing">46. Tracing</a></li>
-</ul><h2>Build by gradle</h2><h3>spring-boot-teach 教學程式裡的 build.gradle</h3>
-<!--?prettify?-->
-<pre><code>buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE&quot;)
-    }
-}
-
-// 引用 spring boot plugin
-apply plugin: &quot;spring-boot&quot;
-...etc
-
-configurations {
-    providedRuntime
-
-    // spring boot 預設使用 logback 但是我要用 log4j，所以必需把 spring-boot-starter-logging 排除掉
-    compile.exclude module: &quot;spring-boot-starter-logging&quot;
-}
-
-dependencies {
-    compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;)
-    // spring-boot-starter-actuator 提供 &quot;監控 app 運作狀況&quot; 功能
-    compile(&quot;org.springframework.boot:spring-boot-starter-actuator&quot;)
-    // 改用 log4j 不用預設的 logback
-    compile(&quot;org.springframework.boot:spring-boot-starter-log4j&quot;)
-    ...etc
-}
-</code></pre><p>範例解說如下<br/>1. 引用了 spring boot plugin 之後就可以利用它提供的各項專屬 task (e.g. bootRun, bootRepackage) 進行開發<br/>2. spring boot 預設的 log 是 logback，我把它換成了 log4j。因為所有 spring-boot-starter-* 的 pom 都相依於 spring-boot-starter-logging，spring-boot-starter-logging 又相依於 logback，所以要加上 <code>compile.exclude module: &quot;spring-boot-starter-logging&quot;</code> 把所有 pom 裡的 spring-boot-starter-logging 相依都排除掉，不然程式裡的 log 會出現部份相依 logback 部份相依 log4j 的問題</p><h3>常用的 gradle 指令</h3>
-<ul>
-  <li><code>gradle bootRun</code>
-  <ul>
-    <li>Run the project with support for auto-detecting main class and reloading static resources</li>
-    <li>直接執行 compile 好的 class，不會打包成 war 或 jar</li>
-  </ul></li>
-  <li><code>gradle bootRepackage</code>
-  <ul>
-    <li>Repackage existing JAR and WAR archives so that they can be executed from the command line using 'java -jar'</li>
-    <li>先把程式打包成 executable jar (or war)，然後再執行 jar (or war)</li>
-  </ul></li>
-</ul><h3>官方文件裡較重要相關章節</h3>
-<ul>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#getting-started-gradle-installation">10.1.2 Gradle installation</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-starter-poms">13.4 Starter POMs</a> : 有所有 starter pom 明細列表</li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#using-boot-running-with-the-gradle-plugin">19.4 Using the Gradle plugin</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-including-the-gradle-plugin">59.1 Including the plugin</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-gradle-dependencies-without-versions">59.2 Declaring dependencies without versions</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-gradle-packaging">59.4 Packaging executable jar and war files</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#build-tool-plugins-gradle-running-applications">59.5 Running a project in-place</a></li>
-</ul><h2>‘How-to’ guides</h2><p>官方文件有列出常見問題與解答，下列儿項是我目前比較會遇到的項目</p>
-<ul>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-use-yaml-for-external-properties">63.4 Use YAML for external properties</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-add-a-servlet-filter-or-servletcontextlistener">64.1 Add a Servlet, Filter or ServletContextListener to an application</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-configure-ssl">64.6 Configure SSL</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-enable-multiple-connectors-in-tomcat">64.8 Enable Multiple Connectors with Tomcat</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-use-tomcat-behind-a-proxy-server">64.9 Use Tomcat behind a front-end proxy server</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-use-jetty-instead-of-tomcat">64.10 Use Jetty instead of Tomcat</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#how-to-enable-http-response-compression-tomcat">64.18.1 Enable Tomcat’s HTTP response compression</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-write-an-xml-rest-service">65.2 Write an XML REST service</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-configure-log4j-for-logging">66.2 Configure Log4j for logging</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-two-datasources">67.2 Configure Two DataSources</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-customize-the-whitelabel-error-page">70.2 Customize the ‘whitelabel’ error page</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-enable-https">71.3 Enable HTTPS when running behind a proxy server</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-reload-thymeleaf-content">72.2 Reload Thymeleaf templates without restarting the container</a></li>
-  <li><a href="http://docs.spring.io/spring-boot/docs/1.2.5.RELEASE/reference/htmlsingle/#howto-create-a-deployable-war-file">74.1 Create a deployable war file</a></li>
-</ul></p>
-
-        <hr />
-      </div>
-
-      <div>
-        <a href="blog/2015/09/gradle-learning-path.html" shape="rect"><h1>gradle learning path</h1></a>
-        <p>2015-09-03</p>
-
-        <p>
-          <em>Tags:
-            <span>
-              <a shape="rect" href="tags/程式語言.html">程式語言</a>
-              <span>,</span>
-            </span>
-            <span>
-              <a shape="rect" href="tags/java.html">java</a>
-              <span>,</span>
-            </span>
-            <span>
-              <a shape="rect" href="tags/groovy.html">groovy</a>
-              <span>,</span>
-            </span>
-            <span>
-              <a shape="rect" href="tags/gradle.html">gradle</a>
-              
-            </span>
-          </em>
-        </p>
-
-        <p><p>我用 gradle 當 build tool 已經好一陣子，通常照著網路上的 gradle 範例去修改就可以讓它滿足我的需求，真是超方便。可是對於 gradle script 為啥長這個樣子? 它的運作原理為何? 我一直搞不懂所以然。這次花了些時間終於了解它的基礎原理到底是怎麼回事。下述是我學習 gradle 基礎原理的 learning path，請照條列順序依序閱讀，看完後就可以對 gradle 知其然又知其所以然!</p>
-<ol>
-  <li>想要 gradle 快速上手? 看 popcorn 的 "Gradle起步走(<a href="http://www.slideshare.net/popcornylu/gradle-cli-application">投影片</a>、<a href="https://www.youtube.com/watch?v=rWXspaS-pHI">影片</a>)" 就對啦</li>
-  <li>對 gradle 有點 fu 之後就可以把 <a href="https://www.manning.com/books/gradle-in-action">grdle in action</a> 這本書拿來看了。整本書分成三個 part，只要看 part1, part2 就夠了，part3 是比較進階的應用，未來有需要的話再來看</li>
-  <li>grdle in action 看完後可能會覺的對 gradle script 的 groovy 語法理解太少，這時必需看一些 groovy 語法說明，所以下面這些資料都看一看吧。
-  <ul>
-    <li><a href="https://www.manning.com/books/gradle-in-action">grdle in action</a> 的 Appendix B 章節</li>
-    <li><a href="http://www.vogella.com/tutorials/Groovy/article.html">Groovy with Eclipse - Tutorial</a> 的項次 1 ~ 14 內容</li>
-    <li><a href="http://www.slideshare.net/JustinSDK/groovy-gradle?ref=http://www.codedata.com.tw/java/groovy-gradle-abc/">淺談 Groovy 與 Gradle</a>。這份 slide 看完後對 groovy 的 closure 會有很清楚的理解，也終於知道 gradle script 語法用了大量的 closure</li>
-  </ul></li>
-  <li>前面的都看完後就可以開始看下列講 gradle 運作原理的文章，看完後就會知道 gradle script 語法其實是 groovy closure 與 delegate pattern 的組合
-  <ul>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-1-ant/">【認識 Gradle】（1）講古的時間 Apache Ant</a></li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-2-maven/">【認識 Gradle】（2）講古的時間 Apache Maven</a></li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-3-getting-started/">【認識 Gradle】（3）Gradle 起手式</a></li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-4-gradle-script/">【認識 Gradle】（4）看懂 Gradle Script</a>。這份文件解釋了 gradle script 語法跟 groovy closure 、delegate pattern 的關聯性</li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-3-gradle-task-abc/">【認識 Gradle】（5）Gradle Task 觀念導讀</a>。這份文件解釋了 gradle task 裡的 action closure、configure closure 是怎麼一回事。</li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-4-java-project-build-script-customization/">【認識 Gradle】（6）Java 專案與 Build Script 客製化</a></li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-7-java-project-dependencies/">認識 Gradle】（7）Java 專案相依管理</a></li>
-    <li><a href="http://www.codedata.com.tw/java/understanding-gradle-8-reuse-logic/">【認識 Gradle】（8）邏輯重用</a></li>
-  </ul></li>
-  <li>前述資料都看完後對於 gradle 官網的 <a href="https://docs.gradle.org/current/userguide/userguide.html">user guide </a>、<a href="https://docs.gradle.org/current/dsl/">DSL Reference</a>、<a href="https://docs.gradle.org/current/javadoc/">javadoc</a> 應該就都看的懂，而不會在查閱時有摸不著頭緒的感覺了</li>
-</ol></p>
-
-        <hr />
-      </div>
+      
 
       
 
@@ -1794,7 +1652,7 @@ dependencies {
 
         <div id="footer">
           <div class="container">
-            <p class="muted credit">&copy; <span>2018</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+            <p class="muted credit">&copy; <span>2021</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
               <span>v2.3.2</span></a></p>
           </div>
         </div>

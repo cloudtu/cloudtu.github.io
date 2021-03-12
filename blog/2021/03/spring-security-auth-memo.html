@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta charset="utf-8" />
+      <title>spring security 裡的認証(authentication) &amp; 援權(authorization) 原理說明</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="" />
+      <meta name="author" content="cloudtu" />
+      <meta name="keywords" content="" />
+
+      <!-- Le styles -->
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/prettify.css" />
+  </head>
+  <body onload="prettyPrint()">
+
+  <!-- facebook script -->
+  <div id="fb-root"></div>
+  <script xml:space="preserve">
+  //<![CDATA[
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //]]>
+  </script>
+
+  <div id="wrap">
+    <div>
+
+    <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" shape="rect" href="/index.html">CloudTu's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Tags<b class="caret"></b></a>
+              <ul class="dropdown-menu scrollable-menu">
+                <li>
+                  <a shape="rect" href="/tags/android.html">android</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/aws.html">aws</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/bitbucket.html">bitbucket</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/cassandra.html">cassandra</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/connection-pool.html">connection-pool</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/eclipse.html">eclipse</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gae.html">gae</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/git.html">git</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/github.html">github</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/gradle.html">gradle</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/groovy.html">groovy</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/guava.html">guava</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/java.html">java</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/javascript.html">javascript</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jax-rs.html">jax-rs</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jbake.html">jbake</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jersey.html">jersey</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jetty.html">jetty</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/jquery.html">jquery</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/lambda.html">lambda</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/linux.html">linux</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/mac.html">mac</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/nexus7.html">nexus7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/notepad-plus-plus.html">notepad-plus-plus</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/oauth2.html">oauth2</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/olap.html">olap</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/python.html">python</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/remote-control.html">remote-control</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/router.html">router</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/selenium.html">selenium</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/spring.html">spring</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/ssh.html">ssh</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/switch.html">switch</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomato.html">tomato</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/tomcat.html">tomcat</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/windows7.html">windows7</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/喔~鋼普拉.html">喔~鋼普拉</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/心情記事.html">心情記事</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/敗~敗家啦.html">敗~敗家啦</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/版控系統.html">版控系統</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/程式語言.html">程式語言</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/阿殺不魯.html">阿殺不魯</a>
+                </li>
+                <li>
+                  <a shape="rect" href="/tags/電影、戲劇.html">電影、戲劇</a>
+                </li>
+              </ul>
+            </li>
+            <li><a shape="rect" href="/archive.html">Archive</a></li>
+            <li><a shape="rect" href="/feed.xml">RSS</a></li>
+            <li><a shape="rect" href="/about.html">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" shape="rect">Search<b class="caret"></b></a>
+              <ul class="dropdown-menu google_search">
+                <li>
+                  <script xml:space="preserve">
+                  //<![CDATA[
+                    (function() {
+                      var cx = '001738447238955852876:bkori8ynpby';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                          '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  //]]>
+                  </script>
+                  <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>spring security 裡的認証(authentication) &amp; 援權(authorization) 原理說明</h1>
+      </div>
+
+      <p><em>2021-03-12</em></p>
+
+      <p>
+        <em>Tags:
+          <span>
+            <a shape="rect" href="../../../tags/程式語言.html">程式語言</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/java.html">java</a>
+            <span>,</span>
+          </span>
+          <span>
+            <a shape="rect" href="../../../tags/spring.html">spring</a>
+            
+          </span>
+        </em>
+      </p>
+
+      <p><h2>前言</h2><p>要實作 spring security 裡面認証(authentication) &amp; 援權(authorization) 功能時，大多數文件只會說要實作 UserDetailsService、UserDetails、WebSecurityConfigurerAdapter 這儿個 class 或 inteface 就可以搞定一切。但這儿個 class 間到底怎麼交互作用通常都不提，讓人覺得實作參考的範例程式碼很簡單易懂、但背後原理卻不知怎麼回事。程式這樣改一改就可以跑讓人覺得很像黑魔法，哪天要微調時很可能因為不知背後原理就改不動了。</p><p>因此我決定把背後原理搞清楚並整理出重點摘要。既然是摘要只會挑關鍵重點，建議搭配 spring security 裡的 source code 一起看，比較好理解內容。</p><h2>認証與援權功能的程式碼如何運作</h2><p>程式碼依照下列順序進行認証動作</p>
+<ol>
+  <li>用戶使用帳號和密碼進行登錄。</li>
+  <li>在 Filter 裡將獲取到的用戶名和密碼封裝成一個實現了 Authentication interface 的 UsernamePasswordAuthenticationToken。</li>
+  <li>將上述產生的 token 傳遞給 AuthenticationManager 進行登錄認證。</li>
+  <li>AuthenticationManager 認證成功後將會返回一個 <code>封裝了用戶權限等資料</code> 的 Authentication 實例。而且這個實例內容裡 <code>不帶用戶憑証或密碼</code>。</li>
+  <li>通過呼叫 SecurityContextHolder.getContext().setAuthentication(...) method 將 AuthenticationManager 在認證成功後產生的 Authentication 實例賦予給當前的 SecurityContext。</li>
+</ol><p>上述流程項次 1,2,3,5 實作程式碼可參考 <code>BasicAuthenticationFilter.doFilterInternal(...)</code> method，source code 與關鍵說明如下</p>
+<!--?prettify linenums=true?-->
+<pre><code class="java">    @Override
+    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain chain)
+                    throws IOException, ServletException {
+        ...略
+
+        try {
+            String[] tokens = extractAndDecodeHeader(header, request);
+
+            String username = tokens[0];
+
+            if (authenticationIsRequired(username)) {
+                // step1. 將用戶輸入的帳號密碼轉換成 UsernamePasswordAuthenticationToken DTO
+                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, tokens[1]);
+                authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
+                
+                // step2. 利用 AuthenticationManager.authenticate(...) method 進行用戶認証
+                //        認証失敗時丟出 Exception，認証成功時將用戶資料(指 UserDetails)、權限存
+                //        成一個新的 Authentication DTO
+                //
+                //        AuthenticationManager.authenticate(...) method 裡的 &quot;尋找用戶資料&quot; 程式片段
+                //        通常是呼叫 UserDetailsService.loadUserByUsername(...) method
+                Authentication authResult = this.authenticationManager.authenticate(authRequest);
+
+                // step3. SecurityContextHolder 存放授權成功的 Authentication DTO
+                SecurityContextHolder.getContext().setAuthentication(authResult);
+            }
+
+        }
+        catch (AuthenticationException failed) {
+            // 授權失敗時，要把 SecurityContextHolder 裡的 Authentication DTO 清除
+            SecurityContextHolder.clearContext();
+        }
+
+        ...略
+    }
+</code></pre><p>上述流程項次 4 實作程式碼可參考 <code>AbstractUserDetailsAuthenticationProvider.authenticate(...)</code> method，source code 與關鍵說明如下</p>
+<!--?prettify linenums=true?-->
+<pre><code class="java">    public Authentication authenticate(Authentication authentication)throws AuthenticationException {
+        ...略
+
+        // Determine username
+        String username = (authentication.getPrincipal() == null) ? &quot;NONE_PROVIDED&quot;: authentication.getName();
+
+        boolean cacheWasUsed = true;
+        UserDetails user = this.userCache.getUserFromCache(username);
+
+        if (user == null) {
+            cacheWasUsed = false;
+
+            try {
+                // step1. retrieveUser(...) method 呼叫 UserDetailsService.loadUserByUsername(...) method 
+                //        查出用戶資料(指 UserDetails)
+                user = retrieveUser(username,(UsernamePasswordAuthenticationToken) authentication);
+            }
+            catch (UsernameNotFoundException notFound) {
+                ...略
+
+                throw notFound;
+            }
+
+        }
+
+        try {
+            ...略
+
+            // step2. 用戶資料(指 UserDetails) 跟 UsernamePasswordAuthenticationToken 內容比對
+            //        進行用戶認証，認証失敗時丟出 Exception。
+            additionalAuthenticationChecks(user,(UsernamePasswordAuthenticationToken) authentication);
+        }
+        catch (AuthenticationException exception) {
+            ...略
+
+            throw exception;
+        }
+
+        ...略
+
+        // step3. 認証成功時將用戶資料(指 UserDetails)、權限存成一個新的 Authentication DTO
+        return createSuccessAuthentication(principalToReturn, authentication, user);
+    }
+</code></pre><h2>認証與援權功能對應的關鍵 class 與 interface</h2>
+<ul>
+  <li><p>Authentication</p><p>Authentication interface 用來存放用戶認證資料，在用戶登錄認證之前相關資料會封裝為一個 Authentication instance，在登錄認證成功之後又會生成一個資料更全面，包含用戶權限等資料的 Authentication instance，然後把它保存在 SecurityContextHolder 所持有的 SecurityContext 中，供後續的程序進行呼叫，如訪問權限的鑑定等。</p>
+  <pre><code>Authentication.getPrincipal() : 認証成功前存放 &quot;用戶登入id&quot;，認証成功後存放 &quot;用戶對應的 UserDetails&quot;
+Authentication.getCredentials() : 認証成功前存放 &quot;用戶登入密碼&quot;，認証成功後通常不帶任何資料
+Authentication.getAuthorities() : 認証成功前不帶任何資料，認証成功後存放 &quot;用戶權限&quot;
+</code></pre></li>
+  <li><p>AuthenticationManager 和 AuthenticationProvider</p><p>AuthenticationManager 是一個用來處理認證（Authentication）請求的 interface，裡面只定義了 authenticate() 方法，該方法只接收一個代表認證請求的 Authentication 實例作為參數，如果認證成功，則會返回一個封裝了當前用戶權限等資料的 Authentication 實例進行返回。</p><p>AuthenticationManager 的預設實現是 ProviderManager。認證是由 AuthenticationManager 來管理的，但是真正進行認證的是 AuthenticationManager 中定義的 AuthenticationProvider。AuthenticationManager 中可以定義有多個 AuthenticationProvider。如果沒有指定對應關聯的 AuthenticationProvider 實例，Spring Security 預設會使用 DaoAuthenticationProvider。DaoAuthenticationProvider 在進行認證的時候需要一個 UserDetailsService 來獲取用戶的資料 UserDetails。</p><p>檢核認證請求最常用的方法是根據請求的用戶名產生對應的 UserDetails，然後比對 UserDetails 的密碼與認證請求的密碼是否一致，一致則表示認證通過。Spring Security 內部的 DaoAuthenticationProvider 就是使用的這種方式。其內部使用 UserDetailsService 來負責產生 UserDetails。在認證成功以後會產生包含用戶權限等資料的的 UserDetails 實例，並將它封裝在返回的認證成功 Authentication 實例。認證成功返回的 Authentication 實例將會保存在當前的 SecurityContext 中。預設情況下，在認證成功後 ProviderManager 將清除返回的 Authentication 中的憑證資料，如密碼。</p></li>
+  <li><p>UserDetailsService</p><p>通過 Authentication.getPrincipal() 的返回類型是 Object，但很多情況下其返回的其實是一個 UserDetails 實例。UserDetails interface 定義了一些可以獲取用戶名、密碼、權限等與認證相關的資料的方法。登錄認證的時候 Spring Security 會通過 UserDetailsService 的 loadUserByUsername() 方法獲取對應的 UserDetails 進行認證，認證通過後會將該 UserDetails 放到認證通過的 Authentication 的 principal，然後再把該 Authentication 存入到 SecurityContext 中。之後如果需要使用用戶資料的時候就是通過 SecurityContextHolder 獲取存放在 SecurityContext 中的 Authentication 的 principal。</p></li>
+  <li><p>GrantedAuthority</p><p>Authentication 的 getAuthorities() 可以返回當前 Authentication 實例擁有的權限，即當前用戶擁有的權限。其返回型別是 Collection&lt;? extends GrantedAuthority&gt;，每一個 GrantedAuthority 實例代表賦予給當前用戶的一種權限。</p></li>
+  <li><p>SecurityContextHolder</p><p>SecurityContextHolder 是用來保存 SecurityContext，SecurityContext 中含有當前正在訪問系統的用戶的詳細資料。預設情況下，SecurityContextHolder 將使用 ThreadLocal 來保存 SecurityContext，這也就意味著在處於同一線程中的方法中我們可以從 ThreadLocal 中獲取到當前的 SecurityContext。</p><p>通過 <code>SecurityContextHolder.getContext().getAuthentication().getPrincipal()</code> 可以獲取到代表當前已通過認証與授權的用戶資料，這個實例通常是 UserDetails 實例。</p></li>
+</ul><h2>所有 Filter 簡述</h2><p>Spring Security 底層是通過一系列的 Filter 來管理，每個 Filter 都有其自身的功能，而且各個 Filter 在功能上還有關聯關係，所以它們的順序也是非常重要的。Spring Security 對 FilterChain 中 Filter 順序有嚴格的規定的，Spring Security 對那些預設的 Filter 指定了它們的位置。</p><p>Spring Security 已經定義了一些 Filter，不管實際應用中你用到了哪些，它們應當保持如下順序。</p>
+<ol>
+  <li><p>ChannelProcessingFilter</p><p>如果你訪問的 channel 錯了，那首先就會在 channel 之間進行跳轉，如 http 變為 https。</p></li>
+  <li><p>SecurityContextPersistenceFilter</p><p>開始進行 request 的時候就可以在 SecurityContextHolder 中建立一個 SecurityContext，然後在請求結束的時候，任何對 SecurityContext 的改變都可以被 copy 到 HttpSession。</p></li>
+  <li><p>ConcurrentSessionFilter</p><p>它使用 SecurityContextHolder 的功能，而且更新對應 session 的最後更新時間，以及通過 SessionRegistry 獲取當前的 SessionInformation 以檢查當前的 session 是否已經過期，過期則會呼叫 LogoutHandler。</p></li>
+  <li><p>認證處理機制</p><p>如 UsernamePasswordAuthenticationFilter，CasAuthenticationFilter，BasicAuthenticationFilter 等，以至於 SecurityContextHolder 可以被更新為包含一個有效的 Authentication 請求。</p></li>
+  <li><p>SecurityContextHolderAwareRequestFilter</p><p>它將會把 HttpServletRequest 封裝成一個繼承自 HttpServletRequestWrapper 的 SecurityContextHolderAwareRequestWrapper，同時使用 SecurityContext 實現了 HttpServletRequest 中與安全相關的方法。</p></li>
+  <li><p>JaasApiIntegrationFilter</p><p>如果 SecurityContextHolder 中擁有的 Authentication 是一個 JaasAuthenticationToken，那麼該 Filter 將使用包含在 JaasAuthenticationToken 中的 Subject 繼續執行 FilterChain。</p></li>
+  <li><p>RememberMeAuthenticationFilter</p><p>如果之前的認證處理機制沒有更新 SecurityContextHolder，並且用戶請求包含了一個 Remember-Me 對應的 cookie，那麼一個對應的 Authentication 將會設給 SecurityContextHolder。</p></li>
+  <li><p>AnonymousAuthenticationFilter</p><p>如果之前的認證機制都沒有更新 SecurityContextHolder 擁有的 Authentication，那麼一個 AnonymousAuthenticationToken 將會設給 SecurityContextHolder。</p></li>
+  <li><p>ExceptionTransactionFilter</p><p>用於處理在 FilterChain 範圍內拋出的 AccessDeniedException 和 AuthenticationException，並把它們轉換為對應的 Http 錯誤碼返回或者對應的頁面。</p></li>
+  <li><p>FilterSecurityInterceptor，保護 Web URI，並且在訪問被拒絕時拋出異常。</p></li>
+</ol><h2>reference document</h2>
+<ul>
+  <li><p><a href="http://wiki.jikexueyuan.com/project/spring-security/">初識 Spring Security</a></p><p>認証與援權功能在下述這儿個章節</p>
+  <ul>
+    <li>核心類簡介</li>
+    <li>認證簡介</li>
+    <li>AuthenticationProvider</li>
+    <li>Filter</li>
+  </ul></li>
+  <li><p><a href="https://juejin.im/post/5a4f213af265da3e3c6bf47d">Spring Security源碼分析二：Spring Security授權過程</a></p></li>
+  <li><p><a href="https://www.baeldung.com/get-user-in-spring-security">retrieve the user details in Spring Security</a></p></li>
+  <li><p><a href="https://juejin.im/post/5a1980825188252abc5e0fd1">聊聊 spring security 的 permitAll 以及 ignore</a></p>
+  <ul>
+    <li>permitAll() 情況下，每個 reqeust 還是會走過所有 filter</li>
+    <li>ignoring() 清況下，每個 reqeust 不會走過任何 filter，相當於不走 spring security</li>
+  </ul></li>
+</ul></p>
+
+      <hr />
+
+      <!-- facebook like button -->
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-href="http://cloudtu.github.io/blog/2021/03/spring-security-auth-memo.html"></div>
+
+      <!-- facebook share button -->
+      <div class="fb-share-button" data-layout="button_count" data-href="http://cloudtu.github.io/blog/2021/03/spring-security-auth-memo.html"></div>
+
+      <!-- Disqus comment plugin -->
+      <div id="disqus_thread"></div>
+      <script type="text/javascript" xml:space="preserve">
+      //<![CDATA[
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//cloudtu.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      //]]>
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow" shape="rect">comments powered by Disqus.</a></noscript>
+
+    </div>
+  </div>
+  <div>
+      <div id="push"></div>
+
+        <div id="footer">
+          <div class="container">
+            <p class="muted credit">&copy; <span>2021</span> CloudTu | Baked with <a href="http://jbake.org" shape="rect">JBake
+              <span>v2.3.2</span></a></p>
+          </div>
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script xml:space="preserve" src="/js/jquery-2.1.1.min.js"></script>
+        <script xml:space="preserve" src="/js/bootstrap.min.js"></script>
+        <script xml:space="preserve" src="/js/prettify.js"></script>
+
+      </div>
+    </body>
+</html>
